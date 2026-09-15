@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MKTech — Electronice și birotică</title>
+  <meta name="description" content="MKTech — monitoare, periferice, unități PC, laptopuri, consumabile și rechizite pentru birou și școală.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="acasa">
+  <!-- Header + bara de navigare: generate din script.js (secțiunea 5) -->
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <main id="main">
+    <!-- Carusel: bannerele se setează în script.js → CONFIG.banners (banner1.png, banner2.png, banner3.png) -->
+    <section class="hero container" aria-label="Bannere promoționale">
+      <div class="carousel" data-carousel aria-roledescription="carusel">
+        <div class="carousel__viewport">
+          <div class="carousel__track"></div>
+        </div>
+        <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Bannerul anterior"><span data-icon="chevronLeft"></span></button>
+        <button class="carousel__btn carousel__btn--next" type="button" aria-label="Bannerul următor"><span data-icon="chevronRight"></span></button>
+        <div class="carousel__dots"></div>
+      </div>
+    </section>
+
+    <!-- Produse recomandate: lista de ID-uri e în script.js → FEATURED_IDS -->
+    <section class="section container" aria-labelledby="featured-title">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow"><span data-icon="sparkle"></span> Selecția MKTech</span>
+          <h2 class="section-title" id="featured-title">Produse recomandate</h2>
+        </div>
+        <a class="section-head__link" href="produse.html">Toate produsele <span data-icon="arrowRight"></span></a>
+      </div>
+      <div class="product-grid" id="featured-grid"></div>
+    </section>
+
+    <!-- Top reduceri: lista de ID-uri e în script.js → DEAL_IDS -->
+    <section class="section container" aria-labelledby="deals-title">
+      <div class="deals-panel">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow"><span data-icon="tag"></span> Prețuri reduse</span>
+            <h2 class="section-title" id="deals-title">Top reduceri</h2>
+            <p class="section-subtitle">Câte o ofertă din fiecare categorie.</p>
+          </div>
+        </div>
+        <div class="product-grid product-grid--deals" id="deals-grid"></div>
+      </div>
+    </section>
+
+    <section class="trust container" aria-label="De ce să cumperi de la MKTech">
+      <ul class="trust-list">
+        <li class="trust-item">
+          <span class="trust-item__icon"><span data-icon="truck"></span></span>
+          <div>
+            <p class="trust-item__title">Livrare rapidă</p>
+            <p class="trust-item__text">Comenzile pleacă repede spre tine</p>
+          </div>
+        </li>
+        <li class="trust-item">
+          <span class="trust-item__icon"><span data-icon="shield"></span></span>
+          <div>
+            <p class="trust-item__title">Garanție inclusă</p>
+            <p class="trust-item__text">Pentru echipamentele din catalog</p>
+          </div>
+        </li>
+        <li class="trust-item">
+          <span class="trust-item__icon"><span data-icon="lock"></span></span>
+          <div>
+            <p class="trust-item__title">Plată securizată</p>
+            <p class="trust-item__text">Date protejate la fiecare comandă</p>
+          </div>
+        </li>
+        <li class="trust-item">
+          <span class="trust-item__icon"><span data-icon="headset"></span></span>
+          <div>
+            <p class="trust-item__title">Suport dedicat</p>
+            <p class="trust-item__text">Te ajutăm să alegi produsul potrivit</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer: generat din script.js (secțiunea 5); link-urile social media → CONFIG.social -->
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>

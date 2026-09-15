@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalog produse | MKTech</title>
+  <meta name="description" content="Catalogul MKTech: monitoare, periferice, unități PC, laptopuri, consumabile și rechizite.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="produse">
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Acasă</a></li>
+        <li aria-current="page">Produse</li>
+      </ol>
+    </nav>
+
+    <header class="page-head">
+      <h1 class="page-title">Catalog produse</h1>
+      <p class="page-subtitle">30 de produse pentru birou, școală și acasă, grupate în 5 categorii.</p>
+    </header>
+
+    <div class="catalog-toolbar">
+      <nav class="catalog-pills" aria-label="Sari la categorie">
+        <a class="catalog-pill" href="#monitoare" data-target="monitoare"><span data-icon="monitor"></span>Monitoare <span class="catalog-pill__count">6</span></a>
+        <a class="catalog-pill" href="#periferice" data-target="periferice"><span data-icon="mouse"></span>Periferice <span class="catalog-pill__count">6</span></a>
+        <a class="catalog-pill" href="#unitati" data-target="unitati"><span data-icon="cpu"></span>Unități <span class="catalog-pill__count">6</span></a>
+        <a class="catalog-pill" href="#laptopuri" data-target="laptopuri"><span data-icon="laptop"></span>Laptopuri <span class="catalog-pill__count">6</span></a>
+        <a class="catalog-pill" href="#consumabile" data-target="consumabile"><span data-icon="pen"></span>Consumabile <span class="catalog-pill__count">6</span></a>
+      </nav>
+
+      <form class="catalog-filter" role="search">
+        <label class="visually-hidden" for="catalog-filter">Caută în catalog</label>
+        <span data-icon="search"></span>
+        <input id="catalog-filter" type="search" placeholder="Caută în catalog…" autocomplete="off" enterkeyhint="search">
+        <button class="catalog-filter__clear" id="catalog-filter-clear" type="button" aria-label="Șterge căutarea" hidden><span data-icon="close"></span></button>
+      </form>
+    </div>
+
+    <div class="catalog-summary" id="catalog-summary" role="status" hidden></div>
+
+    <div id="catalog-empty" hidden>
+      <div class="empty-state">
+        <span class="empty-state__icon"><span data-icon="search"></span></span>
+        <h2 class="empty-state__title">Niciun produs găsit</h2>
+        <p class="empty-state__text">Nu am găsit produse pentru „<span data-empty-query></span>”. Verifică ortografia sau încearcă un termen mai general.</p>
+        <button class="btn btn--primary btn--lg" type="button" data-clear-filter>Afișează toate produsele</button>
+      </div>
+    </div>
+
+    <!-- Cardurile din fiecare categorie sunt generate din script.js (catalogul PRODUCTS) -->
+    <section class="catalog-section" id="monitoare" aria-labelledby="monitoare-title">
+      <div class="catalog-section__head">
+        <span class="catalog-section__icon"><span data-icon="monitor"></span></span>
+        <h2 class="catalog-section__title" id="monitoare-title">Monitoare</h2>
+        <span class="catalog-section__count" data-category-count>6 produse</span>
+      </div>
+      <div class="product-grid" data-category-grid="monitoare"></div>
+    </section>
+
+    <section class="catalog-section" id="periferice" aria-labelledby="periferice-title">
+      <div class="catalog-section__head">
+        <span class="catalog-section__icon"><span data-icon="mouse"></span></span>
+        <h2 class="catalog-section__title" id="periferice-title">Periferice</h2>
+        <span class="catalog-section__count" data-category-count>6 produse</span>
+      </div>
+      <div class="product-grid" data-category-grid="periferice"></div>
+    </section>
+
+    <section class="catalog-section" id="unitati" aria-labelledby="unitati-title">
+      <div class="catalog-section__head">
+        <span class="catalog-section__icon"><span data-icon="cpu"></span></span>
+        <h2 class="catalog-section__title" id="unitati-title">Unități</h2>
+        <span class="catalog-section__count" data-category-count>6 produse</span>
+      </div>
+      <div class="product-grid" data-category-grid="unitati"></div>
+    </section>
+
+    <section class="catalog-section" id="laptopuri" aria-labelledby="laptopuri-title">
+      <div class="catalog-section__head">
+        <span class="catalog-section__icon"><span data-icon="laptop"></span></span>
+        <h2 class="catalog-section__title" id="laptopuri-title">Laptopuri</h2>
+        <span class="catalog-section__count" data-category-count>6 produse</span>
+      </div>
+      <div class="product-grid" data-category-grid="laptopuri"></div>
+    </section>
+
+    <section class="catalog-section" id="consumabile" aria-labelledby="consumabile-title">
+      <div class="catalog-section__head">
+        <span class="catalog-section__icon"><span data-icon="pen"></span></span>
+        <h2 class="catalog-section__title" id="consumabile-title">Consumabile și rechizite</h2>
+        <span class="catalog-section__count" data-category-count>6 produse</span>
+      </div>
+      <div class="product-grid" data-category-grid="consumabile"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>

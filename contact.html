@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | MKTech</title>
+  <meta name="description" content="Contactează firma de exercițiu MKTech.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="contact">
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <main id="main" class="container">
+    <section class="page-hero">
+      <span class="eyebrow">Contact</span>
+      <h1 class="page-hero__title">Hai să vorbim</h1>
+      <p class="page-hero__lead">Ai o întrebare despre un produs sau despre firma noastră? Scrie-ne prin formularul de mai jos sau folosește datele de contact.</p>
+    </section>
+
+    <div class="section contact-layout">
+      <!--
+        ✏️ DE COMPLETAT — DATE DE CONTACT
+        Înlocuiește textele dintre [ ] și șterge tag-ul <span class="placeholder"> din jurul lor.
+        Sfat: telefonul și emailul pot deveni link-uri clickabile, de ex.:
+          <a href="tel:+40712345678">0712 345 678</a>
+          <a href="mailto:contact@mktech.ro">contact@mktech.ro</a>
+      -->
+      <div>
+        <ul class="contact-list">
+          <li class="contact-item">
+            <span class="contact-item__icon"><span data-icon="mapPin"></span></span>
+            <div>
+              <p class="contact-item__label">Adresă</p>
+              <p class="contact-item__value"><span class="placeholder">[Strada, număr, localitate, județ]</span></p>
+            </div>
+          </li>
+          <li class="contact-item">
+            <span class="contact-item__icon"><span data-icon="phone"></span></span>
+            <div>
+              <p class="contact-item__label">Telefon</p>
+              <p class="contact-item__value"><span class="placeholder">[07xx xxx xxx]</span></p>
+            </div>
+          </li>
+          <li class="contact-item">
+            <span class="contact-item__icon"><span data-icon="mail"></span></span>
+            <div>
+              <p class="contact-item__label">Email</p>
+              <p class="contact-item__value"><span class="placeholder">[adresa@email.ro]</span></p>
+            </div>
+          </li>
+          <li class="contact-item">
+            <span class="contact-item__icon"><span data-icon="clock"></span></span>
+            <div>
+              <p class="contact-item__label">Program</p>
+              <p class="contact-item__value"><span class="placeholder">[ex. Luni – Vineri, 09:00 – 17:00]</span></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <h2 class="form-card__title">Trimite-ne un mesaj</h2>
+        <p class="form-card__text">Completează câmpurile de mai jos și îți răspundem cât mai curând.</p>
+
+        <!--
+          ⚠️ FORMULAR DE CONTACT — site static, fără server:
+          momentan formularul doar VALIDEAZĂ datele și afișează un mesaj de succes SIMULAT.
+          Ca să primești mesajele pe email, lipește endpoint-ul Formspree în script.js → CONFIG.contactFormEndpoint
+          (pașii exacți sunt scriși în comentariul de acolo). Nu trebuie să modifici nimic în acest fișier.
+        -->
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label class="field__label" for="contact-name">Nume</label>
+              <input class="input" id="contact-name" name="nume" type="text" autocomplete="name" required placeholder="Prenume Nume">
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="contact-email">Email</label>
+              <input class="input" id="contact-email" name="email" type="email" autocomplete="email" required placeholder="nume@exemplu.ro">
+              <p class="field__error" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="contact-message">Mesaj</label>
+            <textarea class="input" id="contact-message" name="mesaj" required maxlength="1000" placeholder="Scrie mesajul tău aici…"></textarea>
+            <p class="field__error" aria-live="polite"></p>
+            <p class="field__hint"><span id="contact-message-count">0 / 1000</span></p>
+          </div>
+
+          <!-- câmp ascuns anti-spam (roboții îl completează, oamenii nu îl văd) -->
+          <input class="honeypot" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <button class="btn btn--primary btn--lg btn--block" type="submit"><span data-icon="mail"></span> Trimite mesajul</button>
+
+          <p class="demo-note" data-contact-mode="demo"><span data-icon="info"></span><span><strong>Formular demonstrativ.</strong> Mesajele nu sunt încă trimise pe email — formularul verifică datele și afișează o confirmare simulată.</span></p>
+        </form>
+
+        <div class="contact-success" id="contact-success" tabindex="-1" role="status" hidden>
+          <span class="order-success__icon"><span data-icon="check"></span></span>
+          <h2>Mulțumim, <span data-success-name></span>!</h2>
+          <p data-contact-mode="demo">Mesajul tău a fost completat corect. <strong>Simulare:</strong> formularul nu este încă conectat la un serviciu de email, deci mesajul nu a fost trimis.</p>
+          <p data-contact-mode="live" hidden>Mesajul tău a fost trimis. Îți vom răspunde cât mai curând.</p>
+          <button class="btn btn--outline" type="button" data-contact-again>Trimite alt mesaj</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>
