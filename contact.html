@@ -109,6 +109,32 @@
         </div>
       </div>
     </div>
+
+    <!-- ===== SITUARE GEOGRAFICĂ =====
+         ROBERT: adaugă aici adresa completă și un iframe Google Maps odată ce afli locația exactă.
+         Cum obții harta: intri pe google.com/maps → cauți adresa → Share (Distribuie) →
+         „Embed a map” (Încorporează o hartă) → copiezi codul <iframe ...> și îl lipești
+         în interiorul <div class="map-embed"> de mai jos, în locul textului placeholder. -->
+    <section class="section" aria-labelledby="geo-title">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Unde ne găsești</span>
+          <h2 class="section-title" id="geo-title">Situare geografică</h2>
+        </div>
+      </div>
+
+      <div class="geo-layout">
+        <div class="info-card">
+          <span class="info-card__icon"><span data-icon="mapPin"></span></span>
+          <h3 class="info-card__title">Adresa completă</h3>
+          <p class="info-card__text"><span class="placeholder">[Aici completezi adresa completă: stradă, număr, oraș, județ, cod poștal]</span></p>
+        </div>
+
+        <div class="map-embed">
+          <p class="map-embed__hint"><span data-icon="mapPin"></span> <span class="placeholder">[Aici lipești codul iframe de la Google Maps — vezi comentariul din cod, chiar deasupra acestei secțiuni]</span></p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div id="site-footer"></div>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noutăți | MKTech</title>
+  <meta name="description" content="Noutăți și anunțuri de la firma de exercițiu MKTech.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="noutati">
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <!--
+    ✏️ DE COMPLETAT — ȘTIRILE
+    Conținutul cardurilor de noutăți se scrie în script.js, în lista NOUTATI
+    (secțiunea „1B. DATE DE COMPLETAT DE ROBERT”, sus în fișier).
+    Acolo completezi data, titlul și textul fiecărei știri — nu e nevoie să modifici acest fișier.
+  -->
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Acasă</a></li>
+        <li aria-current="page">Noutăți</li>
+      </ol>
+    </nav>
+
+    <header class="page-head">
+      <span class="eyebrow"><span data-icon="news"></span> Ce mai e nou la MKTech</span>
+      <h1 class="page-title">Noutăți MKTech</h1>
+      <p class="page-subtitle">Anunțuri despre produse, participări la târguri și activitatea firmei noastre de exercițiu.</p>
+    </header>
+
+    <div id="news-root"></div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>

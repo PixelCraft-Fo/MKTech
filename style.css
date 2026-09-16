@@ -18,6 +18,12 @@
    15. Footer
    16. Notificări (toast)
    17. Responsive & accesibilitate
+   18. Motto sub logo + animația siglei
+   19. Comutatorul de limbă
+   20. Organigramă
+   21. Noutăți
+   22. Listă de prețuri (+ print)
+   23. Situare geografică
    ===================================================================== */
 
 /* ---------- 1. Variabile ---------- */
@@ -3570,6 +3576,533 @@ textarea.input {
   height: 16px;
 }
 
+/* ---------- 18. Motto sub logo + animația siglei ---------- */
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.brand-motto {
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.2;
+  color: #61759a;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.brand-logo {
+  transition: transform 0.25s var(--ease), filter 0.25s var(--ease);
+}
+
+/* Hover pe logo: mărire ușoară + strălucire discretă */
+.brand:hover .brand-logo,
+.brand:focus-visible .brand-logo {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 12px rgba(28, 74, 140, 0.35)) drop-shadow(0 2px 10px rgba(163, 32, 52, 0.22));
+}
+
+/* Luciu care traversează diagonal literele logo-ului, la fiecare ~4,6 secunde.
+   Masca folosește chiar imaginea logo-ului, ca lumina să apară doar pe litere. */
+.brand-logo__shine {
+  display: none;
+  position: absolute;
+  left: -23.5%;
+  top: -60.9%;
+  width: 147%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  -webkit-mask-image: var(--logo-url);
+  mask-image: var(--logo-url);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.brand .brand-logo__shine {
+  display: block;
+}
+
+.brand-logo--text .brand-logo__shine {
+  display: none;
+}
+
+.brand-logo__shine::before {
+  content: '';
+  position: absolute;
+  inset: -20% -70%;
+  background: linear-gradient(115deg, transparent 43%, rgba(255, 255, 255, 0.9) 50%, transparent 57%);
+  animation: logoShine 4.6s ease-in-out infinite;
+}
+
+@keyframes logoShine {
+  0% {
+    transform: translateX(-75%);
+  }
+  32%,
+  100% {
+    transform: translateX(75%);
+  }
+}
+
+/* ---------- 19. Comutatorul de limbă ---------- */
+.lang-switch {
+  position: relative;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.lang-switch__toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+  font-weight: 650;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.lang-switch__toggle:hover,
+.lang-switch.is-open .lang-switch__toggle {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.lang-switch__toggle .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.lang-switch__chevron {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s var(--ease);
+}
+
+.lang-switch.is-open .lang-switch__chevron {
+  transform: rotate(180deg);
+}
+
+.lang-switch__code {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.lang-switch__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 70;
+  min-width: 196px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  animation: dropIn 0.18s var(--ease-out);
+}
+
+.lang-switch__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink-700);
+  text-align: left;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.lang-switch__option:hover {
+  background: var(--navy-50);
+  color: var(--navy-700);
+}
+
+.lang-switch__short {
+  display: inline-grid;
+  place-items: center;
+  min-width: 32px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: var(--navy-50);
+  color: var(--navy-700);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.lang-switch__option.is-active {
+  color: var(--navy-800);
+}
+
+.lang-switch__option.is-active .lang-switch__short {
+  background: var(--navy-700);
+  color: #fff;
+}
+
+.lang-switch__check {
+  width: 17px;
+  height: 17px;
+  margin-left: auto;
+  color: var(--success-600);
+}
+
+/* ---------- 20. Organigramă (despre.html) ---------- */
+.org-chart {
+  --org-line: var(--navy-200);
+  --org-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.org-chart__lead {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.org-chart__lead::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 2px;
+  height: 30px;
+  background: var(--org-line);
+}
+
+.org-chart__branches {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--org-gap);
+  width: 100%;
+}
+
+.org-chart__branch {
+  position: relative;
+  padding-top: 30px;
+}
+
+/* linia orizontală care leagă departamentele */
+.org-chart__branch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(var(--org-gap) / -2);
+  right: calc(var(--org-gap) / -2);
+  height: 2px;
+  background: var(--org-line);
+}
+
+.org-chart__branch:first-child::after {
+  left: 50%;
+}
+
+.org-chart__branch:last-child::after {
+  right: 50%;
+}
+
+/* linia verticală spre fiecare cutie */
+.org-chart__branch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background: var(--org-line);
+}
+
+.org-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  padding: 20px 16px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.org-box--lead {
+  padding: 24px 34px;
+  background: var(--grad-navy);
+  border-color: transparent;
+  box-shadow: var(--shadow);
+}
+
+.org-box__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 8px;
+  border-radius: 13px;
+  background: var(--navy-50);
+  color: var(--navy-700);
+}
+
+.org-box--lead .org-box__icon {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.org-box__icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.org-box__role {
+  font-size: 15.5px;
+  font-weight: 750;
+  color: var(--ink-900);
+  line-height: 1.3;
+}
+
+.org-box--lead .org-box__role {
+  font-size: 18px;
+  color: #fff;
+}
+
+.org-box__name {
+  font-size: 14px;
+  color: var(--ink-500);
+}
+
+.org-box--lead .org-box__name {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* ---------- 21. Noutăți ---------- */
+.news-list {
+  display: grid;
+  gap: 18px;
+  max-width: 860px;
+}
+
+.news-card {
+  padding: 26px 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--navy-700);
+  border-radius: var(--radius-lg);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.news-card:nth-child(even) {
+  border-left-color: var(--wine-600);
+}
+
+.news-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.news-card__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.news-card__date .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--navy-600);
+}
+
+.news-card__title {
+  margin-top: 8px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.news-card__text {
+  margin-top: 8px;
+  color: var(--ink-600);
+  line-height: 1.7;
+}
+
+/* ---------- 22. Listă de prețuri ---------- */
+.pricelist-cat {
+  margin-top: 40px;
+}
+
+.pricelist-cat__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.pricelist-cat__title .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--navy-600);
+}
+
+.pricelist-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+}
+
+.pricelist-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.pricelist-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.pricelist-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pricelist-table tbody tr:hover {
+  background: var(--navy-50);
+}
+
+.pricelist-table__name a {
+  color: var(--ink-900);
+  font-weight: 600;
+}
+
+.pricelist-table__name a:hover {
+  color: var(--navy-600);
+  text-decoration: underline;
+}
+
+.pricelist-table__code {
+  width: 1%;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--ink-500);
+}
+
+.pricelist-table__price {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.pricelist-table__price s {
+  margin-right: 8px;
+  font-size: 13px;
+  color: var(--ink-400);
+}
+
+.pricelist-table__price strong {
+  font-size: 16px;
+  color: var(--ink-900);
+}
+
+.pricelist-table__price .is-sale {
+  color: var(--wine-700);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+}
+
+.print-head {
+  display: none;
+}
+
+/* ---------- 23. Situare geografică (contact.html) ---------- */
+.geo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.map-embed {
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+  padding: 24px;
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--radius-xl);
+  background: repeating-linear-gradient(45deg, var(--surface-2) 0 14px, #fff 14px 28px);
+}
+
+.map-embed__hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 46ch;
+  color: var(--ink-500);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.map-embed__hint .icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--navy-600);
+}
+
+/* după ce lipești harta, cadrul punctat și textul ajutător dispar automat */
+.map-embed:has(iframe) {
+  padding: 0;
+  border: 1px solid var(--line);
+  background: none;
+  overflow: hidden;
+}
+
+.map-embed:has(iframe) .map-embed__hint {
+  display: none;
+}
+
+.map-embed iframe {
+  width: 100%;
+  min-height: 320px;
+  border: 0;
+  display: block;
+}
+
+.footer-bottom__updated {
+  color: rgba(255, 255, 255, 0.55);
+}
+
 /* ---------- 17. Responsive & accesibilitate ---------- */
 
 /* Laptop mic */
@@ -4705,5 +5238,282 @@ textarea.input {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- 24. Responsive pentru elementele noi ---------- */
+@media (max-width: 991px) {
+  .brand-motto {
+    font-size: 12px;
+  }
+
+  .lang-switch {
+    margin-left: auto;
+    margin-right: 2px;
+  }
+
+  /* Organigrama devine o listă verticală, cu o linie-coloană în stânga */
+  .org-chart__lead {
+    align-self: flex-start;
+    width: 100%;
+    padding-bottom: 22px;
+  }
+
+  .org-chart__lead::after {
+    left: 26px;
+    height: 22px;
+  }
+
+  .org-box--lead {
+    align-items: flex-start;
+    text-align: left;
+    padding: 20px;
+  }
+
+  .org-chart__branches {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .org-chart__branch {
+    padding-top: 0;
+    padding-left: 44px;
+  }
+
+  .org-chart__branch::before {
+    top: 0;
+    left: 26px;
+    height: 100%;
+  }
+
+  .org-chart__branch:last-child::before {
+    height: 50%;
+  }
+
+  .org-chart__branch::after {
+    top: 50%;
+    left: 26px;
+    right: auto;
+    width: 18px;
+  }
+
+  .org-chart__branch:first-child::after,
+  .org-chart__branch:last-child::after {
+    left: 26px;
+    right: auto;
+  }
+
+  .org-box {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    padding: 14px 16px;
+  }
+
+  .org-box__icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .org-box__role {
+    font-size: 15px;
+  }
+
+  .geo-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .map-embed {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 599px) {
+  .brand-motto {
+    font-size: 11px;
+  }
+
+  .lang-switch__toggle {
+    gap: 4px;
+    padding: 0 8px;
+  }
+
+  .lang-switch__menu {
+    min-width: 180px;
+  }
+
+  .news-card {
+    padding: 18px 16px;
+    border-radius: var(--radius);
+  }
+
+  .news-card__title {
+    font-size: 18px;
+  }
+
+  .news-card__text {
+    font-size: 14px;
+  }
+
+  .pricelist-cat {
+    margin-top: 28px;
+  }
+
+  .pricelist-cat__title {
+    font-size: 19px;
+  }
+
+  .pricelist-table th {
+    padding: 9px 10px;
+    font-size: 10.5px;
+  }
+
+  .pricelist-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .pricelist-table__code {
+    font-size: 11.5px;
+  }
+
+  .pricelist-table__price strong {
+    font-size: 14px;
+  }
+
+  .pricelist-table__price s {
+    display: block;
+    margin: 0 0 2px;
+    font-size: 11.5px;
+  }
+
+  /* pe telefon lăsăm textul să curgă pe mai multe rânduri, ca tabelul să încapă pe ecran */
+  .pricelist-table {
+    table-layout: fixed;
+  }
+
+  .pricelist-table th:nth-child(1) {
+    width: 48%;
+  }
+
+  .pricelist-table th:nth-child(2) {
+    width: 27%;
+  }
+
+  .pricelist-table th:nth-child(3) {
+    width: 25%;
+  }
+
+  .pricelist-table__name {
+    overflow-wrap: anywhere;
+  }
+
+  .pricelist-table__code,
+  .pricelist-table__price {
+    width: auto;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .org-box__name {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 339px) {
+  .brand-motto {
+    display: none;
+  }
+}
+
+/* ---------- 25. Print (mai ales pentru lista de prețuri) ---------- */
+@media print {
+  .site-header,
+  .main-nav,
+  .site-footer,
+  .toast-region,
+  .breadcrumb,
+  .skip-link,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 10.5pt;
+  }
+
+  .container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .print-head {
+    display: block;
+    margin-bottom: 8mm;
+    padding-bottom: 3mm;
+    border-bottom: 2px solid #000;
+    font-size: 12pt;
+    font-weight: 800;
+  }
+
+  .page-head {
+    padding: 0 0 5mm;
+  }
+
+  .page-title {
+    font-size: 17pt;
+  }
+
+  .page-subtitle {
+    font-size: 10pt;
+    color: #333;
+  }
+
+  .pricelist-cat {
+    margin-top: 6mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .pricelist-cat__title {
+    font-size: 12.5pt;
+  }
+
+  .pricelist-table {
+    border: 1px solid #999;
+    border-radius: 0;
+  }
+
+  .pricelist-table th {
+    background: #eee !important;
+    color: #000;
+    padding: 2mm 3mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .pricelist-table td {
+    padding: 1.8mm 3mm;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .pricelist-table tbody tr:hover {
+    background: none;
+  }
+
+  .pricelist-table__price .is-sale {
+    color: #000;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  @page {
+    margin: 14mm;
   }
 }

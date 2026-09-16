@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listă de prețuri | MKTech</title>
+  <meta name="description" content="Lista completă de prețuri MKTech, pe categorii de produse.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="lista-preturi">
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <!-- Tabelele sunt generate din catalogul de produse din script.js (PRODUCTS):
+       prețurile NU sunt scrise a doua oară aici, deci se actualizează singure. -->
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Acasă</a></li>
+        <li aria-current="page">Listă de prețuri</li>
+      </ol>
+    </nav>
+
+    <header class="page-head page-head--row">
+      <div>
+        <h1 class="page-title">Listă de prețuri</h1>
+        <p class="page-subtitle">Toate cele 30 de produse MKTech, grupate pe categorii. Prețurile sunt exprimate în lei, cu TVA inclus.</p>
+      </div>
+      <button class="btn btn--outline no-print" type="button" onclick="window.print()">
+        <span data-icon="printer"></span> Printează lista
+      </button>
+    </header>
+
+    <div id="pricelist-root"></div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>
