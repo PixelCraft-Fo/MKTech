@@ -75,48 +75,105 @@ const CONFIG = {
 const ULTIMA_ACTUALIZARE = '16 septembrie 2026';
 
 /* ✏️ ORGANIGRAMA (apare în despre.html, secțiunea „Organigramă”)
-   ROBERT: completează aici numele reale ale colegilor.
-   - `nume`  → numele persoanei (înlocuiește [Nume Prenume])
-   - `rol`   → funcția în română; rol_en / rol_es / rol_de sunt traducerile
-   Poți adăuga sau șterge oricâte cutii din lista `departamente`. */
+   Structura reală a firmei MK Tech S.R.L.
+   - `conducere`     → nivelurile de sus, unul sub altul: AGA → CA → MG
+   - `departamente`  → cele trei direcții, fiecare cu birourile și membrii ei
+   - `subordonate`   → birourile/departamentele aflate în subordinea altui birou
+   - `membri`        → lista de nume afișată în fiecare cutie
+   Denumirile funcțiilor și ale birourilor sunt traduse automat în EN/ES/DE
+   (vezi dicționarul UI_DICT); numele persoanelor rămân la fel în toate limbile. */
 const ORGANIGRAMA = {
-  conducere: {
-    nume: '[Nume Prenume]',
-    rol: 'Director General',
-    rol_en: 'General Manager',
-    rol_es: 'Director General',
-    rol_de: 'Geschäftsführer',
-  },
+  conducere: [
+    { rol: 'AGA', detaliu: 'Adunarea Generală a Asociaților', membri: ['Gavrilă', 'Ghencea'] },
+    { rol: 'CA', detaliu: 'Consiliul de Administrație', membri: ['Constantin', 'Negoiță', 'Gogonel'] },
+    { rol: 'MG', detaliu: 'Manager General', membri: ['Negoiță'] },
+  ],
   departamente: [
-    { nume: '[Nume Prenume]', rol: 'Manager Vânzări', rol_en: 'Sales Manager', rol_es: 'Jefe de Ventas', rol_de: 'Vertriebsleiter', icon: 'tag' },
-    { nume: '[Nume Prenume]', rol: 'Manager Marketing', rol_en: 'Marketing Manager', rol_es: 'Jefe de Marketing', rol_de: 'Marketingleiter', icon: 'sparkle' },
-    { nume: '[Nume Prenume]', rol: 'Manager IT & Dezvoltare', rol_en: 'IT & Development Manager', rol_es: 'Jefe de TI y Desarrollo', rol_de: 'IT- & Entwicklungsleiter', icon: 'cpu' },
-    { nume: '[Nume Prenume]', rol: 'Manager Financiar', rol_en: 'Finance Manager', rol_es: 'Jefe Financiero', rol_de: 'Finanzleiter', icon: 'bag' },
+    {
+      rol: 'Manager comercial',
+      nume: 'Gogonel',
+      icon: 'tag',
+      birouri: [
+        {
+          titlu: 'B. Com',
+          detaliu: 'Birou comercial',
+          membri: ['Sava', 'Răzmeriță'],
+          /* departamentele din subordinea biroului comercial */
+          subordonate: [
+            { titlu: 'D. Aprovizionare', detaliu: 'Departament aprovizionare', membri: ['Dragu', 'Corcoz', 'Cristea', 'Ene'] },
+            { titlu: 'D. Desfacere', detaliu: 'Departament desfacere', membri: ['Moise', 'Iordache', 'Mihăilă', 'Manolache'] },
+          ],
+        },
+        { titlu: 'B. MK', detaliu: 'Birou marketing', membri: ['Măciucă', 'Matei'] },
+      ],
+    },
+    {
+      rol: 'Director economic',
+      nume: 'Gavrilă',
+      icon: 'bag',
+      birouri: [
+        { titlu: 'Birou contabil', membri: ['Barniță', 'Tîrlă', 'Băjenaru'] },
+        { titlu: 'Compartiment IT', membri: ['Vișoiu', 'Bălălău', 'Piftor'] },
+      ],
+    },
+    {
+      rol: 'Manager resurse umane',
+      nume: 'Ghencea',
+      icon: 'users',
+      birouri: [
+        { titlu: 'Birou calcul salarii', membri: ['Costăchioiu', 'Platon'] },
+        { titlu: 'Birou resurse umane', membri: ['Olteanu', 'Cârjică', 'Vîlcu'] },
+      ],
+    },
   ],
 };
 
-/* ✏️ NOUTĂȚI (apar în noutati.html)
+/* ✏️ NOUTĂȚI (apar în noutati.html, „Forum de noutăți”)
    ROBERT: completează aici știrile — câte un obiect { } pentru fiecare.
-   - `data`  → data afișată pe card (ex. '12.10.2026')
+   - `data`    → data afișată pe card (ex. '12.10.2026'); textele dintre [ ] le completezi tu
+   - `imagine` → numele fișierului din folderul „imagini” (dacă lipsește poza,
+                 apare un bloc gri cu „Imagine în curând”)
    - `titlu` și `text` → conținutul știrii, în română
-   - opțional, pentru traduceri: titlu_en / text_en, titlu_es / text_es, titlu_de / text_de
+   - traduceri: titlu_en / text_en, titlu_es / text_es, titlu_de / text_de
      (dacă lipsesc, se afișează automat varianta în română)
+   - link în text: scrii [textul linkului](pagina.html), ca în ultima știre
    Prima știre din listă apare prima pe pagină. */
 const NOUTATI = [
   {
-    data: '[ZZ.LL.AAAA]',
-    titlu: '[Titlu știre — completează]',
-    text: '[Aici adaugi conținutul știrii, cu ajutorul îndrumătorilor.]',
+    data: '[dată]',
+    imagine: 'stire1.png',
+    titlu: 'Primul stoc de produse al noii echipe MK Tech',
+    text: 'Noua echipă a F.E. MK Tech S.R.L., formată din elevii clasei a XI-a A, a primit primul stoc de produse de când a preluat firma. Am completat oferta în toate cele cinci categorii: monitoare, periferice, unități PC, laptopuri, plus consumabile și rechizite. Fiecare produs a fost ales după raportul calitate-preț și după ce are nevoie un birou modern. Toate produsele sunt deja în catalogul online, cu descrieri complete și prețuri afișate clar.',
+    titlu_en: 'The first stock of products for the new MK Tech team',
+    text_en: 'The new team of F.E. MK Tech S.R.L., made up of the students of class 11 A, has received its first stock of products since taking over the company. We completed the offer in all five categories: monitors, peripherals, desktop PCs, laptops, plus supplies and consumables. Every product was chosen for its value for money and for what a modern office actually needs. All the products are already in the online catalog, with full descriptions and clearly displayed prices.',
+    titlu_es: 'El primer stock de productos del nuevo equipo de MK Tech',
+    text_es: 'El nuevo equipo de F.E. MK Tech S.R.L., formado por los alumnos de 11.º A, ha recibido su primer stock de productos desde que asumió la empresa. Hemos completado la oferta en las cinco categorías: monitores, periféricos, ordenadores de sobremesa, portátiles, además de consumibles y material de oficina. Cada producto se ha elegido por su relación calidad-precio y por lo que necesita realmente una oficina moderna. Todos los productos ya están en el catálogo en línea, con descripciones completas y precios indicados con claridad.',
+    titlu_de: 'Der erste Warenbestand des neuen MK-Tech-Teams',
+    text_de: 'Das neue Team der F.E. MK Tech S.R.L., bestehend aus den Schülerinnen und Schülern der Klasse 11 A, hat seinen ersten Warenbestand erhalten, seit es die Firma übernommen hat. Wir haben das Sortiment in allen fünf Kategorien ergänzt: Monitore, Peripheriegeräte, Desktop-PCs, Laptops sowie Verbrauchsmaterial und Bürobedarf. Jedes Produkt wurde nach dem Preis-Leistungs-Verhältnis und nach dem Bedarf eines modernen Büros ausgewählt. Alle Produkte sind bereits im Online-Katalog, mit vollständigen Beschreibungen und klar angegebenen Preisen.',
   },
   {
-    data: '[ZZ.LL.AAAA]',
-    titlu: '[Titlu știre — completează]',
-    text: '[Aici adaugi conținutul știrii, cu ajutorul îndrumătorilor.]',
+    data: '[dată]',
+    imagine: 'stire2.png',
+    titlu: 'MK Tech are un site nou',
+    text: 'Am lansat noul site al firmei MK Tech, unde ne poți găsi toată oferta într-un singur loc. Poți căuta rapid produse, să le pui la favorite și să le adaugi în coș. Ai și o listă de prețuri completă. Site-ul e disponibil în română, engleză, spaniolă și germană, ca să îl poată folosi și partenerii din alte țări. La târguri ne găsești și prin codul QR de pe materialele noastre.',
+    titlu_en: 'MK Tech has a new website',
+    text_en: 'We have launched the new MK Tech website, where you can find our whole offer in one place. You can search for products quickly, save them to favorites and add them to the cart. There is also a full price list. The site is available in Romanian, English, Spanish and German, so partners from other countries can use it too. At trade fairs you can also find us through the QR code on our materials.',
+    titlu_es: 'MK Tech tiene una web nueva',
+    text_es: 'Hemos lanzado la nueva web de MK Tech, donde puedes encontrar toda nuestra oferta en un solo lugar. Puedes buscar productos rápidamente, guardarlos en favoritos y añadirlos al carrito. También tienes una lista de precios completa. La web está disponible en rumano, inglés, español y alemán, para que también la puedan usar los socios de otros países. En las ferias también nos encuentras mediante el código QR de nuestros materiales.',
+    titlu_de: 'MK Tech hat eine neue Website',
+    text_de: 'Wir haben die neue Website von MK Tech gestartet, auf der du unser gesamtes Angebot an einem Ort findest. Du kannst Produkte schnell suchen, zu den Favoriten hinzufügen und in den Warenkorb legen. Außerdem gibt es eine vollständige Preisliste. Die Website ist auf Rumänisch, Englisch, Spanisch und Deutsch verfügbar, damit sie auch Partner aus anderen Ländern nutzen können. Auf Messen findest du uns auch über den QR-Code auf unseren Materialien.',
   },
   {
-    data: '[ZZ.LL.AAAA]',
-    titlu: '[Titlu știre — completează]',
-    text: '[Aici adaugi conținutul știrii, cu ajutorul îndrumătorilor.]',
+    data: '[dată]',
+    imagine: 'stire3.png',
+    titlu: 'Reduceri în fiecare categorie de produse',
+    text: 'Ca să sărbătorim noul început, am pus câte o reducere în fiecare categorie de produse. Le găsești pe toate pe pagina [Reduceri](reduceri.html) din meniul Produse și în secțiunea „Top reduceri” de pe pagina principală. Ofertele sunt valabile [perioada / în limita stocului].',
+    titlu_en: 'Discounts in every product category',
+    text_en: 'To celebrate the new beginning, we have added one discount in every product category. You can find them all on the [Discounts](reduceri.html) page in the Products menu and in the “Top Deals” section on the home page. The offers are valid [perioada / în limita stocului].',
+    titlu_es: 'Descuentos en todas las categorías de productos',
+    text_es: 'Para celebrar el nuevo comienzo, hemos puesto un descuento en cada categoría de productos. Los encuentras todos en la página [Descuentos](reduceri.html) del menú Productos y en la sección «Mejores ofertas» de la página principal. Las ofertas son válidas [perioada / în limita stocului].',
+    titlu_de: 'Rabatte in jeder Produktkategorie',
+    text_de: 'Um den Neuanfang zu feiern, haben wir in jeder Produktkategorie einen Rabatt eingerichtet. Du findest sie alle auf der Seite [Rabatte](reduceri.html) im Menü Produkte und im Bereich „Top-Angebote“ auf der Startseite. Die Angebote gelten [perioada / în limita stocului].',
   },
 ];
 
@@ -323,6 +380,122 @@ const UI_DICT = {
   'Salvat la favorite': ['Saved to favorites', 'Guardado en favoritos', 'Zu Favoriten gespeichert'],
   'Eliminat de la favorite': ['Removed from favorites', 'Quitado de favoritos', 'Aus Favoriten entfernt'],
   'Vezi favorite': ['View favorites', 'Ver favoritos', 'Favoriten ansehen'],
+
+  /* ----- Pagini și texte adăugate ulterior ----- */
+  'Forum de noutăți': ['News forum', 'Foro de noticias', 'Neuigkeiten-Forum'],
+  'Reduceri': ['Discounts', 'Descuentos', 'Rabatte'],
+  'Produse la reducere': ['Discounted products', 'Productos en oferta', 'Reduzierte Produkte'],
+  'Toate produsele cu preț redus, dintr-un singur loc.': [
+    'All discounted products, in one place.',
+    'Todos los productos rebajados, en un solo lugar.',
+    'Alle reduzierten Produkte an einem Ort.',
+  ],
+  'Momentan nu există produse la reducere.': [
+    'There are no discounted products at the moment.',
+    'Por el momento no hay productos en oferta.',
+    'Derzeit gibt es keine reduzierten Produkte.',
+  ],
+  'Cost transport: 15 lei (gratuit pentru comenzi peste 300 lei).': [
+    'Shipping cost: 15 lei (free for orders over 300 lei).',
+    'Gastos de envío: 15 lei (gratis para pedidos de más de 300 lei).',
+    'Versandkosten: 15 Lei (kostenlos ab 300 Lei Bestellwert).',
+  ],
+  'Termen de livrare estimat: 2–5 zile lucrătoare.': [
+    'Estimated delivery time: 2–5 working days.',
+    'Plazo de entrega estimado: 2–5 días laborables.',
+    'Voraussichtliche Lieferzeit: 2–5 Werktage.',
+  ],
+  'Plată ramburs la livrare sau card online (simulat în această versiune a site-ului).': [
+    'Cash on delivery or online card payment (simulated in this version of the site).',
+    'Pago contra reembolso o con tarjeta en línea (simulado en esta versión del sitio).',
+    'Zahlung per Nachnahme oder Karte online (in dieser Version der Website simuliert).',
+  ],
+  'Vei primi un email de confirmare la finalizarea reală a comenzii (funcție simulată — integrarea reală de email urmează într-o etapă viitoare).': [
+    'You will receive a confirmation email when the order is placed for real (simulated feature — real email integration comes in a later stage).',
+    'Recibirás un correo de confirmación cuando el pedido se realice de verdad (función simulada: la integración real de correo llegará en una etapa posterior).',
+    'Du erhältst eine Bestätigungs-E-Mail, sobald die Bestellung echt abgeschlossen wird (simulierte Funktion — die echte E-Mail-Anbindung folgt später).',
+  ],
+  'Ghid site': ['Site guide', 'Guía del sitio', 'Website-Leitfaden'],
+  'Acest ghid te ajută să găsești rapid ce cauți pe site-ul MKTech.': [
+    'This guide helps you quickly find what you are looking for on the MKTech website.',
+    'Esta guía te ayuda a encontrar rápidamente lo que buscas en el sitio de MKTech.',
+    'Dieser Leitfaden hilft dir, schnell zu finden, was du auf der MKTech-Website suchst.',
+  ],
+  'Pagina principală, cu bannere, oferte și produse recomandate.': [
+    'The home page, with banners, deals and recommended products.',
+    'La página principal, con banners, ofertas y productos recomendados.',
+    'Die Startseite mit Bannern, Angeboten und empfohlenen Produkten.',
+  ],
+  'Catalogul complet, grupat pe cele 5 categorii.': [
+    'The full catalog, grouped into the 5 categories.',
+    'El catálogo completo, agrupado en las 5 categorías.',
+    'Der vollständige Katalog, in 5 Kategorien gegliedert.',
+  ],
+  'Produsele care au în acest moment preț redus.': [
+    'The products that currently have a reduced price.',
+    'Los productos que actualmente tienen precio rebajado.',
+    'Die Produkte, die aktuell einen reduzierten Preis haben.',
+  ],
+  'Povestea firmei, misiunea, echipa și organigrama.': [
+    'The company story, mission, team and organizational chart.',
+    'La historia de la empresa, la misión, el equipo y el organigrama.',
+    'Die Firmengeschichte, Mission, das Team und das Organigramm.',
+  ],
+  'Anunțuri și noutăți despre activitatea firmei.': [
+    'Announcements and news about the company activity.',
+    'Anuncios y novedades sobre la actividad de la empresa.',
+    'Ankündigungen und Neuigkeiten zur Arbeit der Firma.',
+  ],
+  'Date de contact, formular de mesaje și harta cu sediul.': [
+    'Contact details, message form and the map with our location.',
+    'Datos de contacto, formulario de mensajes y el mapa con la sede.',
+    'Kontaktdaten, Nachrichtenformular und Karte mit dem Standort.',
+  ],
+  'Toate produsele și prețurile într-un tabel, gata de printat.': [
+    'All products and prices in a table, ready to print.',
+    'Todos los productos y precios en una tabla, lista para imprimir.',
+    'Alle Produkte und Preise in einer Tabelle, druckfertig.',
+  ],
+  'Autentificare sau creare de cont (salvat local, în browser).': [
+    'Sign in or create an account (saved locally, in the browser).',
+    'Inicia sesión o crea una cuenta (guardada localmente, en el navegador).',
+    'Anmelden oder Konto erstellen (lokal im Browser gespeichert).',
+  ],
+  'Produsele salvate cu inimioara.': [
+    'The products you saved with the heart icon.',
+    'Los productos que has guardado con el corazón.',
+    'Die Produkte, die du mit dem Herz gespeichert hast.',
+  ],
+  'Produsele adăugate în coș și finalizarea comenzii.': [
+    'The products added to the cart and the checkout.',
+    'Los productos añadidos al carrito y la finalización del pedido.',
+    'Die Produkte im Warenkorb und der Bestellabschluss.',
+  ],
+  'Structura site-ului': ['Site structure', 'Estructura del sitio', 'Aufbau der Website'],
+
+  /* ----- Organigramă & galerie foto ----- */
+  'Adunarea Generală a Asociaților': ['General Meeting of Shareholders', 'Junta General de Socios', 'Gesellschafterversammlung'],
+  'Consiliul de Administrație': ['Board of Directors', 'Consejo de Administración', 'Verwaltungsrat'],
+  'Manager General': ['General Manager', 'Director General', 'Geschäftsführer'],
+  'Manager comercial': ['Commercial Manager', 'Director comercial', 'Vertriebsleiter'],
+  'Director economic': ['Finance Director', 'Director económico', 'Kaufmännischer Leiter'],
+  'Manager resurse umane': ['HR Manager', 'Director de Recursos Humanos', 'Personalleiter'],
+  'Birou comercial': ['Sales office', 'Oficina comercial', 'Vertriebsbüro'],
+  'Birou marketing': ['Marketing office', 'Oficina de marketing', 'Marketingbüro'],
+  'Departament aprovizionare': ['Purchasing department', 'Departamento de compras', 'Einkaufsabteilung'],
+  'Departament desfacere': ['Sales department', 'Departamento de ventas', 'Verkaufsabteilung'],
+  'Birou contabil': ['Accounting office', 'Oficina de contabilidad', 'Buchhaltung'],
+  'Compartiment IT': ['IT department', 'Departamento de TI', 'IT-Abteilung'],
+  'Birou calcul salarii': ['Payroll office', 'Oficina de nóminas', 'Lohnbuchhaltung'],
+  'Birou resurse umane': ['HR office', 'Oficina de recursos humanos', 'Personalbüro'],
+  'Echipa în activitate': ['The team at work', 'El equipo en acción', 'Das Team bei der Arbeit'],
+  'Galerie foto': ['Photo gallery', 'Galería de fotos', 'Fotogalerie'],
+  'Imagine în curând': ['Image coming soon', 'Imagen próximamente', 'Bild folgt in Kürze'],
+  'Momente din activitatea firmei de exercițiu MKTech.': [
+    'Moments from the activity of the MKTech training company.',
+    'Momentos de la actividad de la empresa de prácticas MKTech.',
+    'Momente aus der Arbeit der Übungsfirma MKTech.',
+  ],
   'produse în coș': ['products in cart', 'productos en el carrito', 'Produkte im Warenkorb'],
   'produs în coș': ['product in cart', 'producto en el carrito', 'Produkt im Warenkorb'],
   'produse favorite': ['favorite products', 'productos favoritos', 'Lieblingsprodukte'],
@@ -385,6 +558,7 @@ Object.assign(UI_DICT, {
 
   /* ----- Contact ----- */
   'Hai să vorbim': ['Let us talk', 'Hablemos', 'Sprechen wir'],
+  'Contact MKTech': ['Contact MKTech', 'Contacto MKTech', 'Kontakt MKTech'],
   'Ai o întrebare despre un produs sau despre firma noastră? Scrie-ne prin formularul de mai jos sau folosește datele de contact.': [
     'Do you have a question about a product or about our company? Write to us using the form below or use the contact details.',
     '¿Tienes una pregunta sobre un producto o sobre nuestra empresa? Escríbenos con el formulario de abajo o usa los datos de contacto.',
@@ -1289,6 +1463,36 @@ function imgFallback(img) {
   img.classList.add('is-placeholder');
 }
 
+/* Pozele echipei: dacă fișierul .png nu există, mai încercăm o dată cu .jpg
+   (și invers), ca să nu conteze în ce format ai salvat poza. */
+function photoFallback(img) {
+  const src = img.getAttribute('src') || '';
+  if (!img.dataset.altExt) {
+    img.dataset.altExt = '1';
+    if (src.endsWith('.png')) {
+      img.src = src.replace(/\.png$/, '.jpg');
+      return;
+    }
+    if (src.endsWith('.jpg')) {
+      img.src = src.replace(/\.jpg$/, '.png');
+      return;
+    }
+  }
+  imgFallback(img);
+}
+
+/* Poză de știre lipsă → rămâne blocul gri cu „Imagine în curând”
+   (încercăm întâi și varianta .jpg a fișierului) */
+function newsImageFallback(img) {
+  const src = img.getAttribute('src') || '';
+  if (!img.dataset.altExt && src.endsWith('.png')) {
+    img.dataset.altExt = '1';
+    img.src = src.replace(/\.png$/, '.jpg');
+    return;
+  }
+  img.remove();
+}
+
 /* Banner lipsă → rămâne vizibil fundalul de rezervă */
 function bannerFallback(img) {
   img.classList.add('is-missing');
@@ -1602,14 +1806,16 @@ function headerMarkup() {
             Produse ${icon('chevronDown', 'nav-link__chevron')}
           </button>
           <div class="nav-dropdown" id="nav-dropdown">
-            <ul class="nav-dropdown__list">${categoryLinks}</ul>
+            <ul class="nav-dropdown__list">${categoryLinks}
+              <li><a href="reduceri.html">${icon('tag')}<span>Reduceri<small>${PRODUCTS.filter((p) => p.oldPrice).length} produse</small></span></a></li>
+            </ul>
             <a class="nav-dropdown__all" href="produse.html">Vezi toate produsele ${icon('arrowRight')}</a>
           </div>
         </li>
         <li class="nav-item"><a class="nav-link${isActive('acasa')}" href="index.html">Acasă</a></li>
         <li class="nav-item"><a class="nav-link${isActive('despre')}" href="despre.html">Despre noi</a></li>
+        <li class="nav-item"><a class="nav-link${isActive('noutati')}" href="noutati.html">Forum de noutăți</a></li>
         <li class="nav-item"><a class="nav-link${isActive('contact')}" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link${isActive('noutati')}" href="noutati.html">Noutăți</a></li>
       </ul>
 
       ${langSwitchMarkup()}
@@ -1646,7 +1852,9 @@ function footerMarkup() {
 
       <div class="footer-col">
         <h2 class="footer-col__title">Categorii</h2>
-        <ul>${CATEGORIES.map((c) => `<li><a href="produse.html#${c.id}">${categoryName(c)}</a></li>`).join('')}</ul>
+        <ul>${CATEGORIES.map((c) => `<li><a href="produse.html#${c.id}">${categoryName(c)}</a></li>`).join('')}
+          <li><a href="reduceri.html">Reduceri</a></li>
+        </ul>
       </div>
 
       <div class="footer-col">
@@ -1656,8 +1864,9 @@ function footerMarkup() {
           <li><a href="produse.html">Toate produsele</a></li>
           <li><a href="despre.html">Despre noi</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="noutati.html">Noutăți</a></li>
+          <li><a href="noutati.html">Forum de noutăți</a></li>
           <li><a href="lista-preturi.html">Listă de prețuri</a></li>
+          <li><a href="ghid-site.html">Ghid site</a></li>
         </ul>
       </div>
 
@@ -2767,6 +2976,11 @@ function initCartPage() {
             <div class="summary-card__savings" data-summary-savings-row><dt>Reduceri</dt><dd data-summary-savings></dd></div>
             <div class="summary-card__total"><dt>Total</dt><dd data-summary-total></dd></div>
           </dl>
+          <ul class="checkout-info">
+            <li>${icon('truck')}<span>Cost transport: 15 lei (gratuit pentru comenzi peste 300 lei).</span></li>
+            <li>${icon('clock')}<span>Termen de livrare estimat: 2–5 zile lucrătoare.</span></li>
+            <li>${icon('lock')}<span>Plată ramburs la livrare sau card online (simulat în această versiune a site-ului).</span></li>
+          </ul>
           <button class="btn btn--primary btn--lg btn--block" type="button" data-checkout>${icon('check')} Finalizează comanda</button>
           <p class="demo-note">${icon('info')}<span><strong>Comandă simulată.</strong> MKTech este o firmă de exercițiu: nu se procesează nicio plată reală și nu se livrează produse.</span></p>
           <a class="summary-card__continue" href="produse.html">${icon('chevronLeft')} Continuă cumpărăturile</a>
@@ -2822,6 +3036,7 @@ function initCartPage() {
             <div><dt>Produse</dt><dd>${count}</dd></div>
             <div><dt>Total</dt><dd>${formatPrice(total)}</dd></div>
           </dl>
+          <p class="order-success__email">${icon('mail')}<span>Vei primi un email de confirmare la finalizarea reală a comenzii (funcție simulată — integrarea reală de email urmează într-o etapă viitoare).</span></p>
           <p class="demo-note demo-note--center">${icon('info')}<span>Aceasta este o <strong>comandă simulată</strong> (proiect de firmă de exercițiu). Nu s-a efectuat nicio plată și nu se livrează produse.</span></p>
           <a class="btn btn--primary btn--lg" href="index.html">Înapoi la magazin ${icon('arrowRight')}</a>
         </div>`;
@@ -3200,25 +3415,88 @@ function initContactPage() {
 }
 
 /* ---------- 8.8 Organigrama (secțiune în despre.html) ----------
-   Datele se completează în ORGANIGRAMA, sus în acest fișier (secțiunea 1B). */
+   ATENȚIE: organigrama este acum o IMAGINE pusă direct în despre.html
+   (imagini/organigrama.png), deci codul de mai jos nu mai desenează nimic.
+   L-am păstrat (împreună cu datele din ORGANIGRAMA) pentru cazul în care
+   vrei să revii la varianta desenată din cod: e de ajuns să pui înapoi
+   <div id="org-chart"></div> în despre.html, în locul imaginii. */
 function initAboutPage() {
   const root = $('#org-chart');
   if (!root) return;
 
-  const box = (person, lead = false) => `
-    <article class="org-box${lead ? ' org-box--lead' : ''}">
-      ${person.icon || lead ? `<span class="org-box__icon">${icon(lead ? 'users' : person.icon)}</span>` : ''}
-      <span class="org-box__role">${fillText(localizedField(person, 'rol'))}</span>
-      <span class="org-box__name">${fillText(person.nume)}</span>
+  const people = (membri) => `<ul class="org-people">${membri.map((m) => `<li>${fillText(m)}</li>`).join('')}</ul>`;
+
+  /* un birou: cutia lui + (dacă are) birourile din subordinea lui, legate cu linie */
+  const officeCard = (birou, sub = false) => `
+    <article class="org-office${sub ? ' org-office--sub' : ''}">
+      <h3 class="org-office__title">${escapeHTML(birou.titlu)}</h3>
+      ${birou.detaliu ? `<p class="org-office__detail">${escapeHTML(birou.detaliu)}</p>` : ''}
+      ${people(birou.membri)}
     </article>`;
+
+  const officeGroup = (birou) => `
+    <div class="org-office-group">
+      ${officeCard(birou)}
+      ${
+        birou.subordonate && birou.subordonate.length
+          ? `<div class="org-suboffices">${birou.subordonate.map((sub) => officeCard(sub, true)).join('')}</div>`
+          : ''
+      }
+    </div>`;
+
+  /* nivelurile de conducere: AGA → CA → MG */
+  const leadership = ORGANIGRAMA.conducere
+    .map(
+      (nivel) => `
+      <article class="org-box org-box--lead">
+        <span class="org-box__role">${escapeHTML(nivel.rol)}</span>
+        ${nivel.detaliu ? `<span class="org-box__detail">${escapeHTML(nivel.detaliu)}</span>` : ''}
+        ${people(nivel.membri)}
+      </article>`
+    )
+    .join('');
+
+  /* cele trei direcții, fiecare cu birourile ei */
+  const branches = ORGANIGRAMA.departamente
+    .map(
+      (dep) => `
+      <div class="org-chart__branch">
+        <article class="org-box org-box--manager">
+          ${dep.icon ? `<span class="org-box__icon">${icon(dep.icon)}</span>` : ''}
+          <span class="org-box__role">${escapeHTML(dep.rol)}</span>
+          <span class="org-box__name">${fillText(dep.nume)}</span>
+        </article>
+        ${
+          dep.birouri && dep.birouri.length
+            ? `<div class="org-offices">${dep.birouri.map(officeGroup).join('')}</div>`
+            : ''
+        }
+      </div>`
+    )
+    .join('');
 
   root.innerHTML = `
     <div class="org-chart">
-      <div class="org-chart__lead">${box(ORGANIGRAMA.conducere, true)}</div>
-      <div class="org-chart__branches">
-        ${ORGANIGRAMA.departamente.map((person) => `<div class="org-chart__branch">${box(person)}</div>`).join('')}
-      </div>
+      <p class="org-chart__company">F.E. MK Tech S.R.L.</p>
+      <div class="org-chart__lead">${leadership}</div>
+      <div class="org-chart__branches">${branches}</div>
     </div>`;
+}
+
+/* ---------- 8.8b Reduceri (reduceri.html) ----------
+   Afișează doar produsele care au deja preț redus în catalogul PRODUCTS. */
+function initDealsPage() {
+  const root = $('#deals-root');
+  if (!root) return;
+  const deals = PRODUCTS.filter((p) => p.oldPrice);
+
+  if (!deals.length) {
+    root.innerHTML = `<p class="empty-note">Momentan nu există produse la reducere.</p>`;
+    return;
+  }
+
+  root.innerHTML = '<div class="product-grid" id="deals-page-grid"></div>';
+  renderGrid($('#deals-page-grid'), deals);
 }
 
 /* ---------- 8.9 Noutăți (noutati.html) ----------
@@ -3238,14 +3516,28 @@ function initNewsPage() {
     return;
   }
 
+  /* textul știrii: linkurile se scriu [text](pagina.html) */
+  const newsText = (text) =>
+    escapeHTML(text).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>');
+
   root.innerHTML = `
     <div class="news-list">
       ${NOUTATI.map(
         (item) => `
         <article class="news-card">
-          <p class="news-card__date">${icon('calendar')}<span>${fillText(item.data)}</span></p>
-          <h2 class="news-card__title">${fillText(localizedField(item, 'titlu'))}</h2>
-          <p class="news-card__text">${fillText(localizedField(item, 'text'))}</p>
+          ${
+            item.imagine
+              ? `<p class="news-card__media">
+                  <span class="news-card__soon">Imagine în curând</span>
+                  <img src="${imgPath(item.imagine)}" alt="" loading="lazy" onerror="newsImageFallback(this)">
+                </p>`
+              : ''
+          }
+          <div class="news-card__body">
+            <p class="news-card__date">${icon('calendar')}<span>${fillText(item.data)}</span></p>
+            <h2 class="news-card__title">${fillText(localizedField(item, 'titlu'))}</h2>
+            <p class="news-card__text">${newsText(localizedField(item, 'text'))}</p>
+          </div>
         </article>`
       ).join('')}
     </div>`;
@@ -3316,6 +3608,7 @@ function init() {
     cont: initAccountPage,
     contact: initContactPage,
     despre: initAboutPage,
+    reduceri: initDealsPage,
     noutati: initNewsPage,
     'lista-preturi': initPriceListPage,
   };

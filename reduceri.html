@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reduceri | MKTech</title>
+  <meta name="description" content="Produsele MKTech aflate la reducere, dintr-un singur loc.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="reduceri">
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <!-- Cardurile sunt generate din script.js: se afișează automat produsele
+       care au preț redus în catalogul PRODUCTS (câmpul oldPrice). -->
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Acasă</a></li>
+        <li aria-current="page">Reduceri</li>
+      </ol>
+    </nav>
+
+    <header class="page-head">
+      <span class="eyebrow"><span data-icon="tag"></span> Prețuri reduse</span>
+      <h1 class="page-title">Produse la reducere</h1>
+      <p class="page-subtitle">Toate produsele cu preț redus, dintr-un singur loc.</p>
+    </header>
+
+    <div id="deals-root"></div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>

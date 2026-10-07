@@ -13,45 +13,48 @@
   <div id="site-header"></div>
   <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
 
-  
-    </section>
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Acasă</a></li>
+        <li aria-current="page">Contact</li>
+      </ol>
+    </nav>
+
+    <header class="page-head">
+      <h1 class="page-title">Contact</h1>
+      <p class="page-subtitle">Ai o întrebare despre un produs sau despre firma noastră? Scrie-ne prin formularul de mai jos sau folosește datele de contact.</p>
+    </header>
 
     <div class="section contact-layout">
-      <!--
-        ✏️ DE COMPLETAT — DATE DE CONTACT
-        Înlocuiește textele dintre [ ] și șterge tag-ul <span class="placeholder"> din jurul lor.
-        Sfat: telefonul și emailul pot deveni link-uri clickabile, de ex.:
-          <a href="tel:+40712345678">0712 345 678</a>
-          <a href="mailto:contact@mktech.ro">contact@mktech.ro</a>
-      -->
       <div>
         <ul class="contact-list">
           <li class="contact-item">
             <span class="contact-item__icon"><span data-icon="mapPin"></span></span>
             <div>
               <p class="contact-item__label">Adresă</p>
-              <p class="contact-item__value"><span class="placeholder">Bulevardul Gării 25, 627350 Focșani, Vrancea</span></p>
+              <p class="contact-item__value">Bulevardul Gării 25, Focșani, județul Vrancea</p>
             </div>
           </li>
           <li class="contact-item">
             <span class="contact-item__icon"><span data-icon="phone"></span></span>
             <div>
               <p class="contact-item__label">Telefon</p>
-              <p class="contact-item__value"><span class="placeholder">0237 212 544</span></p>
+              <p class="contact-item__value"><a href="tel:+40237212544">0237 212 544</a></p>
             </div>
           </li>
           <li class="contact-item">
             <span class="contact-item__icon"><span data-icon="mail"></span></span>
             <div>
               <p class="contact-item__label">Email</p>
-              <p class="contact-item__value"><span class="placeholder">[adresa@email.ro]</span></p>
+              <p class="contact-item__value"><a href="mailto:mktech2026@yahoo.com">mktech2026@yahoo.com</a></p>
             </div>
           </li>
           <li class="contact-item">
             <span class="contact-item__icon"><span data-icon="clock"></span></span>
             <div>
               <p class="contact-item__label">Program</p>
-              <p class="contact-item__value"><span class="placeholder">[ex. Luni – Vineri, 09:00 – 17:00]</span></p>
+              <p class="contact-item__value">Luni – Vineri, 08:00 – 14:00</p>
             </div>
           </li>
         </ul>
@@ -107,10 +110,9 @@
     </div>
 
     <!-- ===== SITUARE GEOGRAFICĂ =====
-         ROBERT: adaugă aici adresa completă și un iframe Google Maps odată ce afli locația exactă.
-         Cum obții harta: intri pe google.com/maps → cauți adresa → Share (Distribuie) →
-         „Embed a map” (Încorporează o hartă) → copiezi codul <iframe ...> și îl lipești
-         în interiorul <div class="map-embed"> de mai jos, în locul textului placeholder. -->
+         Harta este încorporată din Google Maps (iframe standard, fără cont sau cheie API).
+         Dacă se schimbă sediul: modifici adresa din atributul src al iframe-ului de mai jos
+         (partea de după „?q=”) și textul adresei din cardul alăturat. -->
     <section class="section" aria-labelledby="geo-title">
       <div class="section-head">
         <div>
@@ -123,11 +125,18 @@
         <div class="info-card">
           <span class="info-card__icon"><span data-icon="mapPin"></span></span>
           <h3 class="info-card__title">Adresa completă</h3>
-          <p class="info-card__text"><span class="placeholder">Bulevardul Gării 25, 627350 Focșani, Vrancea</span></p>
+          <p class="info-card__text">Bulevardul Gării 25, Focșani, județul Vrancea</p>
         </div>
 
         <div class="map-embed">
-          <p class="map-embed__hint"><span data-icon="mapPin"></span> <span class="placeholder"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2786.5631484741753!2d27.172233000000002!3d45.6997382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b4189eaf1c4a55%3A0xbc46095f41081199!2sColegiul%20Economic%20Mihail%20Kog%C4%83lniceanu!5e0!3m2!1sro!2sro!4v1791285958832!5m2!1sro!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></span></p>
+          <iframe
+            src="https://www.google.com/maps?q=Bulevardul+G%C4%83rii+25,+Foc%C8%99ani,+Vrancea&output=embed"
+            width="100%"
+            height="350"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Locația MKTech pe hartă"></iframe>
         </div>
       </div>
     </section>

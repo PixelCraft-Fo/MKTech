@@ -3762,39 +3762,63 @@ textarea.input {
 .org-chart {
   --org-line: var(--navy-200);
   --org-gap: 20px;
+  --org-drop: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.org-chart__lead {
-  position: relative;
-  padding-bottom: 30px;
+.org-chart__company {
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
 }
 
-.org-chart__lead::after {
+/* nivelurile de conducere, unul sub altul (AGA → CA → MG) */
+.org-chart__lead {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--org-drop);
+  padding-bottom: var(--org-drop);
+  width: 100%;
+}
+
+.org-chart__lead::after,
+.org-chart__lead .org-box:not(:last-child)::after {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: calc(-1 * var(--org-drop));
   width: 2px;
-  height: 30px;
+  height: var(--org-drop);
   background: var(--org-line);
+}
+
+.org-chart__lead::after {
+  bottom: 0;
 }
 
 .org-chart__branches {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--org-gap);
   width: 100%;
 }
 
 .org-chart__branch {
   position: relative;
-  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: var(--org-drop);
 }
 
-/* linia orizontală care leagă departamentele */
+/* linia orizontală care leagă cele trei direcții */
 .org-chart__branch::after {
   content: '';
   position: absolute;
@@ -3813,24 +3837,24 @@ textarea.input {
   right: 50%;
 }
 
-/* linia verticală spre fiecare cutie */
+/* linia verticală spre fiecare cutie de conducere */
 .org-chart__branch::before {
   content: '';
   position: absolute;
   top: 0;
   left: 50%;
   width: 2px;
-  height: 30px;
+  height: var(--org-drop);
   background: var(--org-line);
 }
 
 .org-box {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  height: 100%;
-  padding: 20px 16px;
+  padding: 18px 20px;
   text-align: center;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -3839,63 +3863,270 @@ textarea.input {
 }
 
 .org-box--lead {
-  padding: 24px 34px;
+  width: min(100%, 420px);
   background: var(--grad-navy);
   border-color: transparent;
   box-shadow: var(--shadow);
 }
 
+.org-box--manager {
+  justify-content: center;
+}
+
 .org-box__icon {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 8px;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 6px;
   border-radius: 13px;
   background: var(--navy-50);
   color: var(--navy-700);
 }
 
-.org-box--lead .org-box__icon {
-  background: rgba(255, 255, 255, 0.16);
-  color: #fff;
-}
-
 .org-box__icon .icon {
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
 }
 
 .org-box__role {
-  font-size: 15.5px;
-  font-weight: 750;
-  color: var(--ink-900);
+  font-size: 16px;
+  font-weight: 800;
   line-height: 1.3;
+  color: var(--ink-900);
 }
 
 .org-box--lead .org-box__role {
-  font-size: 18px;
+  font-size: 19px;
+  letter-spacing: 0.04em;
   color: #fff;
 }
 
+.org-box__detail {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .org-box__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy-700);
+}
+
+/* lista de nume din fiecare cutie */
+.org-people {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 10px;
+  margin-top: 6px;
   font-size: 14px;
+  color: var(--ink-700);
+}
+
+.org-box--lead .org-people {
+  margin-top: 8px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.org-box--lead .org-people li {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 13.5px;
+}
+
+/* birourile din subordinea fiecărui manager */
+.org-offices {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-top: var(--org-drop);
+}
+
+.org-offices::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--org-drop));
+  left: 50%;
+  width: 2px;
+  height: var(--org-drop);
+  background: var(--org-line);
+}
+
+.org-office-group {
+  --sub-gap: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.org-office {
+  padding: 18px 16px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.org-office__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--navy-800);
+  letter-spacing: -0.01em;
+}
+
+.org-office__detail {
+  margin-top: 3px;
+  font-size: 12.5px;
   color: var(--ink-500);
 }
 
-.org-box--lead .org-box__name {
-  color: rgba(255, 255, 255, 0.82);
+.org-office .org-people {
+  gap: 7px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
+  color: var(--ink-700);
+}
+
+.org-office .org-people li {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-50);
+  color: var(--navy-800);
+  font-weight: 600;
+}
+
+.org-office--sub .org-people li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+/* birourile aflate în subordinea altui birou (ex. sub B. Com) */
+.org-suboffices {
+  display: grid;
+  gap: var(--sub-gap);
+  margin-top: var(--sub-gap);
+  padding-left: 30px;
+}
+
+.org-office--sub {
+  position: relative;
+  padding: 14px 14px;
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+/* linia verticală care coboară din biroul superior */
+.org-office--sub::after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--sub-gap));
+  bottom: 0;
+  left: -18px;
+  width: 2px;
+  background: var(--org-line);
+}
+
+.org-office--sub:last-child::after {
+  bottom: 50%;
+}
+
+/* linia orizontală spre fiecare birou subordonat */
+.org-office--sub::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -18px;
+  width: 18px;
+  height: 2px;
+  background: var(--org-line);
+}
+
+.org-office--sub .org-office__title {
+  font-size: 15px;
+}
+
+.org-office--sub .org-people {
+  font-size: 14.5px;
+}
+
+/* organigrama ca imagine */
+.org-image {
+  margin: 0;
+}
+
+.org-image__frame {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.org-image__frame img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.org-image__hint {
+  display: none;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--ink-500);
+  text-align: center;
+}
+
+/* ---------- 20B. Galerie foto echipă (despre.html) ---------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gallery-item {
+  margin: 0;
+  grid-column: span 2;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+/* primele două poze sunt mai mari (rândul de sus) */
+.gallery-item:nth-child(1),
+.gallery-item:nth-child(2) {
+  grid-column: span 3;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.03);
 }
 
 /* ---------- 21. Noutăți ---------- */
 .news-list {
   display: grid;
-  gap: 18px;
-  max-width: 860px;
+  gap: 20px;
+  max-width: 780px;
 }
 
 .news-card {
-  padding: 26px 28px;
+  overflow: hidden;
+  padding: 0;
   background: var(--surface);
   border: 1px solid var(--line);
   border-left: 5px solid var(--navy-700);
@@ -3910,6 +4141,37 @@ textarea.input {
 .news-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
+}
+
+.news-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.news-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* se vede doar cât timp lipsește poza */
+.news-card__soon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink-400);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.news-card__body {
+  padding: 22px 26px 26px;
 }
 
 .news-card__date {
@@ -3939,6 +4201,17 @@ textarea.input {
   margin-top: 8px;
   color: var(--ink-600);
   line-height: 1.7;
+}
+
+.news-card__text a {
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--navy-200);
+}
+
+.news-card__text a:hover {
+  text-decoration-color: currentColor;
 }
 
 /* ---------- 22. Listă de prețuri ---------- */
@@ -5252,72 +5525,49 @@ textarea.input {
     margin-right: 2px;
   }
 
-  /* Organigrama devine o listă verticală, cu o linie-coloană în stânga */
-  .org-chart__lead {
-    align-self: flex-start;
+  /* Organigrama devine o coloană verticală pe ecrane mici */
+  .org-chart {
+    --org-drop: 20px;
+  }
+
+  .org-chart__lead .org-box--lead {
     width: 100%;
-    padding-bottom: 22px;
-  }
-
-  .org-chart__lead::after {
-    left: 26px;
-    height: 22px;
-  }
-
-  .org-box--lead {
-    align-items: flex-start;
-    text-align: left;
-    padding: 20px;
   }
 
   .org-chart__branches {
     grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
+    gap: 26px;
   }
 
-  .org-chart__branch {
-    padding-top: 0;
-    padding-left: 44px;
-  }
-
-  .org-chart__branch::before {
-    top: 0;
-    left: 26px;
-    height: 100%;
-  }
-
-  .org-chart__branch:last-child::before {
-    height: 50%;
-  }
 
   .org-chart__branch::after {
-    top: 50%;
-    left: 26px;
+    left: 50%;
     right: auto;
-    width: 18px;
+    width: 2px;
+    height: 0;
   }
 
   .org-chart__branch:first-child::after,
   .org-chart__branch:last-child::after {
-    left: 26px;
+    left: 50%;
     right: auto;
   }
 
   .org-box {
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    text-align: left;
-    padding: 14px 16px;
-  }
-
-  .org-box__icon {
-    margin-bottom: 0;
-    flex-shrink: 0;
+    padding: 16px;
   }
 
   .org-box__role {
     font-size: 15px;
+  }
+
+  .gallery-grid {
+    gap: 12px;
+  }
+
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(2) {
+    grid-column: span 3;
   }
 
   .geo-layout {
@@ -5344,8 +5594,11 @@ textarea.input {
   }
 
   .news-card {
-    padding: 18px 16px;
     border-radius: var(--radius);
+  }
+
+  .news-card__body {
+    padding: 16px;
   }
 
   .news-card__title {
@@ -5417,7 +5670,58 @@ textarea.input {
   }
 
   .org-box__name {
-    font-size: 13px;
+    font-size: 14px;
+  }
+
+  .org-image__frame {
+    padding: 12px;
+  }
+
+  .org-image__frame img {
+    width: auto;
+    min-width: 680px;
+    max-width: none;
+  }
+
+  .org-image__hint {
+    display: block;
+  }
+
+  .org-offices {
+    gap: 12px;
+  }
+
+  .org-office {
+    padding: 14px;
+  }
+
+  .org-office__title {
+    font-size: 15px;
+  }
+
+  .org-office .org-people {
+    font-size: 14px;
+  }
+
+  .org-suboffices {
+    padding-left: 24px;
+  }
+
+  /* galeria foto: 2 coloane, prima poză pe toată lățimea */
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .gallery-item,
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(2) {
+    grid-column: span 1;
+    border-radius: var(--radius);
+  }
+
+  .gallery-item:nth-child(1) {
+    grid-column: span 2;
   }
 }
 
@@ -5515,5 +5819,162 @@ textarea.input {
 
   @page {
     margin: 14mm;
+  }
+}
+
+/* ---------- 26. Elemente adăugate în runda 3 ---------- */
+
+/* Poza de grup a echipei (despre.html) */
+.team-photo {
+  margin: 24px 0 0;
+}
+
+.team-photo img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  background: var(--surface-2);
+}
+
+/* secțiunea „Povestea noastră” pe toată lățimea (fără caseta vizuală laterală) */
+.about-story--full {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 78ch;
+}
+
+/* Harta încorporată din contact.html */
+.map-embed iframe {
+  border-radius: var(--radius-xl);
+}
+
+/* Informații de livrare și plată, în coș */
+.checkout-info {
+  display: grid;
+  gap: 10px;
+  margin: 4px 0 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line-strong);
+}
+
+.checkout-info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-600);
+}
+
+.checkout-info .icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--navy-600);
+}
+
+.order-success__email {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  max-width: 520px;
+  margin: 22px auto 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-600);
+  text-align: left;
+}
+
+.order-success__email .icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--navy-600);
+}
+
+/* Mesaj scurt (ex. „Momentan nu există produse la reducere.”) */
+.empty-note {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--ink-500);
+  font-size: 16px;
+}
+
+/* Ghidul site-ului */
+.guide-list {
+  display: grid;
+  gap: 14px;
+  max-width: 820px;
+  padding-bottom: 8px;
+}
+
+.guide-item {
+  padding: 18px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.guide-item:hover {
+  border-color: var(--navy-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.guide-item__link {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--navy-700);
+}
+
+.guide-item__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.guide-item__text {
+  margin-top: 4px;
+  font-size: 14.5px;
+  color: var(--ink-600);
+}
+
+.guide-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.guide-sub a {
+  display: inline-flex;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-50);
+  color: var(--navy-700);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.guide-sub a:hover {
+  background: var(--navy-100);
+}
+
+@media (max-width: 599px) {
+  .team-photo img {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+  }
+
+  .guide-item {
+    padding: 14px 16px;
+  }
+
+  .guide-item__link {
+    font-size: 16px;
   }
 }

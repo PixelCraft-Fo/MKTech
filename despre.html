@@ -14,12 +14,10 @@
   <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
 
   <!--
-    ✏️ DE COMPLETAT — PAGINA „DESPRE NOI”
-    Toate textele dintre paranteze drepte [ ... ] (afișate pe fundal galben, cu margine punctată)
-    sunt placeholder-e. Pentru fiecare:
-      1. înlocuiește tot textul dintre [ ] cu textul tău final;
-      2. șterge și tag-ul <span class="placeholder"> ... </span> din jurul lui (păstrând textul).
-    Caută în fișier după „placeholder” ca să le găsești pe toate.
+    PAGINA „DESPRE NOI” — textele sunt completate.
+    Mai rămân de făcut două lucruri:
+      1. adaugă poza de grup a echipei: imagini/echipa-mktech.jpg
+      2. adaugă cele 5 poze din galerie: imagini/echipa1.png … imagini/echipa5.png
   -->
   <main id="main" class="container">
 
@@ -28,23 +26,37 @@
       <span class="eyebrow">Despre noi</span>
       <h1 class="page-hero__title">Cunoaște MKTech</h1>
       <p class="page-hero__lead">
-        <span class="placeholder">[Aici completezi o frază scurtă de prezentare: cine este MKTech și ce vinde — ex. firmă de exercițiu care oferă echipamente IT și de birotică.]</span>
+        F.E. MK Tech S.R.L. este o firmă de exercițiu care oferă echipamente IT și de birotică: monitoare, periferice,
+        unități PC, laptopuri și consumabile și rechizite, la prețuri corecte și cu o selecție atentă a produselor.
       </p>
     </section>
 
+    <!-- Poza de grup a echipei. ROBERT: adaugă fișierul imagini/echipa-mktech.jpg
+         (până atunci apare un placeholder gri în locul ei). -->
+    <figure class="team-photo">
+      <img src="imagini/echipa-mktech.jpg" alt="Echipa MKTech" loading="lazy" onerror="photoFallback(this)">
+    </figure>
+
     <!-- ===== 2. POVESTEA FIRMEI ===== -->
     <section class="section" aria-labelledby="story-title">
-      <div class="about-story">
+      <div class="about-story about-story--full">
         <div class="prose">
           <span class="eyebrow">Povestea noastră</span>
           <h2 class="section-title" id="story-title">Cum a început MKTech</h2>
-          <p><span class="placeholder">[Aici completezi povestea firmei MKTech — când și unde a fost înființată firma de exercițiu (liceul, clasa, anul școlar).]</span></p>
-          <p><span class="placeholder">[Aici completezi de ce ați ales domeniul produselor electronice și al biroticii și cum ați construit oferta de produse.]</span></p>
-          <p><span class="placeholder">[Aici completezi ce ați realizat până acum: târguri, parteneriate, premii sau alte momente importante.]</span></p>
+          <p>F.E. MK Tech S.R.L. a fost înființată în anul 2012, ca firmă de exercițiu în cadrul Colegiului Economic
+            „Mihail Kogălniceanu” din Focșani. În acest an școlar, firma este continuată de o nouă echipă formată din
+            elevii clasei a XI-a A, sub coordonarea doamnei profesoare Mioara Botezatu.</p>
+          <p>Am ales domeniul electronicelor și al biroticii pentru că este un sector aflat mereu în mișcare, cu nevoi
+            reale și constante în orice birou modern. Am construit oferta de produse pornind exact de la aceste nevoi:
+            monitoare, periferice, unități PC, laptopuri și consumabile și rechizite, alese cu atenție pentru un raport
+            bun calitate-preț.</p>
+          <p>Suntem la început de drum cu această echipă, iar obiectivul nostru pentru acest an școlar este să participăm
+            la târgurile firmelor de exercițiu, să dezvoltăm parteneriate și să creștem constant, prin seriozitate și
+            muncă în echipă.</p>
 
           <div class="stats">
             <div class="stat">
-              <p class="stat__value"><span class="placeholder">[An]</span></p>
+              <p class="stat__value">2012</p>
               <p class="stat__label">Anul înființării</p>
             </div>
             <div class="stat">
@@ -58,9 +70,6 @@
           </div>
         </div>
 
-        <div class="about-visual" aria-hidden="true">
-          <span data-logo></span>
-        </div>
       </div>
     </section>
 
@@ -75,72 +84,80 @@
 
       <div class="mission">
         <p class="mission__label">Misiunea noastră</p>
-        <p class="mission__text"><span class="placeholder">[Aici completezi misiunea firmei MKTech, în una sau două propoziții.]</span></p>
+        <p class="mission__text">Misiunea noastră este să oferim echipamente electronice și de birotică de calitate, la prețuri
+          corecte, construind în același timp o echipă solidă, cu obiective clare și o dezvoltare continuă.</p>
       </div>
 
       <div class="cards-3">
         <article class="info-card">
           <span class="info-card__icon"><span data-icon="target"></span></span>
-          <h3 class="info-card__title"><span class="placeholder">[Valoarea 1 — ex. Calitate]</span></h3>
-          <p class="info-card__text"><span class="placeholder">[Aici completezi o scurtă descriere a primei valori.]</span></p>
+          <h3 class="info-card__title">Calitate</h3>
+          <p class="info-card__text">Alegem cu atenție fiecare produs din ofertă, astfel încât clienții noștri să primească echipamente de încredere.</p>
         </article>
         <article class="info-card">
           <span class="info-card__icon"><span data-icon="heart"></span></span>
-          <h3 class="info-card__title"><span class="placeholder">[Valoarea 2 — ex. Seriozitate]</span></h3>
-          <p class="info-card__text"><span class="placeholder">[Aici completezi o scurtă descriere a celei de-a doua valori.]</span></p>
+          <h3 class="info-card__title">Seriozitate</h3>
+          <p class="info-card__text">Ne respectăm clienții și partenerii prin informații corecte, prețuri clare și livrare la termenul promis.</p>
         </article>
         <article class="info-card">
           <span class="info-card__icon"><span data-icon="users"></span></span>
-          <h3 class="info-card__title"><span class="placeholder">[Valoarea 3 — ex. Spirit de echipă]</span></h3>
-          <p class="info-card__text"><span class="placeholder">[Aici completezi o scurtă descriere a celei de-a treia valori.]</span></p>
+          <h3 class="info-card__title">Spirit de echipă</h3>
+          <p class="info-card__text">Lucrăm împreună, ca o echipă formată din elevii clasei a XI-a A, pentru a duce MKTech mai departe.</p>
         </article>
       </div>
     </section>
 
     <!-- ===== 4. ECHIPA =====
-         Câte un bloc <article class="team-card"> pentru fiecare membru (copiază/șterge blocuri după nevoie).
-         Pentru poză: înlocuiește inițialele din <div class="team-card__avatar"> cu
-         <img src="imagini/nume-prenume.png" alt="Nume Prenume"> și pune poza în folderul de imagini. -->
+         Echipa are 28 de elevi, deci nu listăm membrii individual: poza de grup de sus
+         (imagini/echipa-mktech.jpg) acoperă partea vizuală. -->
     <section class="section" aria-labelledby="team-title">
       <div class="section-head">
         <div>
           <span class="eyebrow">Echipa</span>
           <h2 class="section-title" id="team-title">Oamenii din spatele MKTech</h2>
-          <p class="section-subtitle"><span class="placeholder">[Aici completezi o frază despre echipă — ex. elevii clasei a XI-a ...]</span></p>
+          <p class="section-subtitle">MKTech este condusă de o echipă de 28 de elevi ai clasei a XI-a A, coordonați de doamna
+            profesoare Mioara Botezatu.</p>
         </div>
       </div>
 
-      <div class="cards-4">
-        <article class="team-card">
-          <div class="team-card__avatar" aria-hidden="true">NP</div>
-          <h3 class="team-card__name"><span class="placeholder">[Nume Prenume]</span></h3>
-          <p class="team-card__role"><span class="placeholder">[Funcția — ex. Director general]</span></p>
-          <p class="team-card__text"><span class="placeholder">[Scurtă descriere a rolului]</span></p>
-        </article>
-        <article class="team-card">
-          <div class="team-card__avatar" aria-hidden="true">NP</div>
-          <h3 class="team-card__name"><span class="placeholder">[Nume Prenume]</span></h3>
-          <p class="team-card__role"><span class="placeholder">[Funcția — ex. Director marketing]</span></p>
-          <p class="team-card__text"><span class="placeholder">[Scurtă descriere a rolului]</span></p>
-        </article>
-        <article class="team-card">
-          <div class="team-card__avatar" aria-hidden="true">NP</div>
-          <h3 class="team-card__name"><span class="placeholder">[Nume Prenume]</span></h3>
-          <p class="team-card__role"><span class="placeholder">[Funcția — ex. Director financiar]</span></p>
-          <p class="team-card__text"><span class="placeholder">[Scurtă descriere a rolului]</span></p>
-        </article>
-        <article class="team-card">
-          <div class="team-card__avatar" aria-hidden="true">NP</div>
-          <h3 class="team-card__name"><span class="placeholder">[Nume Prenume]</span></h3>
-          <p class="team-card__role"><span class="placeholder">[Funcția — ex. Director resurse umane]</span></p>
-          <p class="team-card__text"><span class="placeholder">[Scurtă descriere a rolului]</span></p>
-        </article>
+    </section>
+    <!-- ===== 5. GALERIE FOTO =====
+         ROBERT: adaugă în folderul „imagini” pozele echipei, cu numele exacte:
+         echipa1.png, echipa2.png, echipa3.png, echipa4.png, echipa5.png.
+         Până le adaugi, în locul lor apare un chenar gri.
+         Poți schimba textul din alt="..." cu o descriere scurtă a fiecărei poze. -->
+    <section class="section" aria-labelledby="gallery-title">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Echipa în activitate</span>
+          <h2 class="section-title" id="gallery-title">Galerie foto</h2>
+          <p class="section-subtitle">Momente din activitatea firmei de exercițiu MKTech.</p>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="imagini/echipa1.png" alt="Echipa MKTech în activitate — fotografia 1" loading="lazy" onerror="photoFallback(this)">
+        </figure>
+        <figure class="gallery-item">
+          <img src="imagini/echipa2.png" alt="Echipa MKTech în activitate — fotografia 2" loading="lazy" onerror="photoFallback(this)">
+        </figure>
+        <figure class="gallery-item">
+          <img src="imagini/echipa3.png" alt="Echipa MKTech în activitate — fotografia 3" loading="lazy" onerror="photoFallback(this)">
+        </figure>
+        <figure class="gallery-item">
+          <img src="imagini/echipa4.png" alt="Echipa MKTech în activitate — fotografia 4" loading="lazy" onerror="photoFallback(this)">
+        </figure>
+        <figure class="gallery-item">
+          <img src="imagini/echipa5.png" alt="Echipa MKTech în activitate — fotografia 5" loading="lazy" onerror="photoFallback(this)">
+        </figure>
       </div>
     </section>
-    <!-- ===== 5. ORGANIGRAMĂ =====
-         ROBERT: completează numele reale ale colegilor și rolurile lor în script.js,
-         în obiectul ORGANIGRAMA (secțiunea „1B. DATE DE COMPLETAT DE ROBERT”, sus în fișier).
-         Cutiile și liniile de legătură se desenează automat din HTML + CSS. -->
+
+    <!-- ===== 6. ORGANIGRAMĂ =====
+         Structura completă (AGA → CA → MG → cele trei direcții, cu birourile lor)
+         se editează în script.js, în obiectul ORGANIGRAMA. Cutiile și liniile
+         de legătură se desenează automat. -->
     <section class="section" aria-labelledby="org-title">
       <div class="section-head">
         <div>
@@ -150,7 +167,17 @@
         </div>
       </div>
 
-      <div id="org-chart"></div>
+      <!-- Organigrama este o imagine: imagini/organigrama.png.
+           Ca să o actualizezi, înlocuiești fișierul cu același nume — restul rămâne la fel.
+           Pe telefon se poate trage lateral, iar la click se deschide mărită. -->
+      <figure class="org-image">
+        <div class="org-image__frame">
+          <a href="imagini/organigrama.png" target="_blank" rel="noopener">
+            <img src="imagini/organigrama.png" alt="Organigrama firmei MK Tech S.R.L." loading="lazy" onerror="photoFallback(this)">
+          </a>
+        </div>
+        <figcaption class="org-image__hint">Trage lateral pentru a vedea toată organigrama. Apasă pe imagine ca să o deschizi mărită.</figcaption>
+      </figure>
     </section>
   </main>
 
