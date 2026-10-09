@@ -63,7 +63,9 @@ const CONFIG = {
   ],
   bannerInterval: 5500, // milisecunde între slide-uri
 
-  /* Câte poze are galeria (galerie.html): imagini/poza1.png … poza20.png */
+  /* Galeria (galerie.html): întâi pozele echipei (imagini/echipa1.png … echipa5.png),
+     apoi restul pozelor (imagini/poza1.png … poza20.png). */
+  teamPhotoCount: 5,
   galleryCount: 20,
 };
 
@@ -578,6 +580,27 @@ const UI_DICT = {
     'Ya has enviado un pedido. Espera 30 segundos antes del siguiente.',
     'Du hast bereits eine Bestellung gesendet. Warte 30 Sekunden bis zur nächsten.',
   ],
+  'Organigramă': ['Organizational chart', 'Organigrama', 'Organigramm'],
+  'Echipa și structura organizatorică a firmei MKTech.': [
+    'The team and the organizational structure of MKTech.',
+    'El equipo y la estructura organizativa de MKTech.',
+    'Das Team und die Organisationsstruktur von MKTech.',
+  ],
+  'Vezi organigrama': ['See the organizational chart', 'Ver el organigrama', 'Organigramm ansehen'],
+  'Vezi galeria foto': ['See the photo gallery', 'Ver la galería de fotos', 'Fotogalerie ansehen'],
+  'Echipa și structura organizatorică a firmei.': [
+    'The team and the organizational structure of the company.',
+    'El equipo y la estructura organizativa de la empresa.',
+    'Das Team und die Organisationsstruktur der Firma.',
+  ],
+  'Poze de la târguri, evenimente și din activitate.': [
+    'Photos from trade fairs, events and our activity.',
+    'Fotos de ferias, eventos y de nuestra actividad.',
+    'Fotos von Messen, Veranstaltungen und unserer Arbeit.',
+  ],
+  'Povestea și valorile firmei': ['The company story and values', 'La historia y los valores de la empresa', 'Geschichte und Werte der Firma'],
+  'Echipa și structura firmei': ['The team and company structure', 'El equipo y la estructura de la empresa', 'Team und Firmenstruktur'],
+  'Poze de la evenimente': ['Photos from events', 'Fotos de eventos', 'Fotos von Veranstaltungen'],
   'Date de livrare': ['Delivery details', 'Datos de entrega', 'Lieferdaten'],
   'Plasează comanda': ['Place the order', 'Realizar el pedido', 'Bestellung aufgeben'],
   'Înapoi la produse': ['Back to products', 'Volver a los productos', 'Zurück zu den Produkten'],
@@ -1940,10 +1963,10 @@ function headerMarkup() {
 
       <ul class="nav-menu" id="nav-menu">
         <li class="nav-item nav-item--dropdown">
-          <button class="nav-link nav-dropdown-toggle${isActive('produse')}${isActive('produs')}" type="button" aria-expanded="false" aria-controls="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle${isActive('produse')}${isActive('produs')}" type="button" aria-expanded="false" aria-controls="nav-dropdown-produse">
             Produse ${icon('chevronDown', 'nav-link__chevron')}
           </button>
-          <div class="nav-dropdown" id="nav-dropdown">
+          <div class="nav-dropdown" id="nav-dropdown-produse">
             <ul class="nav-dropdown__list">${categoryLinks}
               <li><a href="reduceri.html">${icon('tag')}<span>Reduceri<small>${PRODUCTS.filter((p) => p.oldPrice).length} produse</small></span></a></li>
             </ul>
@@ -1951,7 +1974,19 @@ function headerMarkup() {
           </div>
         </li>
         <li class="nav-item"><a class="nav-link${isActive('acasa')}" href="index.html">Acasă</a></li>
-        <li class="nav-item"><a class="nav-link${isActive('despre')}" href="despre.html">Despre noi</a></li>
+        <li class="nav-item nav-item--dropdown">
+          <a class="nav-link nav-dropdown-toggle${isActive('despre')}${isActive('organigrama')}${isActive('galerie')}" href="despre.html"
+            aria-expanded="false" aria-controls="nav-dropdown-despre">
+            Despre noi ${icon('chevronDown', 'nav-link__chevron')}
+          </a>
+          <div class="nav-dropdown nav-dropdown--simple" id="nav-dropdown-despre">
+            <ul class="nav-dropdown__list">
+              <li><a href="despre.html">${icon('info')}<span>Despre noi<small>Povestea și valorile firmei</small></span></a></li>
+              <li><a href="organigrama.html">${icon('users')}<span>Organigramă<small>Echipa și structura firmei</small></span></a></li>
+              <li><a href="galerie.html">${icon('sparkle')}<span>Galerie foto<small>Poze de la evenimente</small></span></a></li>
+            </ul>
+          </div>
+        </li>
         <li class="nav-item"><a class="nav-link${isActive('noutati')}" href="noutati.html">Forum de noutăți</a></li>
         <li class="nav-item"><a class="nav-link${isActive('contact')}" href="contact.html">Contact</a></li>
       </ul>
@@ -2004,6 +2039,7 @@ function footerMarkup() {
           <li><a href="contact.html">Contact</a></li>
           <li><a href="noutati.html">Forum de noutăți</a></li>
           <li><a href="lista-preturi.html">Listă de prețuri</a></li>
+          <li><a href="organigrama.html">Organigramă</a></li>
           <li><a href="galerie.html">Galerie foto</a></li>
           <li><a href="ghid-site.html">Ghid site</a></li>
         </ul>
@@ -2103,8 +2139,7 @@ function initNavigation() {
   const nav = $('.main-nav');
   if (!nav) return;
   const toggle = $('.nav-toggle', nav);
-  const dropdownItem = $('.nav-item--dropdown', nav);
-  const dropdownToggle = $('.nav-dropdown-toggle', nav);
+  const dropdownItems = $$('.nav-item--dropdown', nav);
   const desktop = window.matchMedia('(min-width: 992px)');
 
   const menu = $('.nav-menu', nav);
@@ -2125,37 +2160,55 @@ function initNavigation() {
     fitMenu();
   };
   window.addEventListener('resize', fitMenu);
-  const setDropdown = (open) => {
-    dropdownItem.classList.toggle('is-open', open);
-    dropdownToggle.setAttribute('aria-expanded', String(open));
+  const setDropdown = (item, open) => {
+    item.classList.toggle('is-open', open);
+    $('.nav-dropdown-toggle', item).setAttribute('aria-expanded', String(open));
   };
 
+  const inchideDropdownuri = (except) => dropdownItems.forEach((item) => item !== except && setDropdown(item, false));
+
   toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
-  dropdownToggle.addEventListener('click', () => {
-    setDropdown(!dropdownItem.classList.contains('is-open'));
-    fitMenu();
+
+  dropdownItems.forEach((item) => {
+    const buton = $('.nav-dropdown-toggle', item);
+    buton.addEventListener('click', (e) => {
+      /* pe mobil, click-ul deschide/închide lista; pe desktop, linkul duce la pagină */
+      if (!desktop.matches && buton.tagName === 'A') e.preventDefault();
+      const deschis = item.classList.contains('is-open');
+      inchideDropdownuri(item);
+      setDropdown(item, !deschis);
+      fitMenu();
+    });
   });
 
-  // Pe mobil, meniul „Produse” e deschis implicit ca acordeon
-  if (!desktop.matches) setDropdown(true);
+  // Pe mobil, listele din meniu sunt deschise implicit, ca acordeon
+  if (!desktop.matches) dropdownItems.forEach((item) => setDropdown(item, true));
 
   // Închide la click pe un link (util pentru ancorele de pe aceeași pagină)
   $$('.nav-menu a', nav).forEach((a) =>
     a.addEventListener('click', () => {
+      if (a.classList.contains('nav-dropdown-toggle') && !desktop.matches) return;
       setMenu(false);
-      if (desktop.matches) setDropdown(false);
+      if (desktop.matches) inchideDropdownuri();
     })
   );
 
   // Închide la click în afară / Escape
   document.addEventListener('click', (e) => {
-    if (desktop.matches && !dropdownItem.contains(e.target)) setDropdown(false);
+    if (!desktop.matches) return;
+    dropdownItems.forEach((item) => {
+      if (!item.contains(e.target)) setDropdown(item, false);
+    });
   });
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    if (dropdownItem.classList.contains('is-open') && desktop.matches) {
-      setDropdown(false);
-      dropdownToggle.focus();
+    if (desktop.matches) {
+      dropdownItems.forEach((item) => {
+        if (item.classList.contains('is-open')) {
+          setDropdown(item, false);
+          $('.nav-dropdown-toggle', item).focus();
+        }
+      });
     }
     if (nav.classList.contains('is-open')) {
       setMenu(false);
@@ -2164,13 +2217,15 @@ function initNavigation() {
   });
 
   // Pe desktop, dropdown-ul se închide când focusul iese din el
-  dropdownItem.addEventListener('focusout', (e) => {
-    if (desktop.matches && !dropdownItem.contains(e.relatedTarget)) setDropdown(false);
-  });
+  dropdownItems.forEach((item) =>
+    item.addEventListener('focusout', (e) => {
+      if (desktop.matches && !item.contains(e.relatedTarget)) setDropdown(item, false);
+    })
+  );
 
   desktop.addEventListener('change', () => {
     setMenu(false);
-    setDropdown(!desktop.matches);
+    dropdownItems.forEach((item) => setDropdown(item, !desktop.matches));
   });
 }
 
@@ -3983,16 +4038,21 @@ function initZoomImages() {
 function initGalleryPage() {
   const root = $('#gallery-root');
   if (!root) return;
-  const total = CONFIG.galleryCount;
+
+  /* întâi pozele echipei (echipa1…5), apoi restul galeriei (poza1…poza20) */
+  const fisiere = [
+    ...Array.from({ length: CONFIG.teamPhotoCount }, (_, i) => `echipa${i + 1}.png`),
+    ...Array.from({ length: CONFIG.galleryCount }, (_, i) => `poza${i + 1}.png`),
+  ];
 
   root.innerHTML = `
     <div class="photo-grid">
-      ${Array.from({ length: total }, (_, i) => i + 1)
+      ${fisiere
         .map(
-          (n) => `
-        <button class="photo-item" type="button" data-zoom="${imgPath(`poza${n}.png`)}" data-zoom-alt="Echipa MKTech — fotografia ${n}">
+          (fisier, i) => `
+        <button class="photo-item" type="button" data-zoom="${imgPath(fisier)}" data-zoom-alt="Echipa MKTech — fotografia ${i + 1}">
           <span class="photo-item__soon">Imagine în curând</span>
-          <img src="${imgPath(`poza${n}.png`)}" alt="Echipa MKTech — fotografia ${n}" loading="lazy" onerror="zoomImageFallback(this)">
+          <img src="${imgPath(fisier)}" alt="Echipa MKTech — fotografia ${i + 1}" loading="lazy" onerror="zoomImageFallback(this)">
         </button>`
         )
         .join('')}

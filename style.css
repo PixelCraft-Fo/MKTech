@@ -6735,3 +6735,93 @@ textarea.input {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- 30. Linkuri din „Despre noi” spre organigramă și galerie ---------- */
+.about-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  color: var(--ink-800);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s, border-color 0.2s;
+}
+
+.about-link:hover {
+  transform: translateY(-3px);
+  border-color: var(--navy-100);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-link__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: var(--navy-50);
+  color: var(--navy-700);
+}
+
+.about-link__icon--accent {
+  background: var(--wine-50);
+  color: var(--wine-700);
+}
+
+.about-link__icon .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.about-link__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.about-link__title {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--ink-900);
+}
+
+.about-link__sub {
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--ink-500);
+}
+
+.about-link__arrow {
+  margin-left: auto;
+  color: var(--navy-600);
+}
+
+.about-link__arrow .icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s var(--ease);
+}
+
+.about-link:hover .about-link__arrow .icon {
+  transform: translateX(3px);
+}
+
+@media (max-width: 767px) {
+  .about-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-link {
+    padding: 18px;
+    border-radius: var(--radius-lg);
+  }
+}
