@@ -6656,3 +6656,82 @@ textarea.input {
     font-size: 13.5px;
   }
 }
+
+/* ---------- 29. Date de livrare în coș ---------- */
+.cart-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.checkout-card {
+  padding: 24px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+}
+
+.checkout-card__title {
+  margin-bottom: 18px;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.checkout-grid__wide {
+  grid-column: 1 / -1;
+}
+
+.checkout-check {
+  margin-top: 16px;
+}
+
+.checkout-check__label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.checkout-check__label input {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  accent-color: var(--navy-700);
+}
+
+.checkout-status {
+  margin-top: 10px;
+  font-size: 13.5px;
+  text-align: center;
+  color: var(--ink-500);
+}
+
+.checkout-status.is-error {
+  color: var(--wine-600);
+  font-weight: 600;
+}
+
+.checkout-status:empty {
+  display: none;
+}
+
+@media (max-width: 599px) {
+  .checkout-card {
+    padding: 18px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .checkout-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

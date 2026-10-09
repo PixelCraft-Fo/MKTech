@@ -14,12 +14,20 @@
   <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
 
   <!-- Conținutul coșului e generat din script.js (secțiunea 8.4).
-       Coșul se salvează în localStorage; „Finalizează comanda” este SIMULAT (fără plată reală). -->
+       Produsele se țin în localStorage, iar comanda se trimite real:
+       se salvează în Supabase și pleacă emailurile (vezi comanda-core.js). -->
   <main id="main" class="container">
     <div id="cart-root"></div>
   </main>
 
   <div id="site-footer"></div>
+
+  <!-- Aceleași biblioteci ca pe contact.html: comanda din coș se salvează
+       în Supabase și trimite emailurile prin EmailJS. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="config.js"></script>
   <script src="script.js"></script>
+  <script src="comanda-core.js"></script>
 </body>
 </html>

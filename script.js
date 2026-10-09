@@ -408,16 +408,6 @@ const UI_DICT = {
     'Plazo de entrega estimado: 2–5 días laborables.',
     'Voraussichtliche Lieferzeit: 2–5 Werktage.',
   ],
-  'Plată ramburs la livrare sau card online (simulat în această versiune a site-ului).': [
-    'Cash on delivery or online card payment (simulated in this version of the site).',
-    'Pago contra reembolso o con tarjeta en línea (simulado en esta versión del sitio).',
-    'Zahlung per Nachnahme oder Karte online (in dieser Version der Website simuliert).',
-  ],
-  'Vei primi un email de confirmare la finalizarea reală a comenzii (funcție simulată — integrarea reală de email urmează într-o etapă viitoare).': [
-    'You will receive a confirmation email when the order is placed for real (simulated feature — real email integration comes in a later stage).',
-    'Recibirás un correo de confirmación cuando el pedido se realice de verdad (función simulada: la integración real de correo llegará en una etapa posterior).',
-    'Du erhältst eine Bestätigungs-E-Mail, sobald die Bestellung echt abgeschlossen wird (simulierte Funktion — die echte E-Mail-Anbindung folgt später).',
-  ],
   'Ghid site': ['Site guide', 'Guía del sitio', 'Website-Leitfaden'],
   'Acest ghid te ajută să găsești rapid ce cauți pe site-ul MKTech.': [
     'This guide helps you quickly find what you are looking for on the MKTech website.',
@@ -587,6 +577,35 @@ const UI_DICT = {
     'You have already sent an order. Please wait 30 seconds before the next one.',
     'Ya has enviado un pedido. Espera 30 segundos antes del siguiente.',
     'Du hast bereits eine Bestellung gesendet. Warte 30 Sekunden bis zur nächsten.',
+  ],
+  'Date de livrare': ['Delivery details', 'Datos de entrega', 'Lieferdaten'],
+  'Plasează comanda': ['Place the order', 'Realizar el pedido', 'Bestellung aufgeben'],
+  'Înapoi la produse': ['Back to products', 'Volver a los productos', 'Zurück zu den Produkten'],
+  'Termen de livrare: 2–5 zile lucrătoare.': [
+    'Delivery time: 2–5 working days.',
+    'Plazo de entrega: 2–5 días laborables.',
+    'Lieferzeit: 2–5 Werktage.',
+  ],
+  'Plata: ramburs la livrare sau ordin de plată.': [
+    'Payment: cash on delivery or bank transfer.',
+    'Pago: contra reembolso o transferencia bancaria.',
+    'Zahlung: per Nachnahme oder Überweisung.',
+  ],
+  'Termen de livrare: 2–5 zile lucrătoare. Plata: ramburs la livrare sau ordin de plată.': [
+    'Delivery time: 2–5 working days. Payment: cash on delivery or bank transfer.',
+    'Plazo de entrega: 2–5 días laborables. Pago: contra reembolso o transferencia bancaria.',
+    'Lieferzeit: 2–5 Werktage. Zahlung: per Nachnahme oder Überweisung.',
+  ],
+  'Verifică datele de livrare.': ['Check the delivery details.', 'Revisa los datos de entrega.', 'Prüfe die Lieferdaten.'],
+  'Comenzile nu pot fi trimise momentan. Încearcă din nou mai târziu.': [
+    'Orders cannot be sent at the moment. Please try again later.',
+    'Los pedidos no se pueden enviar por el momento. Inténtalo de nuevo más tarde.',
+    'Bestellungen können derzeit nicht gesendet werden. Versuche es später erneut.',
+  ],
+  'Emailul de confirmare nu a putut fi trimis.': [
+    'The confirmation email could not be sent.',
+    'No se ha podido enviar el correo de confirmación.',
+    'Die Bestätigungs-E-Mail konnte nicht gesendet werden.',
   ],
   'Comanda a ajuns la noi.': ['Your order has reached us.', 'Tu pedido nos ha llegado.', 'Deine Bestellung ist bei uns angekommen.'],
   'Emailul de confirmare nu este încă activ, dar comanda a fost salvată.': [
@@ -946,6 +965,12 @@ const UI_PATTERNS = [
   { re: /^Alte produse din (.+)$/, en: 'More products in $1', es: 'Más productos de $1', de: 'Weitere Produkte in $1' },
   { re: /^Economisești (.+) \(-(\d+)%\)$/, en: 'You save $1 (-$2%)', es: 'Ahorras $1 (-$2%)', de: 'Du sparst $1 (-$2%)' },
   { re: /^Salut, (.+)!$/, en: 'Hello, $1!', es: '¡Hola, $1!', de: 'Hallo, $1!' },
+  {
+    re: /^Comanda (.+) a fost înregistrată\.$/,
+    en: 'Order $1 has been registered.',
+    es: 'El pedido $1 ha sido registrado.',
+    de: 'Bestellung $1 wurde erfasst.',
+  },
   { re: /^Mulțumim, (.+)!$/, en: 'Thank you, $1!', es: '¡Gracias, $1!', de: 'Danke, $1!' },
   {
     re: /^Mulțumim, (.+)! Mai jos găsești detaliile comenzii\.$/,
@@ -990,6 +1015,10 @@ function translateString(text) {
   if (CURRENT_LANG === 'ro' || !text) return null;
   const key = text.replace(/\s+/g, ' ').trim();
   if (!key || key.length > 600) return null;
+  if (key.endsWith(' *')) {
+    const fara = translateString(key.slice(0, -2));
+    return fara === null ? null : `${fara} *`;
+  }
   const entry = UI_DICT_LOOKUP[key];
   if (entry) return entry[LANG_INDEX[CURRENT_LANG]] || null;
   for (const rule of UI_PATTERNS) {
@@ -3008,6 +3037,15 @@ function initProductPage() {
 
 /* ---------- 8.4 Coș (cos.html) ---------- */
 function initCartPage() {
+  /* așteptăm să fie încărcat și comanda-core.js (se include după script.js) */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startCartPage, { once: true });
+  } else {
+    startCartPage();
+  }
+}
+
+function startCartPage() {
   const root = $('#cart-root');
 
   const lineMarkup = (item) => {
@@ -3040,15 +3078,23 @@ function initCartPage() {
     </li>`;
   };
 
+  const transportPentru = (subtotal) =>
+    window.MKComanda ? window.MKComanda.transportPentru(subtotal) : subtotal === 0 || subtotal > 300 ? 0 : 15;
+
   const updateSummary = () => {
     const { total, savings, count } = Cart.totals();
+    const transport = transportPentru(total);
     $('[data-summary-count]', root).textContent = `${count} buc.`;
-    $('[data-summary-subtotal]', root).textContent = formatPrice(total + savings);
+    $('[data-summary-products]', root).textContent = formatPrice(total + savings);
     const savingsRow = $('[data-summary-savings-row]', root);
     savingsRow.hidden = savings === 0;
     $('[data-summary-savings]', root).textContent = `-${formatPrice(savings)}`;
-    $('[data-summary-total]', root).textContent = formatPrice(total);
+    $('[data-summary-subtotal]', root).textContent = formatPrice(total);
+    $('[data-summary-transport]', root).textContent = transport === 0 ? 'Gratuit' : formatPrice(transport);
+    $('[data-summary-total]', root).textContent = formatPrice(total + transport);
     $('[data-cart-heading-count]', root).textContent = `(${count})`;
+    const buton = $('[data-checkout]', root);
+    if (buton) buton.disabled = count === 0;
   };
 
   const render = () => {
@@ -3078,22 +3124,72 @@ function initCartPage() {
       </div>
 
       <div class="cart-layout">
-        <ul class="cart-list" aria-label="Produse în coș">${items.map(lineMarkup).join('')}</ul>
+        <div class="cart-main">
+          <ul class="cart-list" aria-label="Produse în coș">${items.map(lineMarkup).join('')}</ul>
+
+          <!-- Datele de livrare: aceleași câmpuri și aceleași validări
+               ca la formularul de comandă de pe contact.html -->
+          <section class="checkout-card" aria-labelledby="checkout-title">
+            <h2 class="checkout-card__title" id="checkout-title">Date de livrare</h2>
+
+            <form class="checkout-form" id="checkout-form" novalidate>
+              <div class="checkout-grid">
+                <div class="field">
+                  <label class="field__label" for="cart-nume">Nume și prenume / Denumire firmă *</label>
+                  <input class="input" id="cart-nume" type="text" autocomplete="name">
+                  <p class="field__error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="cart-email">Email *</label>
+                  <input class="input" id="cart-email" type="email" autocomplete="email">
+                  <p class="field__error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="cart-telefon">Telefon *</label>
+                  <input class="input" id="cart-telefon" type="tel" autocomplete="tel">
+                  <p class="field__error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="cart-adresa">Adresă de livrare *</label>
+                  <input class="input" id="cart-adresa" type="text" autocomplete="street-address">
+                  <p class="field__error" aria-live="polite"></p>
+                </div>
+                <div class="field checkout-grid__wide">
+                  <label class="field__label" for="cart-obs">Observații (opțional)</label>
+                  <textarea class="input" id="cart-obs" rows="3" maxlength="500"></textarea>
+                </div>
+              </div>
+
+              <div class="field checkout-check">
+                <label class="checkout-check__label">
+                  <input type="checkbox" id="cart-gdpr">
+                  <span>Sunt de acord cu prelucrarea datelor pentru procesarea comenzii.</span>
+                </label>
+                <p class="field__error" aria-live="polite"></p>
+              </div>
+
+              <!-- câmp anti-spam: oamenii nu îl văd, roboții îl completează -->
+              <input class="honeypot" type="text" id="cart-website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            </form>
+          </section>
+        </div>
 
         <aside class="summary-card" aria-labelledby="summary-title">
           <h2 class="summary-card__title" id="summary-title">Sumar comandă</h2>
           <dl class="summary-card__rows">
-            <div><dt><span>Produse</span> (<span data-summary-count></span>)</dt><dd data-summary-subtotal></dd></div>
+            <div><dt><span>Produse</span> (<span data-summary-count></span>)</dt><dd data-summary-products></dd></div>
             <div class="summary-card__savings" data-summary-savings-row><dt>Reduceri</dt><dd data-summary-savings></dd></div>
+            <div><dt>Subtotal</dt><dd data-summary-subtotal></dd></div>
+            <div><dt>Transport</dt><dd data-summary-transport></dd></div>
             <div class="summary-card__total"><dt>Total</dt><dd data-summary-total></dd></div>
           </dl>
           <ul class="checkout-info">
             <li>${icon('truck')}<span>Cost transport: 15 lei (gratuit pentru comenzi peste 300 lei).</span></li>
-            <li>${icon('clock')}<span>Termen de livrare estimat: 2–5 zile lucrătoare.</span></li>
-            <li>${icon('lock')}<span>Plată ramburs la livrare sau card online (simulat în această versiune a site-ului).</span></li>
+            <li>${icon('clock')}<span>Termen de livrare: 2–5 zile lucrătoare.</span></li>
+            <li>${icon('lock')}<span>Plata: ramburs la livrare sau ordin de plată.</span></li>
           </ul>
-          <button class="btn btn--primary btn--lg btn--block" type="button" data-checkout>${icon('check')} Finalizează comanda</button>
-          <p class="demo-note">${icon('info')}<span><strong>Comandă simulată.</strong> MKTech este o firmă de exercițiu: nu se procesează nicio plată reală și nu se livrează produse.</span></p>
+          <button class="btn btn--primary btn--lg btn--block" type="button" data-checkout>${icon('check')}<span class="btn__label">Plasează comanda</span></button>
+          <p class="checkout-status" data-checkout-status role="status"></p>
           <a class="summary-card__continue" href="produse.html">${icon('chevronLeft')} Continuă cumpărăturile</a>
         </aside>
       </div>`;
@@ -3133,27 +3229,121 @@ function initCartPage() {
     }
 
     if (e.target.closest('[data-checkout]')) {
-      const { total, count } = Cart.totals();
-      const user = Auth.current();
-      const orderNo = `MK-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 90000) + 10000)}`;
-      Cart.clear(); // comandă simulată: golim coșul
-      root.innerHTML = `
-        <div class="order-success" role="status">
-          <span class="order-success__icon">${icon('check')}</span>
-          <h1 class="order-success__title">Comanda a fost plasată cu succes!</h1>
-          <p class="order-success__text">${user ? `Mulțumim, ${escapeHTML(user.name.split(' ')[0])}! ` : 'Mulțumim! '}Mai jos găsești detaliile comenzii.</p>
-          <dl class="order-success__details">
-            <div><dt>Număr comandă</dt><dd>${orderNo}</dd></div>
-            <div><dt>Produse</dt><dd>${count}</dd></div>
-            <div><dt>Total</dt><dd>${formatPrice(total)}</dd></div>
-          </dl>
-          <p class="order-success__email">${icon('mail')}<span>Vei primi un email de confirmare la finalizarea reală a comenzii (funcție simulată — integrarea reală de email urmează într-o etapă viitoare).</span></p>
-          <p class="demo-note demo-note--center">${icon('info')}<span>Aceasta este o <strong>comandă simulată</strong> (proiect de firmă de exercițiu). Nu s-a efectuat nicio plată și nu se livrează produse.</span></p>
-          <a class="btn btn--primary btn--lg" href="index.html">Înapoi la magazin ${icon('arrowRight')}</a>
-        </div>`;
-      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+      trimiteComanda();
     }
   });
+
+  /* ---------- trimiterea comenzii (Supabase + emailuri, prin comanda-core.js) ---------- */
+  const eroareCamp = (id, mesaj) => {
+    const camp = $(`#${id}`, root).closest('.field');
+    camp.classList.toggle('has-error', !!mesaj);
+    $('.field__error', camp).textContent = mesaj || '';
+    return !mesaj;
+  };
+
+  const spuneStatus = (mesaj, eroare = true) => {
+    const el = $('[data-checkout-status]', root);
+    if (!el) return;
+    el.textContent = mesaj;
+    el.classList.toggle('is-error', eroare);
+  };
+
+  async function trimiteComanda() {
+    const core = window.MKComanda;
+    const buton = $('[data-checkout]', root);
+    if (!core) return;
+    if ($('#cart-website', root).value) return; // robot
+    if (!Cart.count()) return;
+
+    if (!core.configurat()) {
+      spuneStatus('Comenzile nu pot fi trimise momentan. Încearcă din nou mai târziu.');
+      return;
+    }
+
+    const valori = {
+      nume: $('#cart-nume', root).value,
+      email: $('#cart-email', root).value,
+      telefon: $('#cart-telefon', root).value,
+      adresa: $('#cart-adresa', root).value,
+      acord: $('#cart-gdpr', root).checked,
+    };
+    const erori = core.valideazaClient(valori);
+    let ok = true;
+    ok = eroareCamp('cart-nume', erori.nume) && ok;
+    ok = eroareCamp('cart-email', erori.email) && ok;
+    ok = eroareCamp('cart-telefon', erori.telefon) && ok;
+    ok = eroareCamp('cart-adresa', erori.adresa) && ok;
+    ok = eroareCamp('cart-gdpr', erori.acord) && ok;
+    if (!ok) {
+      spuneStatus('Verifică datele de livrare.');
+      return;
+    }
+
+    const produse = Cart.items().map((item) => {
+      const p = productById(item.id);
+      return {
+        id: p.id,
+        cod: p.cod,
+        denumire: productName(p),
+        um: 'buc.',
+        cantitate: item.qty,
+        pret: p.price,
+        valoare: p.price * item.qty,
+      };
+    });
+
+    spuneStatus('', false);
+    buton.disabled = true;
+    buton.classList.add('is-loading');
+
+    const rezultat = await core.plaseazaComanda({
+      produse,
+      client: { ...valori, observatii: $('#cart-obs', root).value.trim() },
+      sursa: '(comandă din coș)',
+    });
+
+    buton.disabled = false;
+    buton.classList.remove('is-loading');
+
+    if (rezultat.status === 'prea-devreme') {
+      spuneStatus('Ai trimis deja o comandă. Mai așteaptă 30 de secunde înainte de următoarea.');
+      return;
+    }
+    if (rezultat.status !== 'ok') {
+      spuneStatus('Comanda nu a putut fi trimisă. Verifică conexiunea la internet și încearcă din nou.');
+      return;
+    }
+
+    const { total, count } = Cart.totals();
+    const transport = transportPentru(total);
+    Cart.clear(); // comanda a fost salvată, golim coșul
+    arataComandaTrimisa(rezultat, count, total + transport);
+  }
+
+  function arataComandaTrimisa(rezultat, bucati, total) {
+    const user = Auth.current();
+    root.innerHTML = `
+      <div class="order-success" role="status">
+        <span class="order-success__icon">${icon('check')}</span>
+        <h1 class="order-success__title">Comanda ${escapeHTML(rezultat.nr_comanda)} a fost înregistrată.</h1>
+        <p class="order-success__text">${user ? `Mulțumim, ${escapeHTML(user.name.split(' ')[0])}! ` : 'Mulțumim! '}${
+          rezultat.emailTrimis ? 'Ți-am trimis confirmarea pe email.' : 'Comanda a ajuns la noi.'
+        }</p>
+        <dl class="order-success__details">
+          <div><dt>Număr comandă</dt><dd>${escapeHTML(rezultat.nr_comanda)}</dd></div>
+          <div><dt>Produse</dt><dd>${bucati}</dd></div>
+          <div><dt>Total</dt><dd>${formatPrice(total)}</dd></div>
+        </dl>
+        ${
+          rezultat.emailTrimis
+            ? ''
+            : `<p class="order-success__email">${icon('mail')}<span>Emailul de confirmare nu a putut fi trimis.</span></p>`
+        }
+        <p class="order-success__text">Termen de livrare: 2–5 zile lucrătoare. Plata: ramburs la livrare sau ordin de plată.</p>
+        <a class="btn btn--primary btn--lg" href="produse.html">Înapoi la produse ${icon('arrowRight')}</a>
+      </div>`;
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  }
 
   // re-randare dacă coșul se schimbă din alt loc (alt tab sau butoane de pe recomandări)
   document.addEventListener('cart:external', render);

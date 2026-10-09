@@ -15,34 +15,14 @@
   const RANDURI_INITIALE = 5;
   const RANDURI_MAX = 15;
   const CANTITATE_MAX = 99;
-  const TRANSPORT = 15; // lei
-  const TRANSPORT_GRATUIT_PESTE = 300; // lei
-  const PAUZA_INTRE_COMENZI = 30000; // 30 de secunde
-  const CHEIE_ULTIMA_COMANDA = 'mktech_ultima_comanda';
+
+  /* logica de comandă (prețuri, transport, validare, Supabase, EmailJS)
+     este în comanda-core.js și e folosită și de coșul din cos.html */
+  const core = window.MKComanda;
+  const { lei, configurat, emailConfigurat, transportPentru } = core;
 
   /* ---------- utilitare ---------- */
   const esc = (t) => (typeof escapeHTML === 'function' ? escapeHTML(t) : String(t));
-  const lei = (valoare) =>
-    `${Number(valoare).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} lei`;
-
-  /* Supabase și EmailJS se verifică separat: comanda se poate salva în baza de date
-     chiar dacă emailurile nu sunt încă configurate. */
-  const areCheile = (chei) =>
-    typeof MKTECH_CONFIG === 'object' &&
-    chei.every((cheie) => MKTECH_CONFIG[cheie] && !String(MKTECH_CONFIG[cheie]).startsWith('PUNE_AICI'));
-
-  const configurat = () => areCheile(['SUPABASE_URL', 'SUPABASE_ANON_KEY']);
-  const emailConfigurat = () =>
-    areCheile(['EMAILJS_PUBLIC_KEY', 'EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_CLIENT', 'EMAILJS_TEMPLATE_FIRMA']);
-
-  const numarComanda = () => {
-    const d = new Date();
-    const zi = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
-    const litere = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let cod = '';
-    for (let i = 0; i < 4; i++) cod += litere[Math.floor(Math.random() * litere.length)];
-    return `MK-${zi}-${cod}`;
-  };
 
   /* lista de produse pentru <select>, grupată pe categorii */
   const optiuniProduse = () =>
@@ -204,7 +184,7 @@
       .filter(Boolean);
 
     const subtotal = produse.reduce((s, r) => s + r.valoare, 0);
-    const transport = subtotal === 0 || subtotal > TRANSPORT_GRATUIT_PESTE ? 0 : TRANSPORT;
+    const transport = transportPentru(subtotal);
     return { produse, subtotal, transport, total: subtotal + transport };
   }
 
@@ -243,9 +223,7 @@
   const obsCount = document.getElementById('order-obs-count');
   obs.addEventListener('input', () => (obsCount.textContent = `${obs.value.length} / 500`));
 
-  /* ---------- validare ---------- */
-  const TELEFON_RO = /^(?:\+?4)?0(?:[237]\d{8}|[89]\d{8})$/;
-
+  /* ---------- validare (regulile sunt în comanda-core.js) ---------- */
   function eroare(id, mesaj) {
     const camp = document.getElementById(id).closest('.field');
     camp.classList.toggle('has-error', !!mesaj);
@@ -255,79 +233,34 @@
 
   function valideaza() {
     const { produse } = comandaCurenta();
-    let ok = true;
+    const erori = core.valideazaClient({
+      nume: document.getElementById('order-nume').value,
+      email: document.getElementById('order-email').value,
+      telefon: document.getElementById('order-telefon').value,
+      adresa: document.getElementById('order-adresa').value,
+      acord: document.getElementById('order-gdpr').checked,
+    });
 
     const eroareProduse = document.getElementById('order-products-error');
     eroareProduse.textContent = produse.length ? '' : 'Alege cel puțin un produs.';
-    if (!produse.length) ok = false;
 
-    const nume = document.getElementById('order-nume').value.trim();
-    ok = eroare('order-nume', nume.length < 2 ? 'Completează numele sau denumirea firmei.' : '') && ok;
-
-    const email = document.getElementById('order-email').value.trim();
-    ok = eroare('order-email', !email ? 'Completează adresa de email.' : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) ? 'Adresa de email nu este validă.' : '') && ok;
-
-    const telefon = document.getElementById('order-telefon').value.replace(/[\s.()-]/g, '');
-    ok = eroare('order-telefon', !telefon ? 'Completează numărul de telefon.' : !TELEFON_RO.test(telefon) ? 'Numărul de telefon nu este valid (ex. 0712 345 678).' : '') && ok;
-
-    const adresa = document.getElementById('order-adresa').value.trim();
-    ok = eroare('order-adresa', adresa.length < 5 ? 'Completează adresa de livrare.' : '') && ok;
-
-    ok = eroare('order-gdpr', document.getElementById('order-gdpr').checked ? '' : 'Bifează acordul pentru prelucrarea datelor.') && ok;
-
+    let ok = produse.length > 0;
+    ok = eroare('order-nume', erori.nume) && ok;
+    ok = eroare('order-email', erori.email) && ok;
+    ok = eroare('order-telefon', erori.telefon) && ok;
+    ok = eroare('order-adresa', erori.adresa) && ok;
+    ok = eroare('order-gdpr', erori.acord) && ok;
     return ok;
   }
 
-  /* ---------- trimitere ---------- */
-  async function salveazaInSupabase(comanda) {
-    const client = window.supabase.createClient(MKTECH_CONFIG.SUPABASE_URL, MKTECH_CONFIG.SUPABASE_ANON_KEY);
-    const { error } = await client.from('comenzi').insert({
-      nr_comanda: comanda.nr_comanda,
-      client_nume: comanda.client_nume,
-      client_email: comanda.client_email,
-      client_telefon: comanda.client_telefon,
-      client_adresa: comanda.client_adresa,
-      observatii: comanda.observatii,
-      produse: comanda.produse,
-      subtotal: comanda.subtotal,
-      transport: comanda.transport,
-      total: comanda.total,
-    });
-    if (error) throw error;
-  }
-
-  async function trimiteEmailuri(comanda) {
-    const produseText = comanda.produse
-      .map((r, i) => `${i + 1}. ${r.denumire} (${r.cod}) — ${r.cantitate} ${r.um} x ${lei(r.pret)} = ${lei(r.valoare)}`)
-      .join('\n');
-
-    const parametri = {
-      nr_comanda: comanda.nr_comanda,
-      data_comanda: new Date().toLocaleString('ro-RO'),
-      client_nume: comanda.client_nume,
-      client_email: comanda.client_email,
-      client_telefon: comanda.client_telefon,
-      client_adresa: comanda.client_adresa,
-      observatii: comanda.observatii || '-',
-      produse_text: produseText,
-      subtotal: lei(comanda.subtotal),
-      transport: comanda.transport === 0 ? 'Gratuit' : lei(comanda.transport),
-      total: lei(comanda.total),
-      email_firma: MKTECH_CONFIG.EMAIL_FIRMA,
-    };
-
-    window.emailjs.init({ publicKey: MKTECH_CONFIG.EMAILJS_PUBLIC_KEY });
-    await window.emailjs.send(MKTECH_CONFIG.EMAILJS_SERVICE_ID, MKTECH_CONFIG.EMAILJS_TEMPLATE_CLIENT, parametri);
-    await window.emailjs.send(MKTECH_CONFIG.EMAILJS_SERVICE_ID, MKTECH_CONFIG.EMAILJS_TEMPLATE_FIRMA, parametri);
-  }
-
-  function arataSucces(nr, avertisment) {
+  /* ---------- trimitere (Supabase + EmailJS sunt în comanda-core.js) ---------- */
+  function arataSucces(nr, emailTrimis, avertisment) {
     root.innerHTML = `
       <div class="order-form order-form--done">
         <span class="order-form__decor" aria-hidden="true"></span>
         <span class="order-done__icon">${typeof icon === 'function' ? icon('check') : '✓'}</span>
         <h2 class="order-form__title">Comanda ${esc(nr)} a fost înregistrată.</h2>
-        <p class="order-done__text">${emailConfigurat() ? 'Ți-am trimis confirmarea pe email.' : 'Comanda a ajuns la noi.'}</p>
+        <p class="order-done__text">${emailTrimis ? 'Ți-am trimis confirmarea pe email.' : 'Comanda a ajuns la noi.'}</p>
         ${avertisment ? `<p class="order-form__notice">${esc(avertisment)}</p>` : ''}
         <button class="btn btn--lg order-submit" type="button" onclick="window.location.reload()">Comandă nouă</button>
       </div>`;
@@ -345,36 +278,35 @@
       return;
     }
 
-    const ultima = Number(localStorage.getItem(CHEIE_ULTIMA_COMANDA) || 0);
-    if (Date.now() - ultima < PAUZA_INTRE_COMENZI) {
-      status.textContent = 'Ai trimis deja o comandă. Mai așteaptă 30 de secunde înainte de următoarea.';
-      status.classList.add('is-error');
-      return;
-    }
-
     if (!valideaza()) {
       status.textContent = 'Verifică datele completate mai sus.';
       status.classList.add('is-error');
       return;
     }
 
-    const date = comandaCurenta();
-    const comanda = {
-      nr_comanda: numarComanda(),
-      client_nume: document.getElementById('order-nume').value.trim(),
-      client_email: document.getElementById('order-email').value.trim(),
-      client_telefon: document.getElementById('order-telefon').value.trim(),
-      client_adresa: document.getElementById('order-adresa').value.trim(),
-      observatii: obs.value.trim(),
-      ...date,
-    };
-
     submitBtn.disabled = true;
     submitBtn.classList.add('is-loading');
 
-    try {
-      await salveazaInSupabase(comanda);
-    } catch (err) {
+    const rezultat = await core.plaseazaComanda({
+      produse: comandaCurenta().produse,
+      client: {
+        nume: document.getElementById('order-nume').value,
+        email: document.getElementById('order-email').value,
+        telefon: document.getElementById('order-telefon').value,
+        adresa: document.getElementById('order-adresa').value,
+        observatii: obs.value.trim(),
+      },
+    });
+
+    if (rezultat.status === 'prea-devreme') {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('is-loading');
+      status.textContent = 'Ai trimis deja o comandă. Mai așteaptă 30 de secunde înainte de următoarea.';
+      status.classList.add('is-error');
+      return;
+    }
+
+    if (rezultat.status !== 'ok') {
       submitBtn.disabled = false;
       submitBtn.classList.remove('is-loading');
       status.textContent = 'Comanda nu a putut fi trimisă. Verifică conexiunea la internet și încearcă din nou.';
@@ -382,19 +314,10 @@
       return;
     }
 
-    localStorage.setItem(CHEIE_ULTIMA_COMANDA, String(Date.now()));
-
-    /* dacă EmailJS nu e configurat încă, comanda rămâne salvată și spunem asta clar */
-    if (!emailConfigurat()) {
-      arataSucces(comanda.nr_comanda, 'Emailul de confirmare nu este încă activ, dar comanda a fost salvată.');
-      return;
-    }
-
-    try {
-      await trimiteEmailuri(comanda);
-      arataSucces(comanda.nr_comanda, '');
-    } catch (err) {
-      arataSucces(comanda.nr_comanda, 'Comanda a fost înregistrată, dar emailul de confirmare nu a putut fi trimis.');
-    }
+    arataSucces(
+      rezultat.nr_comanda,
+      rezultat.emailTrimis,
+      rezultat.emailTrimis ? '' : 'Emailul de confirmare nu a putut fi trimis.'
+    );
   });
 })();
