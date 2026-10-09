@@ -16,7 +16,7 @@ const MKTECH_CONFIG = {
   SUPABASE_URL: 'https://mowhhrenqybszivuonkd.supabase.co',
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vd2hocmVucXlic3ppdnVvbmtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NDYyMjMsImV4cCI6MjEwNzEyMjIyM30.uPHra0bRph8CFpKC6DObfFrwiMUrhDygxMBz5_Vxqgg',
   EMAILJS_PUBLIC_KEY: 'Dttu9Uvx73e2JdACD',
-  EMAILJS_SERVICE_ID: 'service_scgkkzb',
+  EMAILJS_SERVICE_ID: 'service_kgti8zf',
   EMAILJS_TEMPLATE_CLIENT: 'template_ey9dykl',
   EMAILJS_TEMPLATE_FIRMA: 'template_9jahm1h',
   EMAIL_FIRMA: 'mktech2026@yahoo.com',
