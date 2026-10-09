@@ -121,28 +121,40 @@
         </div>
       </div>
 
-      <div class="geo-layout">
-        <div class="info-card">
-          <span class="info-card__icon"><span data-icon="mapPin"></span></span>
-          <h3 class="info-card__title">Adresa completă</h3>
-          <p class="info-card__text">Bulevardul Gării 25, Focșani, județul Vrancea</p>
+      <div class="order-layout">
+        <div class="order-layout__map">
+          <div class="info-card">
+            <span class="info-card__icon"><span data-icon="mapPin"></span></span>
+            <h3 class="info-card__title">Adresa completă</h3>
+            <p class="info-card__text">Bulevardul Gării 25, Focșani, județul Vrancea</p>
+          </div>
+
+          <div class="map-embed">
+            <iframe
+              src="https://www.google.com/maps?q=Bulevardul+G%C4%83rii+25,+Foc%C8%99ani,+Vrancea&output=embed"
+              width="100%"
+              height="350"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Locația MKTech pe hartă"></iframe>
+          </div>
         </div>
 
-        <div class="map-embed">
-          <iframe
-            src="https://www.google.com/maps?q=Bulevardul+G%C4%83rii+25,+Foc%C8%99ani,+Vrancea&output=embed"
-            width="100%"
-            height="350"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Locația MKTech pe hartă"></iframe>
-        </div>
+        <!-- Formularul de comandă — construit din comanda.js.
+             Cheile Supabase / EmailJS se pun în config.js. -->
+        <div class="order-layout__form" id="order-form-root"></div>
       </div>
     </section>
   </main>
 
   <div id="site-footer"></div>
+
+  <!-- Biblioteci externe folosite DOAR de formularul de comandă (prin CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="config.js"></script>
   <script src="script.js"></script>
+  <script src="comanda.js"></script>
 </body>
 </html>

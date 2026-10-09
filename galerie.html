@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galerie foto | MKTech</title>
+  <meta name="description" content="Galerie foto MKTech: momente de la târguri, evenimente și din activitatea echipei.">
+  <meta name="theme-color" content="#0a1c3d">
+  <link rel="icon" type="image/png" href="imagini/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="galerie">
+  <div id="site-header"></div>
+  <noscript><p class="noscript">Pentru a folosi magazinul MKTech, activează JavaScript în browser.</p></noscript>
+
+  <!-- ✏️ POZELE: imagini/poza1.png … imagini/poza20.png
+       Numărul de poze se schimbă din script.js → CONFIG.galleryCount.
+       Pozele lipsă apar ca bloc gri cu „Imagine în curând”. -->
+  <main id="main" class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="despre.html">Despre noi</a></li>
+        <li aria-current="page">Galerie foto</li>
+      </ol>
+    </nav>
+
+    <header class="page-head">
+      <span class="eyebrow">Echipa în activitate</span>
+      <h1 class="page-title">Galerie foto</h1>
+      <p class="page-subtitle">Momente de la târguri, evenimente și din activitatea echipei MKTech.</p>
+    </header>
+
+    <div id="gallery-root"></div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="script.js"></script>
+</body>
+</html>

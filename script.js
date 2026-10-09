@@ -62,6 +62,9 @@ const CONFIG = {
     { file: 'banner3.png', alt: 'Laptopuri și unități PC', href: 'produse.html#laptopuri' },
   ],
   bannerInterval: 5500, // milisecunde între slide-uri
+
+  /* Câte poze are galeria (galerie.html): imagini/poza1.png … poza20.png */
+  galleryCount: 20,
 };
 
 /* =====================================================================
@@ -491,6 +494,111 @@ const UI_DICT = {
   'Echipa în activitate': ['The team at work', 'El equipo en acción', 'Das Team bei der Arbeit'],
   'Galerie foto': ['Photo gallery', 'Galería de fotos', 'Fotogalerie'],
   'Imagine în curând': ['Image coming soon', 'Imagen próximamente', 'Bild folgt in Kürze'],
+  'Momente de la târguri, evenimente și din activitatea echipei MKTech.': [
+    'Moments from trade fairs, events and the activity of the MKTech team.',
+    'Momentos de ferias, eventos y de la actividad del equipo de MKTech.',
+    'Momente von Messen, Veranstaltungen und aus der Arbeit des MKTech-Teams.',
+  ],
+  'Mai multe poze cu echipa': ['More photos of the team', 'Más fotos del equipo', 'Mehr Fotos vom Team'],
+  'Momente de la târguri, evenimente și din activitatea de zi cu zi.': [
+    'Moments from trade fairs, events and everyday work.',
+    'Momentos de ferias, eventos y del día a día.',
+    'Momente von Messen, Veranstaltungen und aus dem Arbeitsalltag.',
+  ],
+  'Vezi galeria foto completă': ['See the full photo gallery', 'Ver la galería de fotos completa', 'Zur vollständigen Fotogalerie'],
+  'Organigrama echipei, cu membrii': ['Team chart with the members', 'Organigrama del equipo con los miembros', 'Teamorganigramm mit den Mitgliedern'],
+  'Organigrama firmei MK Tech S.R.L.': ['Organizational chart of MK Tech S.R.L.', 'Organigrama de MK Tech S.R.L.', 'Organigramm der MK Tech S.R.L.'],
+  'Apasă pe o organigramă ca să o vezi mărită.': [
+    'Tap an organizational chart to see it enlarged.',
+    'Pulsa un organigrama para verlo ampliado.',
+    'Tippe auf ein Organigramm, um es vergrößert zu sehen.',
+  ],
+  'Poze de la târguri, evenimente și din activitatea echipei.': [
+    'Photos from trade fairs, events and the team activity.',
+    'Fotos de ferias, eventos y de la actividad del equipo.',
+    'Fotos von Messen, Veranstaltungen und der Teamarbeit.',
+  ],
+  'Închide': ['Close', 'Cerrar', 'Schließen'],
+  'Imagine mărită': ['Enlarged image', 'Imagen ampliada', 'Vergrößertes Bild'],
+
+  /* ----- Formular de comandă ----- */
+  'Formular de comandă': ['Order form', 'Formulario de pedido', 'Bestellformular'],
+  'Nr crt': ['No.', 'N.º', 'Nr.'],
+  'Denumire produs': ['Product name', 'Nombre del producto', 'Produktname'],
+  'U.M.': ['Unit', 'U.M.', 'Einheit'],
+  'Preț produs': ['Product price', 'Precio del producto', 'Produktpreis'],
+  '— alege produsul —': ['— choose the product —', '— elige el producto —', '— Produkt wählen —'],
+  '+ Adaugă produs': ['+ Add product', '+ Añadir producto', '+ Produkt hinzufügen'],
+  'Șterge rândul': ['Delete the row', 'Eliminar la fila', 'Zeile löschen'],
+  'Transport': ['Shipping', 'Envío', 'Versand'],
+  'Gratuit': ['Free', 'Gratis', 'Kostenlos'],
+  'Transport 15 lei, gratuit pentru comenzi peste 300 lei.': [
+    'Shipping 15 lei, free for orders over 300 lei.',
+    'Envío 15 lei, gratis para pedidos de más de 300 lei.',
+    'Versand 15 Lei, kostenlos ab 300 Lei.',
+  ],
+  'Nume și prenume / Denumire firmă': ['Full name / Company name', 'Nombre y apellidos / Nombre de la empresa', 'Vor- und Nachname / Firmenname'],
+  'Adresă de livrare': ['Delivery address', 'Dirección de entrega', 'Lieferadresse'],
+  'Observații (opțional)': ['Notes (optional)', 'Observaciones (opcional)', 'Anmerkungen (optional)'],
+  'Sunt de acord cu prelucrarea datelor pentru procesarea comenzii.': [
+    'I agree to the processing of my data for the purpose of handling this order.',
+    'Acepto el tratamiento de mis datos para gestionar el pedido.',
+    'Ich stimme der Verarbeitung meiner Daten zur Bearbeitung der Bestellung zu.',
+  ],
+  'Termen de livrare: 2–5 zile lucrătoare. Plata: ramburs la livrare sau ordin de plată.': [
+    'Delivery time: 2–5 working days. Payment: cash on delivery or bank transfer.',
+    'Plazo de entrega: 2–5 días laborables. Pago: contra reembolso o transferencia.',
+    'Lieferzeit: 2–5 Werktage. Zahlung: per Nachnahme oder Überweisung.',
+  ],
+  'Trimite comanda': ['Send the order', 'Enviar el pedido', 'Bestellung senden'],
+  'Comandă nouă': ['New order', 'Pedido nuevo', 'Neue Bestellung'],
+  'Ți-am trimis confirmarea pe email.': [
+    'We have sent you the confirmation by email.',
+    'Te hemos enviado la confirmación por correo.',
+    'Wir haben dir die Bestätigung per E-Mail geschickt.',
+  ],
+  'Alege cel puțin un produs.': ['Choose at least one product.', 'Elige al menos un producto.', 'Wähle mindestens ein Produkt.'],
+  'Completează numele sau denumirea firmei.': ['Enter your name or company name.', 'Introduce tu nombre o el de la empresa.', 'Gib deinen Namen oder Firmennamen ein.'],
+  'Completează adresa de email.': ['Enter your email address.', 'Introduce tu dirección de correo.', 'Gib deine E-Mail-Adresse ein.'],
+  'Completează numărul de telefon.': ['Enter your phone number.', 'Introduce tu número de teléfono.', 'Gib deine Telefonnummer ein.'],
+  'Numărul de telefon nu este valid (ex. 0712 345 678).': [
+    'The phone number is not valid (e.g. 0712 345 678).',
+    'El número de teléfono no es válido (p. ej. 0712 345 678).',
+    'Die Telefonnummer ist ungültig (z. B. 0712 345 678).',
+  ],
+  'Completează adresa de livrare.': ['Enter the delivery address.', 'Introduce la dirección de entrega.', 'Gib die Lieferadresse ein.'],
+  'Bifează acordul pentru prelucrarea datelor.': [
+    'Tick the box to agree to the processing of your data.',
+    'Marca la casilla para aceptar el tratamiento de datos.',
+    'Setze das Häkchen für die Datenverarbeitung.',
+  ],
+  'Verifică datele completate mai sus.': ['Check the details filled in above.', 'Revisa los datos introducidos arriba.', 'Prüfe die oben eingegebenen Daten.'],
+  'Comanda nu a putut fi trimisă. Verifică conexiunea la internet și încearcă din nou.': [
+    'The order could not be sent. Check your internet connection and try again.',
+    'No se ha podido enviar el pedido. Comprueba tu conexión a internet e inténtalo de nuevo.',
+    'Die Bestellung konnte nicht gesendet werden. Prüfe deine Internetverbindung und versuche es erneut.',
+  ],
+  'Comanda a fost înregistrată, dar emailul de confirmare nu a putut fi trimis.': [
+    'The order was registered, but the confirmation email could not be sent.',
+    'El pedido se ha registrado, pero no se ha podido enviar el correo de confirmación.',
+    'Die Bestellung wurde erfasst, aber die Bestätigungs-E-Mail konnte nicht gesendet werden.',
+  ],
+  'Ai trimis deja o comandă. Mai așteaptă 30 de secunde înainte de următoarea.': [
+    'You have already sent an order. Please wait 30 seconds before the next one.',
+    'Ya has enviado un pedido. Espera 30 segundos antes del siguiente.',
+    'Du hast bereits eine Bestellung gesendet. Warte 30 Sekunden bis zur nächsten.',
+  ],
+  'Comanda a ajuns la noi.': ['Your order has reached us.', 'Tu pedido nos ha llegado.', 'Deine Bestellung ist bei uns angekommen.'],
+  'Emailul de confirmare nu este încă activ, dar comanda a fost salvată.': [
+    'The confirmation email is not active yet, but the order has been saved.',
+    'El correo de confirmación aún no está activo, pero el pedido se ha guardado.',
+    'Die Bestätigungs-E-Mail ist noch nicht aktiv, aber die Bestellung wurde gespeichert.',
+  ],
+  'Formularul de comandă nu este încă configurat.': [
+    'The order form is not configured yet.',
+    'El formulario de pedido aún no está configurado.',
+    'Das Bestellformular ist noch nicht konfiguriert.',
+  ],
   'Momente din activitatea firmei de exercițiu MKTech.': [
     'Moments from the activity of the MKTech training company.',
     'Momentos de la actividad de la empresa de prácticas MKTech.',
@@ -649,6 +757,7 @@ Object.assign(UI_DICT, {
   'Printează lista': ['Print the list', 'Imprimir la lista', 'Liste drucken'],
   'Produs': ['Product', 'Producto', 'Produkt'],
   'Cod produs': ['Product code', 'Código de producto', 'Produktnummer'],
+  'Cod produs:': ['Product code:', 'Código de producto:', 'Produktnummer:'],
   'Preț': ['Price', 'Precio', 'Preis'],
 
   /* ----- Footer ----- */
@@ -1017,7 +1126,7 @@ const CATEGORIES = [
 const PRODUCTS = [
   /* ---------- MONITOARE ---------- */
   {
-    id: 'monitor-1', category: 'monitoare', img: 'monitor1', price: 699,
+    id: 'monitor-1', cod: 'MK-MON-01', category: 'monitoare', img: 'monitor1', price: 699,
     name: `LED Philips 275S1AE de 27 inchi`,
     description: `Monitor IPS de 27" cu rezoluție QHD (2560×1440), ideal pentru muncă și divertisment. Oferă imagini clare, tehnologie Adaptive-Sync pentru fluiditate, protecție pentru ochi prin TUV Eye Comfort și suport ergonomic reglabil. Garanție 36 luni.`,
     name_en: `Philips 275S1AE 27-inch LED Monitor`,
@@ -1029,7 +1138,7 @@ const PRODUCTS = [
     specs: [['Diagonală', '27"'], ['Tip panou', 'IPS'], ['Rezoluție', 'QHD (2560×1440)'], ['Sincronizare', 'Adaptive-Sync'], ['Protecția ochilor', 'TUV Eye Comfort'], ['Suport', 'Ergonomic, reglabil'], ['Garanție', '36 luni']],
   },
   {
-    id: 'monitor-2', category: 'monitoare', img: 'monitor2', price: 750, oldPrice: 899,
+    id: 'monitor-2', cod: 'MK-MON-02', category: 'monitoare', img: 'monitor2', price: 750, oldPrice: 899,
     name: `LED Philips 24" 24B2N2200 24B2N2200/00`,
     description: `Monitor PHILIPS de 23,8” Full HD cu rată de reîmprospătare de 120 Hz, ideal pentru birou și utilizare zilnică. Oferă imagini clare, unghiuri largi de vizualizare, consum redus de energie și compatibilitate VESA pentru montare ușoară. Garanție 24 luni.`,
     name_en: `Philips 24" 24B2N2200 LED Monitor`,
@@ -1041,7 +1150,7 @@ const PRODUCTS = [
     specs: [['Diagonală', '23,8"'], ['Rezoluție', 'Full HD'], ['Rată de reîmprospătare', '120 Hz'], ['Unghiuri de vizualizare', 'Largi'], ['Montare', 'Compatibil VESA'], ['Garanție', '24 luni']],
   },
   {
-    id: 'monitor-3', category: 'monitoare', img: 'monitor3', price: 889,
+    id: 'monitor-3', cod: 'MK-MON-03', category: 'monitoare', img: 'monitor3', price: 889,
     name: `Acer/SA243YGOwi/23.8"/IPS/FHD/120Hz/1ms/Alb`,
     description: `Monitor ACER de 23,8” Full HD cu rată de reîmprospătare de 120 Hz și timp de răspuns de 1 ms, oferind imagini fluide și clare. Ideal pentru acasă sau birou, cu unghiuri largi de vizualizare și design modern, compatibil cu montare VESA. Garanție 24 luni.`,
     name_en: `Acer SA243YGOwi 23.8" IPS FHD 120Hz 1ms White Monitor`,
@@ -1053,7 +1162,7 @@ const PRODUCTS = [
     specs: [['Diagonală', '23,8"'], ['Tip panou', 'IPS'], ['Rezoluție', 'Full HD'], ['Rată de reîmprospătare', '120 Hz'], ['Timp de răspuns', '1 ms'], ['Culoare', 'Alb'], ['Montare', 'Compatibil VESA'], ['Garanție', '24 luni']],
   },
   {
-    id: 'monitor-4', category: 'monitoare', img: 'monitor4', price: 1069,
+    id: 'monitor-4', cod: 'MK-MON-04', category: 'monitoare', img: 'monitor4', price: 1069,
     name: `Samsung Odyssey G5 C34G55TWWP Monitor`,
     description: `Monitor curbat Samsung Odyssey G5 de 34” cu rezoluție Ultra WQHD, rată de reîmprospătare de 165 Hz și timp de răspuns de 1 ms. Oferă o experiență de gaming captivantă, imagini fluide prin AMD FreeSync Premium și culori vibrante datorită tehnologiei HDR10.`,
     name_en: `Samsung Odyssey G5 C34G55TWWP Monitor`,
@@ -1065,7 +1174,7 @@ const PRODUCTS = [
     specs: [['Diagonală', '34"'], ['Tip ecran', 'Curbat'], ['Rezoluție', 'Ultra WQHD'], ['Rată de reîmprospătare', '165 Hz'], ['Timp de răspuns', '1 ms'], ['Sincronizare', 'AMD FreeSync Premium'], ['HDR', 'HDR10']],
   },
   {
-    id: 'monitor-5', category: 'monitoare', img: 'monitor5', price: 1299,
+    id: 'monitor-5', cod: 'MK-MON-05', category: 'monitoare', img: 'monitor5', price: 1299,
     name: `Samsung ViewFinity S7 S37D700EAU Monitor`,
     description: `Monitor LED de 37” cu rezoluție 4K Ultra HD (3840×2160), ideal pentru productivitate și multimedia. Panoul VA oferă culori intense și contrast ridicat, iar difuzoarele integrate și conectivitatea HDMI/DisplayPort asigură o experiență completă de utilizare.`,
     name_en: `Samsung ViewFinity S7 S37D700EAU Monitor`,
@@ -1077,7 +1186,7 @@ const PRODUCTS = [
     specs: [['Diagonală', '37"'], ['Tip panou', 'VA'], ['Rezoluție', '4K Ultra HD (3840×2160)'], ['Audio', 'Difuzoare integrate'], ['Conectivitate', 'HDMI, DisplayPort']],
   },
   {
-    id: 'monitor-6', category: 'monitoare', img: 'monitor6', price: 1690,
+    id: 'monitor-6', cod: 'MK-MON-06', category: 'monitoare', img: 'monitor6', price: 1690,
     name: `EIZO FlexScan EV2490-WT Full HD LED Alb`,
     description: `Monitor IPS Full HD cu conectivitate USB-C și alimentare de până la 70W, ideal pentru birou și productivitate. Oferă imagini clare, multi-monitor, tehnologii avansate de protecție a ochilor pentru confort pe termen lung.`,
     name_en: `EIZO FlexScan EV2490-WT Full HD LED White Monitor`,
@@ -1091,7 +1200,7 @@ const PRODUCTS = [
 
   /* ---------- PERIFERICE ---------- */
   {
-    id: 'periferic-1', category: 'periferice', img: 'periferic1', price: 759,
+    id: 'periferic-1', cod: 'MK-PER-01', category: 'periferice', img: 'periferic1', price: 759,
     name: `Tastatură mecanică gaming BlackWidow V4`,
     description: `Tastatură mecanică Razer BlackWidow V4 Pro, echipată cu switch-uri Razer Green pentru răspuns rapid și precis. Dispune de iluminare RGB personalizabilă, design ergonomic și construcție durabilă, fiind ideală pentru gaming și utilizare intensivă.`,
     name_en: `BlackWidow V4 Mechanical Gaming Keyboard`,
@@ -1103,7 +1212,7 @@ const PRODUCTS = [
     specs: [['Tip', 'Tastatură mecanică gaming'], ['Model', 'Razer BlackWidow V4 Pro'], ['Switch-uri', 'Razer Green'], ['Iluminare', 'RGB personalizabilă'], ['Design', 'Ergonomic']],
   },
   {
-    id: 'periferic-2', category: 'periferice', img: 'periferic2', price: 250,
+    id: 'periferic-2', cod: 'MK-PER-02', category: 'periferice', img: 'periferic2', price: 250,
     name: `Razer Basilisk V3 Pro (RZ01-04620100-R3G1) Mouse`,
     description: `Mouse gaming wireless Razer Basilisk V3 Pro, dotat cu senzor optic de până la 30.000 DPI pentru precizie excepțională. Dispune de 11 butoane programabile, iluminare Razer Chroma RGB și conectivitate wireless ultra-rapidă, oferind confort și performanță de top în orice sesiune de gaming.`,
     name_en: `Razer Basilisk V3 Pro (RZ01-04620100-R3G1) Mouse`,
@@ -1115,7 +1224,7 @@ const PRODUCTS = [
     specs: [['Tip', 'Mouse gaming wireless'], ['Senzor', 'Optic, până la 30.000 DPI'], ['Butoane', '11 programabile'], ['Iluminare', 'Razer Chroma RGB'], ['Conectivitate', 'Wireless']],
   },
   {
-    id: 'periferic-3', category: 'periferice', img: 'periferic3', price: 602,
+    id: 'periferic-3', cod: 'MK-PER-03', category: 'periferice', img: 'periferic3', price: 602,
     name: `Brother/HL-L2402DYJ1/Print/Laser/A4/USB HLL2402DYJ1`,
     description: `Imprimantă laser Brother monocromă, ideală pentru birou, cu viteză de imprimare de până la 28 pagini pe minut și rezoluție de 1200×1200 dpi. Dispune de imprimare față-verso automată, tavă de 250 de coli și consum redus de toner pentru eficiență sporită.`,
     name_en: `Brother HL-L2402DYJ1 Print/Laser/A4/USB Printer`,
@@ -1127,7 +1236,7 @@ const PRODUCTS = [
     specs: [['Tip', 'Imprimantă laser monocromă'], ['Format', 'A4'], ['Viteză de imprimare', 'Până la 28 pagini/minut'], ['Rezoluție', '1200×1200 dpi'], ['Față-verso', 'Automată'], ['Tavă hârtie', '250 de coli'], ['Conectivitate', 'USB']],
   },
   {
-    id: 'periferic-4', category: 'periferice', img: 'periferic4', price: 1377,
+    id: 'periferic-4', cod: 'MK-PER-04', category: 'periferice', img: 'periferic4', price: 1377,
     name: `Scanner documente IRIScan Desk 6`,
     description: `Scanner portabil IRIScan Desk 6 cu cameră de 8 MP și funcție OCR, ideal pentru digitalizarea rapidă a documentelor A4. Scanează în mai puțin de o secundă, oferă conversie în PDF, Word și Excel și include iluminare LED integrată pentru imagini clare și precise.`,
     name_en: `IRIScan Desk 6 Document Scanner`,
@@ -1139,7 +1248,7 @@ const PRODUCTS = [
     specs: [['Tip', 'Scanner portabil'], ['Cameră', '8 MP'], ['Format documente', 'A4'], ['Funcție OCR', 'Da'], ['Timp de scanare', 'Sub o secundă'], ['Export', 'PDF, Word, Excel'], ['Iluminare', 'LED integrată']],
   },
   {
-    id: 'periferic-5', category: 'periferice', img: 'periferic5', price: 359, oldPrice: 429,
+    id: 'periferic-5', cod: 'MK-PER-05', category: 'periferice', img: 'periferic5', price: 359, oldPrice: 429,
     name: `Logitech Brio 500 cameră web 4 MP 1920x1080 Pixel USB-C Grafit`,
     description: `Cameră web Logitech Brio 500 cu rezoluție Full HD 1080p, ideală pentru videoconferințe, streaming și cursuri online. Dispune de corecție automată a luminii, microfoane cu reducerea zgomotului și capac de confidențialitate integrat, oferind imagine și sunet de înaltă calitate.`,
     name_en: `Logitech Brio 500 Webcam, 4 MP, 1920x1080, USB-C, Graphite`,
@@ -1151,7 +1260,7 @@ const PRODUCTS = [
     specs: [['Rezoluție video', 'Full HD 1080p (1920×1080)'], ['Senzor', '4 MP'], ['Conectare', 'USB-C'], ['Lumină', 'Corecție automată'], ['Microfoane', 'Cu reducerea zgomotului'], ['Confidențialitate', 'Capac integrat'], ['Culoare', 'Grafit']],
   },
   {
-    id: 'periferic-6', category: 'periferice', img: 'periferic6', price: 879,
+    id: 'periferic-6', cod: 'MK-PER-06', category: 'periferice', img: 'periferic6', price: 879,
     name: `Polk Monitor XT15 (x2) Boxe audio`,
     description: `Boxe de raft Polk Monitor XT15, concepute pentru un sunet clar și echilibrat. Echipate cu tweeter de 1” și woofer de 5,25”, oferă redare detaliată a muzicii și filmelor, cu răspuns în frecvență extins și compatibilitate cu amplificatoare de 30–150 W.`,
     name_en: `Polk Monitor XT15 (x2) Bookshelf Speakers`,
@@ -1165,7 +1274,7 @@ const PRODUCTS = [
 
   /* ---------- UNITĂȚI ---------- */
   {
-    id: 'unitate-1', category: 'unitati', img: 'unitate1', price: 4599,
+    id: 'unitate-1', cod: 'MK-UNI-01', category: 'unitati', img: 'unitate1', price: 4599,
     name: `HP ProDesk 2 SFF G1i, Core i5-14400 2.5GHz, 512GB SSD, 8GB RAM`,
     description: `Unitate centrală HP cu procesor Intel Core i5, SSD de 512 GB și sistem de operare Windows 11 Pro, concepută pentru productivitate și utilizare profesională. Oferă pornire rapidă, conectivitate modernă prin HDMI, DisplayPort și USB-C, fiind ideală pentru birou și activități de zi cu zi.`,
     name_en: `HP ProDesk 2 SFF G1i, Core i5-14400 2.5GHz, 512GB SSD, 8GB RAM`,
@@ -1177,7 +1286,7 @@ const PRODUCTS = [
     specs: [['Procesor', 'Intel Core i5-14400 (2.5GHz)'], ['Memorie RAM', '8GB'], ['Stocare', '512GB SSD'], ['Sistem de operare', 'Windows 11 Pro'], ['Format carcasă', 'SFF'], ['Porturi', 'HDMI, DisplayPort, USB-C']],
   },
   {
-    id: 'unitate-2', category: 'unitati', img: 'unitate2', price: 3445, oldPrice: 3999,
+    id: 'unitate-2', cod: 'MK-UNI-02', category: 'unitati', img: 'unitate2', price: 3445, oldPrice: 3999,
     name: `Dell Pro Tower Essential QVT1260, Intel Core i5-14400, 16GB, 512GB SSD, Intel UHD 730`,
     description: `Dell Pro Tower Essential QVT1260, Intel Core i5-14400 (4.7GHz), 16GB RAM, 512GB SSD, Intel UHD 730, Windows 11 Pro.`,
     name_en: `Dell Pro Tower Essential QVT1260, Intel Core i5-14400, 16GB, 512GB SSD, Intel UHD 730`,
@@ -1189,7 +1298,7 @@ const PRODUCTS = [
     specs: [['Procesor', 'Intel Core i5-14400 (4.7GHz)'], ['Memorie RAM', '16GB'], ['Stocare', '512GB SSD'], ['Placă video', 'Intel UHD 730'], ['Sistem de operare', 'Windows 11 Pro']],
   },
   {
-    id: 'unitate-3', category: 'unitati', img: 'unitate3', price: 3681,
+    id: 'unitate-3', cod: 'MK-UNI-03', category: 'unitati', img: 'unitate3', price: 3681,
     name: `CHS PC Barracuda, Core i5-12400 2.5GHz, 16GB, 512GB SSD, mouse+tastatură, Windows 11 Pro`,
     description: `Sistem desktop echipat cu procesor Intel Core i5-12400, 16 GB RAM și SSD de 512 GB, oferind performanță rapidă pentru activități de birou, studiu și multitasking. Include Windows 11 Pro, tastatură și mouse, fiind o soluție completă și gata de utilizare.`,
     name_en: `CHS PC Barracuda, Core i5-12400 2.5GHz, 16GB, 512GB SSD, Mouse+Keyboard, Windows 11 Pro`,
@@ -1201,7 +1310,7 @@ const PRODUCTS = [
     specs: [['Procesor', 'Intel Core i5-12400 (2.5GHz)'], ['Memorie RAM', '16GB'], ['Stocare', '512GB SSD'], ['Sistem de operare', 'Windows 11 Pro'], ['Accesorii incluse', 'Tastatură și mouse']],
   },
   {
-    id: 'unitate-4', category: 'unitati', img: 'unitate4', price: 6677,
+    id: 'unitate-4', cod: 'MK-UNI-04', category: 'unitati', img: 'unitate4', price: 6677,
     name: `Komputer HIRO Aurora Intel i5 14400F, RTX 5070 12GB, 32GB RAM, 1TB SSD, WIFI, W11H`,
     description: `Komputer HIRO Aurora Intel i5 14400F, RTX 5070 12GB, 32GB RAM, 1TB SSD, WIFI, Windows 11 Home.`,
     name_en: `Komputer HIRO Aurora Intel i5 14400F, RTX 5070 12GB, 32GB RAM, 1TB SSD, WIFI, W11H`,
@@ -1213,7 +1322,7 @@ const PRODUCTS = [
     specs: [['Procesor', 'Intel i5 14400F'], ['Placă video', 'RTX 5070 12GB'], ['Memorie RAM', '32GB'], ['Stocare', '1TB SSD'], ['Wireless', 'WiFi'], ['Sistem de operare', 'Windows 11 Home']],
   },
   {
-    id: 'unitate-5', category: 'unitati', img: 'unitate5', price: 10159,
+    id: 'unitate-5', cod: 'MK-UNI-05', category: 'unitati', img: 'unitate5', price: 10159,
     name: `KOMPUTER HIRO Wingman — AMD Ryzen 7 9800X3D, RTX 5080 16GB, 32GB RAM, 2TB SSD`,
     description: `KOMPUTER HIRO Wingman — AMD Ryzen 7 9800X3D, RTX 5080 16GB, 32GB RAM, 2TB SSD, Windows 11 Home.`,
     name_en: `KOMPUTER HIRO Wingman — AMD Ryzen 7 9800X3D, RTX 5080 16GB, 32GB RAM, 2TB SSD`,
@@ -1225,7 +1334,7 @@ const PRODUCTS = [
     specs: [['Procesor', 'AMD Ryzen 7 9800X3D'], ['Placă video', 'RTX 5080 16GB'], ['Memorie RAM', '32GB'], ['Stocare', '2TB SSD'], ['Sistem de operare', 'Windows 11 Home']],
   },
   {
-    id: 'unitate-6', category: 'unitati', img: 'unitate6', price: 3199,
+    id: 'unitate-6', cod: 'MK-UNI-06', category: 'unitati', img: 'unitate6', price: 3199,
     name: `Lenovo ThinkCentre Neo 50t 12UD0033RI`,
     description: `Lenovo ThinkCentre Neo 50t 12UD0033RI este un desktop pentru birou și acasă, echipat cu procesor Intel Core i5 la 2500 MHz (socket LGA1700) și 8 GB memorie RAM, oferind performanță stabilă pentru activități zilnice.`,
     name_en: `Lenovo ThinkCentre Neo 50t 12UD0033RI`,
@@ -1239,7 +1348,7 @@ const PRODUCTS = [
 
   /* ---------- LAPTOPURI ---------- */
   {
-    id: 'laptop-1', category: 'laptopuri', img: 'laptop1', price: 2599,
+    id: 'laptop-1', cod: 'MK-LAP-01', category: 'laptopuri', img: 'laptop1', price: 2599,
     name: `MacBook Air 13'' 2020, M1 8 Cores, 8GB, 7-core GPU, 256GB`,
     description: `MacBook Air 13” (2020) este un laptop ușor și portabil, cu procesor Apple M1, 8 GB RAM, SSD de 256 GB și ecran Retina de 13,3”, oferind performanță bună pentru muncă și divertisment.`,
     name_en: `MacBook Air 13'' 2020, M1 8 Cores, 8GB, 7-core GPU, 256GB`,
@@ -1251,7 +1360,7 @@ const PRODUCTS = [
     specs: [['Procesor', 'Apple M1 (8 nuclee)'], ['Placă video', 'GPU cu 7 nuclee'], ['Memorie RAM', '8 GB'], ['Stocare', '256 GB SSD'], ['Ecran', 'Retina 13,3"'], ['An', '2020']],
   },
   {
-    id: 'laptop-2', category: 'laptopuri', img: 'laptop2', price: 6779,
+    id: 'laptop-2', cod: 'MK-LAP-02', category: 'laptopuri', img: 'laptop2', price: 6779,
     name: `Laptop ASUS ROG Strix Scar 18 inch 2.5K Intel Core Ultra`,
     description: `Laptop ASUS ROG Strix Scar 18 inch 2.5K, Intel Core Ultra 9 275HX, 64GB RAM, 2TB SSD, RTX 5080, Free DOS, Off Black.`,
     name_en: `Laptop ASUS ROG Strix Scar 18 inch 2.5K Intel Core Ultra`,
@@ -1263,7 +1372,7 @@ const PRODUCTS = [
     specs: [['Ecran', '18" 2.5K'], ['Procesor', 'Intel Core Ultra 9 275HX'], ['Memorie RAM', '64GB'], ['Stocare', '2TB SSD'], ['Placă video', 'RTX 5080'], ['Sistem de operare', 'Free DOS'], ['Culoare', 'Off Black']],
   },
   {
-    id: 'laptop-3', category: 'laptopuri', img: 'laptop3', price: 3459, oldPrice: 3899,
+    id: 'laptop-3', cod: 'MK-LAP-03', category: 'laptopuri', img: 'laptop3', price: 3459, oldPrice: 3899,
     name: `Laptop Lenovo ThinkPad T14 Gen 5 cu procesor Intel`,
     description: `Lenovo ThinkPad T14 Gen 5 este un laptop profesional de 14”, echipat cu procesor Intel Core Ultra 7 155U, 64 GB RAM DDR5 și SSD de 1 TB. Oferă performanță ridicată, funcții AI integrate, ecran WUXGA IPS de calitate, securitate avansată și durabilitate certificată MIL-STD-810H.`,
     name_en: `Lenovo ThinkPad T14 Gen 5 Intel Laptop`,
@@ -1275,7 +1384,7 @@ const PRODUCTS = [
     specs: [['Ecran', '14" WUXGA IPS'], ['Procesor', 'Intel Core Ultra 7 155U'], ['Memorie RAM', '64 GB DDR5'], ['Stocare', '1 TB SSD'], ['Funcții AI', 'Integrate'], ['Durabilitate', 'Certificare MIL-STD-810H']],
   },
   {
-    id: 'laptop-4', category: 'laptopuri', img: 'laptop4', price: 3851,
+    id: 'laptop-4', cod: 'MK-LAP-04', category: 'laptopuri', img: 'laptop4', price: 3851,
     name: `Laptop Acer Aspire Go 15 - AG15-42P-R1ME argintiu`,
     description: `Laptopul de 15,6” este echipat cu procesor AMD Ryzen 5/7, placă video integrată AMD Radeon, până la 16 GB RAM și SSD de până la 1 TB. Oferă ecran Full HD mat, conectivitate modernă și performanță potrivită pentru activități de zi cu zi și productivitate.`,
     name_en: `Acer Aspire Go 15 - AG15-42P-R1ME Silver Laptop`,
@@ -1287,7 +1396,7 @@ const PRODUCTS = [
     specs: [['Ecran', '15,6" Full HD mat'], ['Procesor', 'AMD Ryzen 5/7'], ['Placă video', 'AMD Radeon (integrată)'], ['Memorie RAM', 'Până la 16 GB'], ['Stocare', 'SSD de până la 1 TB'], ['Culoare', 'Argintiu']],
   },
   {
-    id: 'laptop-5', category: 'laptopuri', img: 'laptop5', price: 7585,
+    id: 'laptop-5', cod: 'MK-LAP-05', category: 'laptopuri', img: 'laptop5', price: 7585,
     name: `Apple MacBook Air 15 M4 Z1HF000EV Laptop`,
     description: `Apple MacBook Air 15.3” este un laptop performant și ușor, echipat cu procesor Apple M4, 32 GB RAM DDR5 și SSD de 512 GB. Dispune de ecran IPS de înaltă rezoluție, cameră Full HD, tastatură iluminată și sistem de operare macOS, fiind ideal pentru productivitate și utilizare zilnică.`,
     name_en: `Apple MacBook Air 15 M4 Z1HF000EV Laptop`,
@@ -1299,7 +1408,7 @@ const PRODUCTS = [
     specs: [['Ecran', '15,3" IPS, înaltă rezoluție'], ['Procesor', 'Apple M4'], ['Memorie RAM', '32 GB DDR5'], ['Stocare', '512 GB SSD'], ['Cameră', 'Full HD'], ['Tastatură', 'Iluminată'], ['Sistem de operare', 'macOS']],
   },
   {
-    id: 'laptop-6', category: 'laptopuri', img: 'laptop6', price: 4559,
+    id: 'laptop-6', cod: 'MK-LAP-06', category: 'laptopuri', img: 'laptop6', price: 4559,
     name: `Laptop 25-26 de 15,6 inci pentru Windows 11, procesor cu 4 nuclee`,
     description: `Laptopul de 15,6” este echipat cu procesor Intel Celeron N5095, 32 GB RAM LPDDR4 și SSD, oferind performanță potrivită pentru activități de birou și studiu. Dispune de ecran Full HD IPS, cititor de amprentă și conectivitate Wi-Fi și Bluetooth.`,
     name_en: `15.6-inch Laptop for Windows 11, Quad-Core Processor`,
@@ -1313,7 +1422,7 @@ const PRODUCTS = [
 
   /* ---------- CONSUMABILE ȘI RECHIZITE ---------- */
   {
-    id: 'consumabil-1', category: 'consumabile', img: 'consumabil1', price: 25,
+    id: 'consumabil-1', cod: 'MK-CON-01', category: 'consumabile', img: 'consumabil1', price: 25,
     name: `Hârtie copiator A4 Niveus Fit 80 g/mp, 500 coli/top`,
     description: `Hârtia copiator Niveus Fit+ A4 este o hârtie de clasă B+, cu gramaj de 80 g/mp și grad ridicat de alb, potrivită pentru imprimare și copiere zilnică. Este recomandată pentru imprimante inkjet și laser, copiatoare și faxuri, oferind imprimări clare, atât alb-negru, cât și color.`,
     name_en: `Niveus Fit A4 Copier Paper, 80 g/m², 500 sheets/ream`,
@@ -1325,7 +1434,7 @@ const PRODUCTS = [
     specs: [['Format', 'A4'], ['Gramaj', '80 g/mp'], ['Cantitate', '500 coli/top'], ['Clasă', 'B+'], ['Compatibilitate', 'Imprimante inkjet și laser, copiatoare, faxuri']],
   },
   {
-    id: 'consumabil-2', category: 'consumabile', img: 'consumabil2', price: 115,
+    id: 'consumabil-2', cod: 'MK-CON-02', category: 'consumabile', img: 'consumabil2', price: 115,
     name: `Set de pixuri BIC Cristal - 1.0 mm, albastru, 50 buc`,
     description: `Pixul BIC Cristal albastru este un instrument de scris realizat din plastic, potrivit pentru școală și birou. Recomandat pentru copii de peste 6 ani și pentru elevii din clasele V–XII, acesta oferă o scriere clară și confortabilă în utilizarea zilnică.`,
     name_en: `BIC Cristal Pen Set - 1.0mm, Blue, 50 pcs`,
@@ -1337,7 +1446,7 @@ const PRODUCTS = [
     specs: [['Grosime vârf', '1.0 mm'], ['Culoare', 'Albastru'], ['Cantitate', '50 buc'], ['Material', 'Plastic'], ['Vârstă recomandată', 'Peste 6 ani']],
   },
   {
-    id: 'consumabil-3', category: 'consumabile', img: 'consumabil3', price: 18,
+    id: 'consumabil-3', cod: 'MK-CON-03', category: 'consumabile', img: 'consumabil3', price: 18,
     name: `Creioane grafit KOH-I-NOOR 2B / 5,6 mm, 6 buc`,
     description: `Creioanele grafit KOH-I-NOOR 2B, 5,6 mm sunt ideale pentru scriere, desen și schițe. Setul conține 6 creioane cu mină moale de tip 2B, care oferă linii clare și uniforme, fiind potrivite atât pentru uz școlar, cât și pentru activități artistice.`,
     name_en: `KOH-I-NOOR 2B Graphite Pencils, 5.6mm, 6 pcs`,
@@ -1349,7 +1458,7 @@ const PRODUCTS = [
     specs: [['Duritate', '2B (mină moale)'], ['Diametru', '5,6 mm'], ['Cantitate', '6 buc'], ['Utilizare', 'Scriere, desen, schițe']],
   },
   {
-    id: 'consumabil-4', category: 'consumabile', img: 'consumabil4', price: 35,
+    id: 'consumabil-4', cod: 'MK-CON-04', category: 'consumabile', img: 'consumabil4', price: 35,
     name: `Set caiete OXFORD Multicolor`,
     description: `Setul de caiete OXFORD Multicolor este potrivit pentru școală, facultate sau birou. Caietele au hârtie de calitate și coperți în culori variate, fiind ideale pentru organizarea notițelor și a activităților zilnice.`,
     name_en: `OXFORD Multicolor Notebook Set`,
@@ -1361,7 +1470,7 @@ const PRODUCTS = [
     specs: [['Brand', 'OXFORD'], ['Tip', 'Set caiete'], ['Coperți', 'Culori variate'], ['Utilizare', 'Școală, facultate, birou']],
   },
   {
-    id: 'consumabil-5', category: 'consumabile', img: 'consumabil5', price: 25,
+    id: 'consumabil-5', cod: 'MK-CON-05', category: 'consumabile', img: 'consumabil5', price: 25,
     name: `Dosare din plastic A4 cu capsă DONAU`,
     description: `Mapele din plastic A4 cu capsă DONAU sunt ideale pentru păstrarea și organizarea documentelor. Realizate din material PP rezistent, cu grosime de 180 μm, acestea protejează eficient actele și permit închiderea sigură cu ajutorul capsei. Setul conține 5 mape, potrivite pentru școală, birou sau arhivare.`,
     name_en: `DONAU A4 Plastic Snap Folders`,
@@ -1373,7 +1482,7 @@ const PRODUCTS = [
     specs: [['Format', 'A4'], ['Închidere', 'Capsă'], ['Material', 'PP'], ['Grosime', '180 μm'], ['Cantitate', '5 mape']],
   },
   {
-    id: 'consumabil-6', category: 'consumabile', img: 'consumabil6', price: 55, oldPrice: 69,
+    id: 'consumabil-6', cod: 'MK-CON-06', category: 'consumabile', img: 'consumabil6', price: 55, oldPrice: 69,
     name: `Cartuș Canon CLI-581 XXL CMYK, PGI-580 XXL, 5-pack`,
     description: `Setul de cartușe cu cerneală CLI-581/PGI-580 este compatibil cu imprimantele Canon și conține cartușe în variantă multipack. Acesta oferă imprimări clare și culori de calitate, fiind potrivit atât pentru documente, cât și pentru imagini.`,
     name_en: `Canon CLI-581 XXL CMYK, PGI-580 XXL Ink Cartridge, 5-pack`,
@@ -1866,6 +1975,7 @@ function footerMarkup() {
           <li><a href="contact.html">Contact</a></li>
           <li><a href="noutati.html">Forum de noutăți</a></li>
           <li><a href="lista-preturi.html">Listă de prețuri</a></li>
+          <li><a href="galerie.html">Galerie foto</a></li>
           <li><a href="ghid-site.html">Ghid site</a></li>
         </ul>
       </div>
@@ -2793,6 +2903,7 @@ function initProductPage() {
       <div class="product-info">
         <a class="product-info__cat" href="produse.html#${cat.id}">${icon(cat.icon)} ${categoryName(cat)}</a>
         <h1 class="product-info__title">${escapeHTML(productName(p))}</h1>
+        <p class="product-info__code">Cod produs: <span>${escapeHTML(p.cod || p.id.toUpperCase())}</span></p>
 
         <div class="product-info__price">
           ${priceMarkup(p, 'price--lg')}
@@ -3556,7 +3667,7 @@ function initPriceListPage() {
         (p) => `
         <tr>
           <td class="pricelist-table__name"><a href="produs.html?id=${p.id}">${escapeHTML(productName(p))}</a></td>
-          <td class="pricelist-table__code">${p.id.toUpperCase()}</td>
+          <td class="pricelist-table__code">${escapeHTML(p.cod || p.id.toUpperCase())}</td>
           <td class="pricelist-table__price">
             ${p.oldPrice ? `<s>${formatPrice(p.oldPrice)}</s>` : ''}
             <strong${p.oldPrice ? ' class="is-sale"' : ''}>${formatPrice(p.price)}</strong>
@@ -3581,6 +3692,123 @@ function initPriceListPage() {
         </div>
       </section>`
     ).join('')}`;
+}
+
+/* ---------- 8.11 Galerie foto (galerie.html) + lupa pentru imagini ----------
+   Pozele sunt imagini/poza1.png … imagini/poza20.png (numărul: CONFIG.galleryCount).
+   Pozele care lipsesc apar ca bloc gri „Imagine în curând” și sunt sărite în lupă. */
+
+/* poză lipsă într-o galerie / organigramă → rămâne blocul gri */
+function zoomImageFallback(img) {
+  const src = img.getAttribute('src') || '';
+  if (!img.dataset.altExt && src.endsWith('.png')) {
+    img.dataset.altExt = '1';
+    img.src = src.replace(/\.png$/, '.jpg');
+    return;
+  }
+  const frame = img.closest('[data-zoom]');
+  if (frame) frame.classList.add('is-empty');
+  img.remove();
+}
+
+/* Lupa (lightbox): o singură fereastră, folosită de toate paginile */
+const Lightbox = {
+  items: [],
+  index: 0,
+  el: null,
+
+  build() {
+    if (this.el) return;
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<div class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Imagine mărită">
+        <button class="lightbox__close" type="button" aria-label="Închide">${icon('close')}</button>
+        <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Imaginea anterioară">${icon('chevronLeft')}</button>
+        <figure class="lightbox__figure">
+          <img class="lightbox__img" src="" alt="">
+          <figcaption class="lightbox__counter" aria-live="polite"></figcaption>
+        </figure>
+        <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Imaginea următoare">${icon('chevronRight')}</button>
+      </div>`
+    );
+    this.el = $('.lightbox');
+    $('.lightbox__close', this.el).addEventListener('click', () => this.close());
+    $('.lightbox__nav--prev', this.el).addEventListener('click', () => this.show(this.index - 1));
+    $('.lightbox__nav--next', this.el).addEventListener('click', () => this.show(this.index + 1));
+    this.el.addEventListener('click', (e) => {
+      if (e.target === this.el) this.close(); // click în afara imaginii
+    });
+    document.addEventListener('keydown', (e) => {
+      if (this.el.hidden) return;
+      if (e.key === 'Escape') this.close();
+      if (e.key === 'ArrowLeft') this.show(this.index - 1);
+      if (e.key === 'ArrowRight') this.show(this.index + 1);
+    });
+  },
+
+  open(items, startIndex = 0) {
+    if (!items.length) return;
+    this.build();
+    this.items = items;
+    this.el.hidden = false;
+    document.body.classList.add('nav-locked');
+    this.show(startIndex);
+    $('.lightbox__close', this.el).focus();
+  },
+
+  show(i) {
+    const total = this.items.length;
+    this.index = (i + total) % total;
+    const item = this.items[this.index];
+    const img = $('.lightbox__img', this.el);
+    img.src = item.src;
+    img.alt = item.alt || '';
+    $('.lightbox__counter', this.el).textContent = total > 1 ? `${this.index + 1} / ${total}` : '';
+    this.el.classList.toggle('lightbox--single', total < 2);
+  },
+
+  close() {
+    if (!this.el) return;
+    this.el.hidden = true;
+    document.body.classList.remove('nav-locked');
+  },
+};
+
+/* imaginile marcate cu data-zoom se deschid în lupă (ex. cele 2 organigrame) */
+function initZoomImages() {
+  const frames = $$('[data-zoom]');
+  if (!frames.length) return;
+  frames.forEach((frame) => {
+    frame.addEventListener('click', () => {
+      const available = frames.filter((f) => !f.classList.contains('is-empty'));
+      if (frame.classList.contains('is-empty')) return;
+      Lightbox.open(
+        available.map((f) => ({ src: f.dataset.zoom, alt: f.dataset.zoomAlt || '' })),
+        available.indexOf(frame)
+      );
+    });
+  });
+}
+
+function initGalleryPage() {
+  const root = $('#gallery-root');
+  if (!root) return;
+  const total = CONFIG.galleryCount;
+
+  root.innerHTML = `
+    <div class="photo-grid">
+      ${Array.from({ length: total }, (_, i) => i + 1)
+        .map(
+          (n) => `
+        <button class="photo-item" type="button" data-zoom="${imgPath(`poza${n}.png`)}" data-zoom-alt="Echipa MKTech — fotografia ${n}">
+          <span class="photo-item__soon">Imagine în curând</span>
+          <img src="${imgPath(`poza${n}.png`)}" alt="Echipa MKTech — fotografia ${n}" loading="lazy" onerror="zoomImageFallback(this)">
+        </button>`
+        )
+        .join('')}
+    </div>`;
+
+  initZoomImages();
 }
 
 /* =====================================================================
@@ -3611,9 +3839,11 @@ function init() {
     reduceri: initDealsPage,
     noutati: initNewsPage,
     'lista-preturi': initPriceListPage,
+    galerie: initGalleryPage,
   };
   const page = document.body.dataset.page;
   if (pages[page]) pages[page]();
+  initZoomImages(); // imaginile care se deschid mărite (organigrame etc.)
 
   applyLanguage(); // traduce pagina (și tot ce apare ulterior) în limba aleasă
 }
