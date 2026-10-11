@@ -77,7 +77,24 @@ const CONFIG = {
    ATENȚIE: se schimbă DOAR manual, de aici. Site-ul e static (fără server),
    deci nu se actualizează singur. Modific-o de fiecare dată când schimbi
    ceva important pe site (produse, prețuri, texte, poze). */
-const ULTIMA_ACTUALIZARE = '16 septembrie 2026';
+const ULTIMA_ACTUALIZARE = '10 octombrie 2026';
+
+/* ✏️ DATELE DE IDENTIFICARE ALE FIRMEI — apar în footer (pe toate paginile) și pe contact.html.
+   Le modifici o singură dată, de aici.
+   CUI — de adăugat: când îl afli, îl scrii între ghilimele la `cui`.
+   Cât timp `cui` rămâne gol (''), rândul cu CUI NU se afișează nicăieri. */
+const DATE_FIRMA = {
+  denumire: 'F.E. MKTech S.R.L.',
+  statut: 'firmă de exercițiu înregistrată în rețeaua ROCT',
+  regCom: 'J39/21/5.10.2012',
+  caen: '4650',
+  caenDescriere: 'Comerț cu ridicata al echipamentului informatic și de telecomunicații',
+  cui: '', // CUI — de adăugat
+  persoanaContact: 'Constantin Maria',
+  adresa: 'Bulevardul Gării 25, Focșani, jud. Vrancea',
+  telefon: '0237 212 544',
+  email: 'mktech2026@yahoo.com',
+};
 
 /* ✏️ ORGANIGRAMA (apare în despre.html, secțiunea „Organigramă”)
    Structura reală a firmei MK Tech S.R.L.
@@ -135,7 +152,7 @@ const ORGANIGRAMA = {
 
 /* ✏️ NOUTĂȚI (apar în noutati.html, „Forum de noutăți”)
    ROBERT: completează aici știrile — câte un obiect { } pentru fiecare.
-   - `data`    → data afișată pe card (ex. '12.10.2026'); textele dintre [ ] le completezi tu
+   - `data`    → data afișată pe card (ex. 'Octombrie 2026'); data_en / data_es / data_de = traducerile
    - `imagine` → numele fișierului din folderul „imagini” (dacă lipsește poza,
                  apare un bloc gri cu „Imagine în curând”)
    - `titlu` și `text` → conținutul știrii, în română
@@ -145,7 +162,10 @@ const ORGANIGRAMA = {
    Prima știre din listă apare prima pe pagină. */
 const NOUTATI = [
   {
-    data: '[dată]',
+    data: 'Octombrie 2026',
+    data_en: 'October 2026',
+    data_es: 'Octubre de 2026',
+    data_de: 'Oktober 2026',
     imagine: 'stire1.png',
     titlu: 'Primul stoc de produse al noii echipe MK Tech',
     text: 'Noua echipă a F.E. MK Tech S.R.L., formată din elevii clasei a XI-a A, a primit primul stoc de produse de când a preluat firma. Am completat oferta în toate cele cinci categorii: monitoare, periferice, unități PC, laptopuri, plus consumabile și rechizite. Fiecare produs a fost ales după raportul calitate-preț și după ce are nevoie un birou modern. Toate produsele sunt deja în catalogul online, cu descrieri complete și prețuri afișate clar.',
@@ -157,7 +177,10 @@ const NOUTATI = [
     text_de: 'Das neue Team der F.E. MK Tech S.R.L., bestehend aus den Schülerinnen und Schülern der Klasse 11 A, hat seinen ersten Warenbestand erhalten, seit es die Firma übernommen hat. Wir haben das Sortiment in allen fünf Kategorien ergänzt: Monitore, Peripheriegeräte, Desktop-PCs, Laptops sowie Verbrauchsmaterial und Bürobedarf. Jedes Produkt wurde nach dem Preis-Leistungs-Verhältnis und nach dem Bedarf eines modernen Büros ausgewählt. Alle Produkte sind bereits im Online-Katalog, mit vollständigen Beschreibungen und klar angegebenen Preisen.',
   },
   {
-    data: '[dată]',
+    data: 'Octombrie 2026',
+    data_en: 'October 2026',
+    data_es: 'Octubre de 2026',
+    data_de: 'Oktober 2026',
     imagine: 'stire2.png',
     titlu: 'MK Tech are un site nou',
     text: 'Am lansat noul site al firmei MK Tech, unde ne poți găsi toată oferta într-un singur loc. Poți căuta rapid produse, să le pui la favorite și să le adaugi în coș. Ai și o listă de prețuri completă. Site-ul e disponibil în română, engleză, spaniolă și germană, ca să îl poată folosi și partenerii din alte țări. La târguri ne găsești și prin codul QR de pe materialele noastre.',
@@ -169,16 +192,19 @@ const NOUTATI = [
     text_de: 'Wir haben die neue Website von MK Tech gestartet, auf der du unser gesamtes Angebot an einem Ort findest. Du kannst Produkte schnell suchen, zu den Favoriten hinzufügen und in den Warenkorb legen. Außerdem gibt es eine vollständige Preisliste. Die Website ist auf Rumänisch, Englisch, Spanisch und Deutsch verfügbar, damit sie auch Partner aus anderen Ländern nutzen können. Auf Messen findest du uns auch über den QR-Code auf unseren Materialien.',
   },
   {
-    data: '[dată]',
+    data: 'Octombrie 2026',
+    data_en: 'October 2026',
+    data_es: 'Octubre de 2026',
+    data_de: 'Oktober 2026',
     imagine: 'stire3.png',
     titlu: 'Reduceri în fiecare categorie de produse',
-    text: 'Ca să sărbătorim noul început, am pus câte o reducere în fiecare categorie de produse. Le găsești pe toate pe pagina [Reduceri](reduceri.html) din meniul Produse și în secțiunea „Top reduceri” de pe pagina principală. Ofertele sunt valabile [perioada / în limita stocului].',
+    text: 'Ca să sărbătorim noul început, am pus câte o reducere în fiecare categorie de produse. Le găsești pe toate pe pagina [Reduceri](reduceri.html) din meniul Produse și în secțiunea „Top reduceri” de pe pagina principală. Ofertele sunt valabile în limita stocului disponibil.',
     titlu_en: 'Discounts in every product category',
-    text_en: 'To celebrate the new beginning, we have added one discount in every product category. You can find them all on the [Discounts](reduceri.html) page in the Products menu and in the “Top Deals” section on the home page. The offers are valid [perioada / în limita stocului].',
+    text_en: 'To celebrate the new beginning, we have added one discount in every product category. You can find them all on the [Discounts](reduceri.html) page in the Products menu and in the “Top Deals” section on the home page. The offers are valid while stocks last.',
     titlu_es: 'Descuentos en todas las categorías de productos',
-    text_es: 'Para celebrar el nuevo comienzo, hemos puesto un descuento en cada categoría de productos. Los encuentras todos en la página [Descuentos](reduceri.html) del menú Productos y en la sección «Mejores ofertas» de la página principal. Las ofertas son válidas [perioada / în limita stocului].',
+    text_es: 'Para celebrar el nuevo comienzo, hemos puesto un descuento en cada categoría de productos. Los encuentras todos en la página [Descuentos](reduceri.html) del menú Productos y en la sección «Mejores ofertas» de la página principal. Las ofertas son válidas hasta agotar existencias.',
     titlu_de: 'Rabatte in jeder Produktkategorie',
-    text_de: 'Um den Neuanfang zu feiern, haben wir in jeder Produktkategorie einen Rabatt eingerichtet. Du findest sie alle auf der Seite [Rabatte](reduceri.html) im Menü Produkte und im Bereich „Top-Angebote“ auf der Startseite. Die Angebote gelten [perioada / în limita stocului].',
+    text_de: 'Um den Neuanfang zu feiern, haben wir in jeder Produktkategorie einen Rabatt eingerichtet. Du findest sie alle auf der Seite [Rabatte](reduceri.html) im Menü Produkte und im Bereich „Top-Angebote“ auf der Startseite. Die Angebote gelten, solange der Vorrat reicht.',
   },
 ];
 
@@ -601,6 +627,154 @@ const UI_DICT = {
   'Povestea și valorile firmei': ['The company story and values', 'La historia y los valores de la empresa', 'Geschichte und Werte der Firma'],
   'Echipa și structura firmei': ['The team and company structure', 'El equipo y la estructura de la empresa', 'Team und Firmenstruktur'],
   'Poze de la evenimente': ['Photos from events', 'Fotos de eventos', 'Fotos von Veranstaltungen'],
+  /* ----- Joacă și câștigă (joc.html) + cupoane ----- */
+  'Câștigă cupoane': ['Win coupons', 'Gana cupones', 'Gutscheine gewinnen'],
+  'Joacă și câștigă': ['Play and win', 'Juega y gana', 'Spielen und gewinnen'],
+  'Joacă și câștigă până la −100 lei reducere!': [
+    'Play and win up to −100 lei off!',
+    '¡Juega y gana hasta −100 lei de descuento!',
+    'Spiele und gewinne bis zu −100 Lei Rabatt!',
+  ],
+  '3 mini-jocuri, 2 încercări și una nouă în fiecare zi.': [
+    '3 mini-games, 2 tries and a new one every day.',
+    '3 minijuegos, 2 intentos y uno nuevo cada día.',
+    '3 Minispiele, 2 Versuche und jeden Tag ein neuer.',
+  ],
+  'Joacă acum': ['Play now', 'Jugar ahora', 'Jetzt spielen'],
+  'Reduceri pentru tine': ['Discounts for you', 'Descuentos para ti', 'Rabatte für dich'],
+  'Joacă și câștigă reduceri!': ['Play and win discounts!', '¡Juega y gana descuentos!', 'Spiele und gewinne Rabatte!'],
+  'Ai 2 încercări, plus una nouă în fiecare zi. Alege un joc și vezi ce cupon câștigi.': [
+    'You have 2 tries, plus a new one every day. Pick a game and see which coupon you win.',
+    'Tienes 2 intentos, más uno nuevo cada día. Elige un juego y descubre qué cupón ganas.',
+    'Du hast 2 Versuche und jeden Tag einen neuen. Wähle ein Spiel und sieh, welchen Gutschein du gewinnst.',
+  ],
+  'Încercări rămase:': ['Tries left:', 'Intentos restantes:', 'Verbleibende Versuche:'],
+  'Următoarea încercare peste': ['Next try in', 'Próximo intento en', 'Nächster Versuch in'],
+  'Ai folosit încercările de azi. Revino mâine pentru o încercare nouă! Cupoanele câștigate le găsești mai jos.': [
+    'You have used today’s tries. Come back tomorrow for a new one! Your coupons are listed below.',
+    'Has usado los intentos de hoy. ¡Vuelve mañana para uno nuevo! Tus cupones están más abajo.',
+    'Du hast die heutigen Versuche aufgebraucht. Komm morgen für einen neuen wieder! Deine Gutscheine findest du unten.',
+  ],
+  'Alege un joc': ['Pick a game', 'Elige un juego', 'Wähle ein Spiel'],
+  'Roata norocului': ['Wheel of fortune', 'Ruleta de la suerte', 'Glücksrad'],
+  'Învârte roata și vezi unde se oprește.': ['Spin the wheel and see where it stops.', 'Gira la ruleta y mira dónde se detiene.', 'Dreh das Rad und sieh, wo es stehen bleibt.'],
+  'Răzuiește și câștigă': ['Scratch and win', 'Rasca y gana', 'Rubbeln und gewinnen'],
+  'Răzuiește cardul argintiu și descoperă premiul.': ['Scratch the silver card and reveal the prize.', 'Rasca la tarjeta plateada y descubre el premio.', 'Rubble die silberne Karte frei und entdecke den Preis.'],
+  'Mingea norocoasă': ['Lucky ball', 'La pelota de la suerte', 'Glücksball'],
+  'Alege coșul în care aterizează mingea.': ['Choose the basket the ball lands in.', 'Elige la cesta en la que cae la pelota.', 'Wähle den Korb, in dem der Ball landet.'],
+  'Joacă': ['Play', 'Jugar', 'Spielen'],
+  '← Înapoi la jocuri': ['← Back to the games', '← Volver a los juegos', '← Zurück zu den Spielen'],
+  'Cupoanele mele': ['My coupons', 'Mis cupones', 'Meine Gutscheine'],
+  'Încă nu ai câștigat niciun cupon. Alege un joc de mai sus!': [
+    'You have not won any coupon yet. Pick a game above!',
+    'Todavía no has ganado ningún cupón. ¡Elige un juego de arriba!',
+    'Du hast noch keinen Gutschein gewonnen. Wähle oben ein Spiel!',
+  ],
+  'Copiază': ['Copy', 'Copiar', 'Kopieren'],
+  'Copiază codul': ['Copy the code', 'Copiar el código', 'Code kopieren'],
+  'Copiat!': ['Copied!', '¡Copiado!', 'Kopiert!'],
+  'Folosește în coș': ['Use in cart', 'Usar en el carrito', 'Im Warenkorb einlösen'],
+  'Felicitări, ai câștigat!': ['Congratulations, you won!', '¡Enhorabuena, has ganado!', 'Glückwunsch, du hast gewonnen!'],
+  'Mai încearcă': ['Try again', 'Inténtalo de nuevo', 'Noch einmal versuchen'],
+  'Mai încearcă!': ['Try again!', '¡Inténtalo de nuevo!', 'Versuch es noch einmal!'],
+  'Data viitoare ai mai mult noroc!': ['Better luck next time!', '¡Más suerte la próxima vez!', 'Beim nächsten Mal mehr Glück!'],
+  'Revino mâine pentru o încercare nouă.': ['Come back tomorrow for a new try.', 'Vuelve mañana para un nuevo intento.', 'Komm morgen für einen neuen Versuch wieder.'],
+  'Învârte': ['Spin', 'Girar', 'Drehen'],
+  'CUPON': ['COUPON', 'CUPÓN', 'GUTSCHEIN'],
+  'Mai': ['Try', 'Otra', 'Noch'],
+  'încearcă': ['again', 'vez', 'einmal'],
+  'Răzuiește cardul cu degetul sau cu mouse-ul.': ['Scratch the card with your finger or the mouse.', 'Rasca la tarjeta con el dedo o con el ratón.', 'Rubble die Karte mit dem Finger oder der Maus frei.'],
+  'Dezvăluie premiul': ['Reveal the prize', 'Mostrar el premio', 'Preis aufdecken'],
+  'RĂZUIEȘTE AICI': ['SCRATCH HERE', 'RASCA AQUÍ', 'HIER RUBBELN'],
+  'Ai câștigat': ['You won', 'Has ganado', 'Du hast gewonnen'],
+  'Alege un coș!': ['Choose a basket!', '¡Elige una cesta!', 'Wähle einen Korb!'],
+  'Ai nimerit coșul cu premiu!': ['You picked the basket with the prize!', '¡Has acertado la cesta con premio!', 'Du hast den Korb mit dem Preis getroffen!'],
+  'Premiul era în alt coș!': ['The prize was in another basket!', '¡El premio estaba en otra cesta!', 'Der Preis war in einem anderen Korb!'],
+  'Gol': ['Empty', 'Vacía', 'Leer'],
+  'Transport gratuit': ['Free shipping', 'Envío gratis', 'Kostenloser Versand'],
+  'fără valoare minimă a comenzii': ['no minimum order value', 'sin importe mínimo de pedido', 'ohne Mindestbestellwert'],
+  'Ai un cupon?': ['Have a coupon?', '¿Tienes un cupón?', 'Hast du einen Gutschein?'],
+  'Aplică': ['Apply', 'Aplicar', 'Einlösen'],
+  'Cupon': ['Coupon', 'Cupón', 'Gutschein'],
+  'Cod invalid.': ['Invalid code.', 'Código no válido.', 'Ungültiger Code.'],
+  'neaplicabil': ['not applicable', 'no aplicable', 'nicht anwendbar'],
+  'Gratuit (cupon)': ['Free (coupon)', 'Gratis (cupón)', 'Kostenlos (Gutschein)'],
+  'ex. MK10-H78S': ['e.g. MK10-H78S', 'p. ej. MK10-H78S', 'z. B. MK10-H78S'],
+  'Trei mini-jocuri în care poți câștiga cupoane de reducere.': [
+    'Three mini-games where you can win discount coupons.',
+    'Tres minijuegos en los que puedes ganar cupones de descuento.',
+    'Drei Minispiele, bei denen du Rabattgutscheine gewinnen kannst.',
+  ],
+
+  /* ----- Despre noi: textele firmei ----- */
+  'F.E. MK Tech S.R.L. este o firmă de exercițiu care oferă echipamente IT și de birotică: monitoare, periferice, unități PC, laptopuri și consumabile și rechizite, la prețuri corecte și cu o selecție atentă a produselor.': [
+    'F.E. MK Tech S.R.L. is a training company offering IT and office equipment: monitors, peripherals, desktop PCs, laptops, supplies and consumables, at fair prices and with a careful selection of products.',
+    'F.E. MK Tech S.R.L. es una empresa de prácticas que ofrece equipos informáticos y de oficina: monitores, periféricos, ordenadores de sobremesa, portátiles y consumibles y material de oficina, a precios justos y con una cuidada selección de productos.',
+    'Die F.E. MK Tech S.R.L. ist eine Übungsfirma, die IT- und Büroausstattung anbietet: Monitore, Peripheriegeräte, Desktop-PCs, Laptops sowie Verbrauchsmaterial und Bürobedarf, zu fairen Preisen und mit einer sorgfältigen Produktauswahl.',
+  ],
+  'F.E. MK Tech S.R.L. a fost înființată în anul 2012, ca firmă de exercițiu în cadrul Colegiului Economic „Mihail Kogălniceanu” din Focșani. În acest an școlar, firma este continuată de o nouă echipă formată din elevii clasei a XI-a A.': [
+    'F.E. MK Tech S.R.L. was founded in 2012 as a training company at the “Mihail Kogălniceanu” Economic College in Focșani. This school year, the company is continued by a new team made up of the students of class 11 A.',
+    'F.E. MK Tech S.R.L. se fundó en 2012 como empresa de prácticas en el Colegio Económico «Mihail Kogălniceanu» de Focșani. Este curso escolar, la empresa continúa con un nuevo equipo formado por los alumnos de 11.º A.',
+    'Die F.E. MK Tech S.R.L. wurde 2012 als Übungsfirma am Wirtschaftskolleg „Mihail Kogălniceanu“ in Focșani gegründet. In diesem Schuljahr wird die Firma von einem neuen Team aus den Schülerinnen und Schülern der Klasse 11 A weitergeführt.',
+  ],
+  'Am ales domeniul electronicelor și al biroticii pentru că este un sector aflat mereu în mișcare, cu nevoi reale și constante în orice birou modern. Am construit oferta de produse pornind exact de la aceste nevoi: monitoare, periferice, unități PC, laptopuri și consumabile și rechizite, alese cu atenție pentru un raport bun calitate-preț.': [
+    'We chose electronics and office equipment because it is a sector that is always moving, with real and constant needs in any modern office. We built our product range starting exactly from these needs: monitors, peripherals, desktop PCs, laptops, supplies and consumables, carefully chosen for good value for money.',
+    'Elegimos el sector de la electrónica y el material de oficina porque está en constante movimiento, con necesidades reales y constantes en cualquier oficina moderna. Construimos nuestra oferta partiendo precisamente de esas necesidades: monitores, periféricos, ordenadores de sobremesa, portátiles y consumibles y material de oficina, elegidos con cuidado por su buena relación calidad-precio.',
+    'Wir haben uns für Elektronik und Bürobedarf entschieden, weil diese Branche ständig in Bewegung ist und jedes moderne Büro hier einen echten, dauerhaften Bedarf hat. Unser Sortiment haben wir genau an diesem Bedarf ausgerichtet: Monitore, Peripheriegeräte, Desktop-PCs, Laptops sowie Verbrauchsmaterial und Bürobedarf, sorgfältig ausgewählt für ein gutes Preis-Leistungs-Verhältnis.',
+  ],
+  'Suntem la început de drum cu această echipă, iar obiectivul nostru pentru acest an școlar este să participăm la târgurile firmelor de exercițiu, să dezvoltăm parteneriate și să creștem constant, prin seriozitate și muncă în echipă.': [
+    'We are at the start of the road with this team, and our goal for this school year is to take part in the training company fairs, to develop partnerships and to grow steadily, through reliability and teamwork.',
+    'Estamos al principio del camino con este equipo, y nuestro objetivo para este curso escolar es participar en las ferias de empresas de prácticas, desarrollar colaboraciones y crecer de forma constante, con seriedad y trabajo en equipo.',
+    'Mit diesem Team stehen wir am Anfang des Weges. Unser Ziel für dieses Schuljahr ist es, an den Übungsfirmenmessen teilzunehmen, Partnerschaften aufzubauen und stetig zu wachsen – mit Zuverlässigkeit und Teamarbeit.',
+  ],
+  'Misiunea noastră este să oferim echipamente electronice și de birotică de calitate, la prețuri corecte, construind în același timp o echipă solidă, cu obiective clare și o dezvoltare continuă.': [
+    'Our mission is to offer quality electronic and office equipment at fair prices, while building a solid team with clear goals and continuous development.',
+    'Nuestra misión es ofrecer equipos electrónicos y de oficina de calidad a precios justos, construyendo al mismo tiempo un equipo sólido, con objetivos claros y un desarrollo continuo.',
+    'Unsere Mission ist es, hochwertige Elektronik und Büroausstattung zu fairen Preisen anzubieten und zugleich ein starkes Team mit klaren Zielen und stetiger Weiterentwicklung aufzubauen.',
+  ],
+  'Calitate': ['Quality', 'Calidad', 'Qualität'],
+  'Seriozitate': ['Reliability', 'Seriedad', 'Zuverlässigkeit'],
+  'Spirit de echipă': ['Team spirit', 'Espíritu de equipo', 'Teamgeist'],
+  'Alegem cu atenție fiecare produs din ofertă, astfel încât clienții noștri să primească echipamente de încredere.': [
+    'We carefully choose every product in our range, so that our customers receive equipment they can rely on.',
+    'Elegimos con cuidado cada producto de la oferta, para que nuestros clientes reciban equipos de confianza.',
+    'Wir wählen jedes Produkt unseres Sortiments sorgfältig aus, damit unsere Kunden verlässliche Geräte erhalten.',
+  ],
+  'Ne respectăm clienții și partenerii prin informații corecte, prețuri clare și livrare la termenul promis.': [
+    'We respect our customers and partners through accurate information, clear prices and delivery on the promised date.',
+    'Respetamos a nuestros clientes y socios con información correcta, precios claros y entrega en el plazo prometido.',
+    'Wir respektieren unsere Kunden und Partner durch korrekte Informationen, klare Preise und Lieferung zum zugesagten Termin.',
+  ],
+  'Lucrăm împreună, ca o echipă formată din elevii clasei a XI-a A, pentru a duce MKTech mai departe.': [
+    'We work together, as a team made up of the students of class 11 A, to take MKTech forward.',
+    'Trabajamos juntos, como un equipo formado por los alumnos de 11.º A, para llevar MKTech más lejos.',
+    'Wir arbeiten zusammen, als Team aus den Schülerinnen und Schülern der Klasse 11 A, um MKTech voranzubringen.',
+  ],
+  'MKTech este condusă de o echipă de 28 de elevi ai clasei a XI-a A.': [
+    'MKTech is run by a team of 28 students of class 11 A.',
+    'MKTech está dirigida por un equipo de 28 alumnos de 11.º A.',
+    'MKTech wird von einem Team aus 28 Schülerinnen und Schülern der Klasse 11 A geführt.',
+  ],
+  'Șterge': ['Delete', 'Eliminar', 'Löschen'],
+  'Locația MKTech pe hartă': ['MKTech location on the map', 'Ubicación de MKTech en el mapa', 'Standort von MKTech auf der Karte'],
+
+  /* ----- Datele de identificare ale firmei ----- */
+  'firmă de exercițiu înregistrată în rețeaua ROCT': [
+    'training company registered in the ROCT network',
+    'empresa de prácticas registrada en la red ROCT',
+    'Übungsfirma, registriert im ROCT-Netzwerk',
+  ],
+  'Nr. Reg. Com.:': ['Trade Register No.:', 'N.º Reg. Mercantil:', 'Handelsregister-Nr.:'],
+  'Cod CAEN:': ['CAEN code:', 'Código CAEN:', 'CAEN-Code:'],
+  'Comerț cu ridicata al echipamentului informatic și de telecomunicații': [
+    'Wholesale of information and communication equipment',
+    'Comercio al por mayor de equipos informáticos y de telecomunicaciones',
+    'Großhandel mit Geräten der Informations- und Kommunikationstechnik',
+  ],
+  'CUI:': ['Tax ID (CUI):', 'CIF (CUI):', 'Steuernummer (CUI):'],
+  'Persoană de contact:': ['Contact person:', 'Persona de contacto:', 'Ansprechperson:'],
+  'Date de identificare': ['Company details', 'Datos de la empresa', 'Firmendaten'],
+
   'Date de livrare': ['Delivery details', 'Datos de entrega', 'Lieferdaten'],
   'Plasează comanda': ['Place the order', 'Realizar el pedido', 'Bestellung aufgeben'],
   'Înapoi la produse': ['Back to products', 'Volver a los productos', 'Zurück zu den Produkten'],
@@ -811,10 +985,10 @@ Object.assign(UI_DICT, {
     'IT- und Büroausstattung: Monitore, Peripheriegeräte, Desktop-PCs, Laptops, Verbrauchsmaterial und Bürobedarf.',
   ],
   'Autentificare / cont': ['Sign in / account', 'Iniciar sesión / cuenta', 'Anmelden / Konto'],
-  'Magazin demonstrativ: comenzile și plățile sunt simulate.': [
-    'Demo shop: orders and payments are simulated.',
-    'Tienda de demostración: los pedidos y los pagos son simulados.',
-    'Demo-Shop: Bestellungen und Zahlungen sind simuliert.',
+  'Proiect educațional — firmă de exercițiu înregistrată în rețeaua ROCT. Comenzile sunt înregistrate și confirmate pe email.': [
+    'Educational project — a training company registered in the ROCT network. Orders are recorded and confirmed by email.',
+    'Proyecto educativo: empresa de prácticas registrada en la red ROCT. Los pedidos se registran y se confirman por correo electrónico.',
+    'Bildungsprojekt — Übungsfirma, registriert im ROCT-Netzwerk. Bestellungen werden erfasst und per E-Mail bestätigt.',
   ],
 });
 
@@ -988,6 +1162,14 @@ const UI_PATTERNS = [
   { re: /^Alte produse din (.+)$/, en: 'More products in $1', es: 'Más productos de $1', de: 'Weitere Produkte in $1' },
   { re: /^Economisești (.+) \(-(\d+)%\)$/, en: 'You save $1 (-$2%)', es: 'Ahorras $1 (-$2%)', de: 'Du sparst $1 (-$2%)' },
   { re: /^Salut, (.+)!$/, en: 'Hello, $1!', es: '¡Hola, $1!', de: 'Hallo, $1!' },
+  { re: /^la comenzi de minim (\d+) lei$/, en: 'on orders of at least $1 lei', es: 'en pedidos de al menos $1 lei', de: 'ab einem Bestellwert von $1 Lei' },
+  {
+    re: /^Cuponul se aplică la comenzi de minim (\d+) lei\. Mai adaugă (.+) lei\.$/,
+    en: 'The coupon applies to orders of at least $1 lei. Add $2 lei more.',
+    es: 'El cupón se aplica a pedidos de al menos $1 lei. Añade $2 lei más.',
+    de: 'Der Gutschein gilt ab einem Bestellwert von $1 Lei. Füge noch $2 Lei hinzu.',
+  },
+  { re: /^Coșul (\d+)$/, en: 'Basket $1', es: 'Cesta $1', de: 'Korb $1' },
   {
     re: /^Comanda (.+) a fost înregistrată\.$/,
     en: 'Order $1 has been registered.',
@@ -1575,6 +1757,14 @@ function formatPrice(value) {
   return `${grouped} lei`;
 }
 
+/* La fel ca formatPrice, dar păstrează banii când există: 413,10 lei */
+function formatMoney(value) {
+  const bani = Math.round(value * 100);
+  if (bani % 100 === 0) return formatPrice(bani / 100);
+  const intreg = formatPrice(Math.floor(Math.abs(bani) / 100)).replace(' lei', '');
+  return `${bani < 0 ? '-' : ''}${intreg},${String(Math.abs(bani) % 100).padStart(2, '0')} lei`;
+}
+
 const discountPercent = (p) => (p.oldPrice ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : 0);
 
 /* Escapare pentru textele puse în HTML generat din JS */
@@ -1737,6 +1927,7 @@ const ICON_PATHS = {
   sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
   target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
   users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.7a3.5 3.5 0 0 1 0 6.6M18.5 14a6.5 6.5 0 0 1 3 6"/>',
+  gift: '<rect x="3.5" y="10.5" width="17" height="10" rx="1.5"/><path d="M2.5 7h19v3.5h-19zM12 7v13.5"/><path d="M12 7C10.6 3.4 6.5 3.2 6.5 5.4S10.4 7 12 7Zm0 0c1.4-3.6 5.5-3.8 5.5-1.6S13.6 7 12 7Z"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>',
   news: '<path d="M4 5h11v14H4zM15 9h4a1 1 0 0 1 1 1v7.5a1.5 1.5 0 0 1-3 0V9"/><path d="M7 9h5M7 12.5h5M7 16h3"/>',
   tag: '<path d="M3 12.2V4a1 1 0 0 1 1-1h8.2a1 1 0 0 1 .7.3l8 8a1 1 0 0 1 0 1.4l-8.2 8.2a1 1 0 0 1-1.4 0l-8-8a1 1 0 0 1-.3-.7Z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
@@ -1758,6 +1949,7 @@ function icon(name, cls = '') {
 function hydrateIcons(root = document) {
   $$('[data-icon]', root).forEach((el) => (el.outerHTML = icon(el.dataset.icon)));
   $$('[data-logo]', root).forEach((el) => (el.outerHTML = logoMarkup()));
+  $$('[data-firma]', root).forEach((el) => (el.outerHTML = firmaMarkup('company-id--light')));
 }
 
 /* =====================================================================
@@ -1938,6 +2130,9 @@ function headerMarkup() {
       </div>
 
       <nav class="header-actions" aria-label="Cont, favorite și coș">
+        <a class="header-promo" href="joc.html" title="Joacă și câștigă">
+          ${icon('gift')}<span>Câștigă cupoane</span>
+        </a>
         <a class="header-action${isActive('cont')}" href="cont.html">
           <span class="header-action__icon">${icon('user')}</span>
           <span class="header-action__label" data-account-label>Cont</span>
@@ -2000,6 +2195,21 @@ function headerMarkup() {
   </nav>`;
 }
 
+/* Blocul cu datele de identificare ale firmei (din DATE_FIRMA).
+   Apare în footer și pe contact.html (acolo cu varianta deschisă la culoare). */
+function firmaMarkup(extraClass = '') {
+  const f = DATE_FIRMA;
+  return `
+  <div class="company-id ${extraClass}">
+    <p><strong>${escapeHTML(f.denumire)}</strong> — <span>${escapeHTML(f.statut)}</span></p>
+    <p><span>Nr. Reg. Com.:</span> ${escapeHTML(f.regCom)}</p>
+    <p><span>Cod CAEN:</span> ${escapeHTML(f.caen)} — <span>${escapeHTML(f.caenDescriere)}</span></p>
+    ${f.cui ? `<p><span>CUI:</span> ${escapeHTML(f.cui)}</p>` : ''}
+    <p><span>Persoană de contact:</span> ${escapeHTML(f.persoanaContact)}</p>
+    <p>${escapeHTML(f.adresa)} · ${escapeHTML(f.telefon)} · ${escapeHTML(f.email)}</p>
+  </div>`;
+}
+
 function footerMarkup() {
   const year = new Date().getFullYear();
   const socialItem = (key, label) => {
@@ -2015,6 +2225,7 @@ function footerMarkup() {
         <a class="footer-brand__logo" href="index.html" aria-label="MKTech — pagina principală">${logoMarkup('brand-logo--footer')}</a>
         <p class="footer-brand__name">MKTech</p>
         <p class="footer-brand__text">Echipamente IT și de birou: monitoare, periferice, unități PC, laptopuri, consumabile și rechizite.</p>
+        ${firmaMarkup()}
         <!-- Link-urile social media se completează în script.js → CONFIG.social (sus, în secțiunea 1) -->
         <ul class="social-list">
           ${socialItem('instagram', 'Instagram')}
@@ -2041,6 +2252,7 @@ function footerMarkup() {
           <li><a href="lista-preturi.html">Listă de prețuri</a></li>
           <li><a href="organigrama.html">Organigramă</a></li>
           <li><a href="galerie.html">Galerie foto</a></li>
+          <li><a href="joc.html">Joacă și câștigă</a></li>
           <li><a href="ghid-site.html">Ghid site</a></li>
         </ul>
       </div>
@@ -2059,7 +2271,7 @@ function footerMarkup() {
       <div class="container footer-bottom__inner">
         <p>Proiect firmă de exercițiu — MKTech © ${year}</p>
         <p class="footer-bottom__updated">Ultima actualizare: ${escapeHTML(ULTIMA_ACTUALIZARE)}</p>
-        <p class="footer-bottom__note">${icon('info')} Magazin demonstrativ: comenzile și plățile sunt simulate.</p>
+        <p class="footer-bottom__note">${icon('info')} Proiect educațional — firmă de exercițiu înregistrată în rețeaua ROCT. Comenzile sunt înregistrate și confirmate pe email.</p>
       </div>
     </div>
   </footer>`;
@@ -3133,23 +3345,80 @@ function startCartPage() {
     </li>`;
   };
 
-  const transportPentru = (subtotal) =>
-    window.MKComanda ? window.MKComanda.transportPentru(subtotal) : subtotal === 0 || subtotal > 300 ? 0 : 15;
+  /* cuponul atașat comenzii (venit din joc sau introdus aici) */
+  let cuponCod = window.MKCupoane ? window.MKCupoane.activ() : '';
+  if (cuponCod && !window.MKCupoane.gaseste(cuponCod)) cuponCod = '';
+
+  /* totalurile se calculează în comanda-core.js — aceeași funcție ca la trimiterea comenzii */
+  const totaluriCos = () => {
+    const subtotal = Cart.totals().total;
+    if (window.MKComanda) return window.MKComanda.calculeazaTotaluri(subtotal, cuponCod);
+    const transport = subtotal === 0 || subtotal > 300 ? 0 : 15;
+    return { subtotal, reducere: 0, transport, total: subtotal + transport, cupon: '', cuponValid: false, motiv: '', eticheta: '', tip: '' };
+  };
 
   const updateSummary = () => {
-    const { total, savings, count } = Cart.totals();
-    const transport = transportPentru(total);
+    const { total: subtotal, savings, count } = Cart.totals();
+    const t = totaluriCos();
+
     $('[data-summary-count]', root).textContent = `${count} buc.`;
-    $('[data-summary-products]', root).textContent = formatPrice(total + savings);
-    const savingsRow = $('[data-summary-savings-row]', root);
-    savingsRow.hidden = savings === 0;
+    $('[data-summary-products]', root).textContent = formatPrice(subtotal + savings);
+    $('[data-summary-savings-row]', root).hidden = savings === 0;
     $('[data-summary-savings]', root).textContent = `-${formatPrice(savings)}`;
-    $('[data-summary-subtotal]', root).textContent = formatPrice(total);
-    $('[data-summary-transport]', root).textContent = transport === 0 ? 'Gratuit' : formatPrice(transport);
-    $('[data-summary-total]', root).textContent = formatPrice(total + transport);
+    $('[data-summary-subtotal]', root).textContent = formatPrice(subtotal);
+
+    /* rândul cuponului: Subtotal → Cupon → Transport → Total */
+    const randCupon = $('[data-summary-coupon-row]', root);
+    const mesaj = $('[data-coupon-msg]', root);
+    randCupon.hidden = !t.cupon;
+    randCupon.classList.toggle('is-inactive', !!t.cupon && !t.cuponValid);
+    if (t.cupon) {
+      $('[data-coupon-code]', root).textContent = t.cupon;
+      $('[data-coupon-label]', root).textContent = t.eticheta;
+      $('[data-summary-coupon]', root).textContent = !t.cuponValid
+        ? 'neaplicabil'
+        : t.tip === 'transport'
+        ? 'Transport gratuit'
+        : `−${formatMoney(t.reducere)}`;
+    }
+    if (!mesaj.dataset.keep) {
+      mesaj.textContent = t.cupon && !t.cuponValid ? t.motiv : '';
+      mesaj.classList.toggle('is-error', !!t.cupon && !t.cuponValid);
+    }
+    delete mesaj.dataset.keep;
+
+    $('[data-summary-transport]', root).textContent =
+      t.transport !== 0 ? formatMoney(t.transport) : t.cuponValid && t.tip === 'transport' ? 'Gratuit (cupon)' : 'Gratuit';
+    $('[data-summary-total]', root).textContent = formatMoney(t.total);
     $('[data-cart-heading-count]', root).textContent = `(${count})`;
     const buton = $('[data-checkout]', root);
     if (buton) buton.disabled = count === 0;
+  };
+
+  /* aplicarea / eliminarea cuponului */
+  const aplicaCupon = () => {
+    const camp = $('#cart-cupon', root);
+    const mesaj = $('[data-coupon-msg]', root);
+    const cod = camp.value.trim();
+    if (!cod) return;
+    const gasit = window.MKCupoane && window.MKCupoane.gaseste(cod);
+    if (!gasit) {
+      mesaj.textContent = 'Cod invalid.';
+      mesaj.classList.add('is-error');
+      mesaj.dataset.keep = '1';
+      updateSummary();
+      return;
+    }
+    cuponCod = gasit.cod;
+    window.MKCupoane.seteazaActiv(cuponCod);
+    camp.value = '';
+    updateSummary();
+  };
+
+  const eliminaCupon = () => {
+    cuponCod = '';
+    if (window.MKCupoane) window.MKCupoane.stergeActiv();
+    updateSummary();
   };
 
   const render = () => {
@@ -3231,10 +3500,28 @@ function startCartPage() {
 
         <aside class="summary-card" aria-labelledby="summary-title">
           <h2 class="summary-card__title" id="summary-title">Sumar comandă</h2>
-          <dl class="summary-card__rows">
+          <dl class="summary-card__rows summary-card__rows--top">
             <div><dt><span>Produse</span> (<span data-summary-count></span>)</dt><dd data-summary-products></dd></div>
             <div class="summary-card__savings" data-summary-savings-row><dt>Reduceri</dt><dd data-summary-savings></dd></div>
             <div><dt>Subtotal</dt><dd data-summary-subtotal></dd></div>
+          </dl>
+
+          <!-- cupon de reducere (codurile sunt în cupoane.js) -->
+          <div class="coupon-box">
+            <label class="coupon-box__label" for="cart-cupon">Ai un cupon?</label>
+            <div class="coupon-box__row">
+              <input class="input coupon-box__input" id="cart-cupon" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ex. MK10-H78S">
+              <button class="btn btn--outline coupon-box__btn" type="button" data-coupon-apply>Aplică</button>
+            </div>
+            <p class="coupon-box__msg" data-coupon-msg aria-live="polite"></p>
+          </div>
+
+          <dl class="summary-card__rows summary-card__rows--bottom">
+            <div class="summary-card__coupon" data-summary-coupon-row hidden>
+              <dt><span>Cupon</span> <b data-coupon-code></b> (<span data-coupon-label></span>)
+                <button class="link-btn summary-card__remove" type="button" data-coupon-remove>Elimină</button></dt>
+              <dd data-summary-coupon></dd>
+            </div>
             <div><dt>Transport</dt><dd data-summary-transport></dd></div>
             <div class="summary-card__total"><dt>Total</dt><dd data-summary-total></dd></div>
           </dl>
@@ -3283,8 +3570,25 @@ function startCartPage() {
       return;
     }
 
+    if (e.target.closest('[data-coupon-apply]')) {
+      aplicaCupon();
+      return;
+    }
+
+    if (e.target.closest('[data-coupon-remove]')) {
+      eliminaCupon();
+      return;
+    }
+
     if (e.target.closest('[data-checkout]')) {
       trimiteComanda();
+    }
+  });
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.id === 'cart-cupon') {
+      e.preventDefault();
+      aplicaCupon();
     }
   });
 
@@ -3355,6 +3659,7 @@ function startCartPage() {
       produse,
       client: { ...valori, observatii: $('#cart-obs', root).value.trim() },
       sursa: '(comandă din coș)',
+      cupon: cuponCod,
     });
 
     buton.disabled = false;
@@ -3369,10 +3674,10 @@ function startCartPage() {
       return;
     }
 
-    const { total, count } = Cart.totals();
-    const transport = transportPentru(total);
+    const { count } = Cart.totals();
+    cuponCod = '';
     Cart.clear(); // comanda a fost salvată, golim coșul
-    arataComandaTrimisa(rezultat, count, total + transport);
+    arataComandaTrimisa(rezultat, count, rezultat.total);
   }
 
   function arataComandaTrimisa(rezultat, bucati, total) {
@@ -3387,7 +3692,7 @@ function startCartPage() {
         <dl class="order-success__details">
           <div><dt>Număr comandă</dt><dd>${escapeHTML(rezultat.nr_comanda)}</dd></div>
           <div><dt>Produse</dt><dd>${bucati}</dd></div>
-          <div><dt>Total</dt><dd>${formatPrice(total)}</dd></div>
+          <div><dt>Total</dt><dd>${formatMoney(total)}</dd></div>
         </dl>
         ${
           rezultat.emailTrimis
@@ -3890,7 +4195,7 @@ function initNewsPage() {
               : ''
           }
           <div class="news-card__body">
-            <p class="news-card__date">${icon('calendar')}<span>${fillText(item.data)}</span></p>
+            <p class="news-card__date">${icon('calendar')}<span>${fillText(localizedField(item, 'data'))}</span></p>
             <h2 class="news-card__title">${fillText(localizedField(item, 'titlu'))}</h2>
             <p class="news-card__text">${newsText(localizedField(item, 'text'))}</p>
           </div>

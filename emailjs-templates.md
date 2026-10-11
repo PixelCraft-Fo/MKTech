@@ -28,6 +28,7 @@ PRODUSELE COMANDATE
 {{produse_text}}
 
 Subtotal: {{subtotal}}
+Cupon: {{cupon}} — Reducere: {{reducere}}
 Transport: {{transport}}
 TOTAL: {{total}}
 
@@ -84,6 +85,7 @@ PRODUSE
 {{produse_text}}
 
 Subtotal: {{subtotal}}
+Cupon: {{cupon}} — Reducere: {{reducere}}
 Transport: {{transport}}
 TOTAL: {{total}}
 ```
@@ -102,5 +104,7 @@ TOTAL: {{total}}
 | `{{client_adresa}}` | adresa de livrare |
 | `{{observatii}}` | observații (sau „-”) |
 | `{{produse_text}}` | lista produselor, câte unul pe rând |
-| `{{subtotal}}`, `{{transport}}`, `{{total}}` | sumele, ex. 1.299,00 lei |
+| `{{subtotal}}`, `{{transport}}`, `{{total}}` | sumele, ex. 1.299,00 lei (`transport` și `total` sunt cele de după cupon) |
+| `{{cupon}}` | codul cuponului folosit, ex. MK10-H78S (sau „-” dacă nu s-a folosit niciunul) |
+| `{{reducere}}` | reducerea, ex. −45,90 lei sau „Transport gratuit” (sau „-”) |
 | `{{email_firma}}` | mktech2026@yahoo.com (destinatarul template-ului 2) |

@@ -7,7 +7,7 @@
    validarea datelor clientului, salvarea în Supabase, trimiterea celor
    2 emailuri prin EmailJS și pauza de 30 de secunde între comenzi.
 
-   Se încarcă DUPĂ config.js. Totul este expus pe window.MKComanda.
+   Se încarcă DUPĂ config.js și cupoane.js. Totul este expus pe window.MKComanda.
    ===================================================================== */
 'use strict';
 
@@ -25,6 +25,47 @@
     `${Number(valoare).toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} lei`;
 
   const transportPentru = (subtotal) => (subtotal === 0 || subtotal > TRANSPORT_GRATUIT_PESTE ? 0 : TRANSPORT);
+
+  /* ---------- totalurile comenzii — calculate ÎNTR-UN SINGUR LOC ----------
+     Aceeași funcție e folosită pentru afișare (coș + formular), pentru
+     Supabase și pentru emailuri, deci suma nu poate diferi între ele.
+     Cuponul se calculează cu MKCupoane.calculeaza() din cupoane.js.
+     Întoarce: { subtotal, reducere, transport, total, cupon, cuponValid, motiv, eticheta, tip } */
+  function calculeazaTotaluri(subtotal, codCupon) {
+    const transportNormal = transportPentru(subtotal);
+    const faraCupon = {
+      subtotal,
+      reducere: 0,
+      transport: transportNormal,
+      total: subtotal + transportNormal,
+      cupon: '',
+      cuponValid: false,
+      motiv: '',
+      eticheta: '',
+      tip: '',
+    };
+    const cod = String(codCupon || '').trim();
+    if (!cod || !window.MKCupoane) return faraCupon;
+
+    const r = window.MKCupoane.calculeaza(cod, subtotal, transportNormal);
+    return {
+      subtotal,
+      reducere: r.reducere,
+      transport: r.transport,
+      total: r.total,
+      cupon: r.cod,
+      cuponValid: r.valid,
+      motiv: r.motiv,
+      eticheta: r.eticheta,
+      tip: r.tip,
+    };
+  }
+
+  /* cum apare reducerea în email și în observații: „−45,90 lei”, „Transport gratuit” sau „-” */
+  function reducereText(totaluri) {
+    if (!totaluri.cuponValid) return '-';
+    return totaluri.tip === 'transport' ? 'Transport gratuit' : `−${lei(totaluri.reducere)}`;
+  }
 
   /* ---------- configurare (config.js) ---------- */
   const areCheile = (chei) =>
@@ -73,10 +114,14 @@
       .map((r, i) => `${i + 1}. ${r.denumire} (${r.cod}) — ${r.cantitate} ${r.um} x ${lei(r.pret)} = ${lei(r.valoare)}`)
       .join('\n');
 
-  /* ---------- Supabase ---------- */
+  /* ---------- Supabase ----------
+     Dacă s-a aplicat un cupon, se salvează și coloanele `cupon` și `reducere`
+     (vezi supabase-cupoane.sql). Dacă SQL-ul nu a fost încă rulat și coloanele
+     lipsesc, comanda NU se pierde: se retrimite fără ele, iar cuponul este
+     trecut în observații. */
   async function salveazaInSupabase(comanda) {
     const client = window.supabase.createClient(MKTECH_CONFIG.SUPABASE_URL, MKTECH_CONFIG.SUPABASE_ANON_KEY);
-    const { error } = await client.from('comenzi').insert({
+    const rand = {
       nr_comanda: comanda.nr_comanda,
       client_nume: comanda.client_nume,
       client_email: comanda.client_email,
@@ -87,8 +132,27 @@
       subtotal: comanda.subtotal,
       transport: comanda.transport,
       total: comanda.total,
-    });
-    if (error) throw error;
+    };
+
+    if (!comanda.cupon) {
+      const { error } = await client.from('comenzi').insert(rand);
+      if (error) throw error;
+      return;
+    }
+
+    const { error } = await client.from('comenzi').insert({ ...rand, cupon: comanda.cupon, reducere: comanda.reducere });
+    if (!error) return;
+
+    // coloanele noi lipsesc din tabelă → retrimitem fără ele, cu cuponul în observații
+    if (/cupon|reducere/i.test(`${error.message || ''} ${error.details || ''} ${error.hint || ''}`)) {
+      const nota = `Cupon: ${comanda.cupon} (${comanda.reducere_text})`;
+      const reincercare = await client
+        .from('comenzi')
+        .insert({ ...rand, observatii: [comanda.observatii, nota].filter(Boolean).join(' ').trim() });
+      if (reincercare.error) throw reincercare.error;
+      return;
+    }
+    throw error;
   }
 
   /* ---------- EmailJS: email către client + email către firmă ---------- */
@@ -103,6 +167,8 @@
       observatii: comanda.observatii || '-',
       produse_text: produseText(comanda.produse),
       subtotal: lei(comanda.subtotal),
+      cupon: comanda.cupon || '-',
+      reducere: comanda.reducere_text || '-',
       transport: comanda.transport === 0 ? 'Gratuit' : lei(comanda.transport),
       total: lei(comanda.total),
       email_firma: MKTECH_CONFIG.EMAIL_FIRMA,
@@ -118,12 +184,12 @@
      client:  { nume, email, telefon, adresa, observatii }
      Întoarce: { status, nr_comanda, emailTrimis }
        status = 'ok' | 'neconfigurat' | 'prea-devreme' | 'eroare-salvare'  */
-  async function plaseazaComanda({ produse, client, sursa }) {
+  async function plaseazaComanda({ produse, client, sursa, cupon }) {
     if (!configurat()) return { status: 'neconfigurat' };
     if (preaDevreme()) return { status: 'prea-devreme' };
 
     const subtotal = produse.reduce((s, r) => s + r.valoare, 0);
-    const transport = transportPentru(subtotal);
+    const totaluri = calculeazaTotaluri(subtotal, cupon); // singurul loc unde se calculează suma
     const observatii = [client.observatii, sursa].filter(Boolean).join(' ').trim();
 
     const comanda = {
@@ -134,9 +200,12 @@
       client_adresa: client.adresa.trim(),
       observatii,
       produse,
-      subtotal,
-      transport,
-      total: subtotal + transport,
+      subtotal: totaluri.subtotal,
+      cupon: totaluri.cuponValid ? totaluri.cupon : '',
+      reducere: totaluri.reducere,
+      reducere_text: reducereText(totaluri),
+      transport: totaluri.transport,
+      total: totaluri.total,
     };
 
     try {
@@ -146,14 +215,16 @@
     }
 
     marcheazaComandaTrimisa();
+    if (window.MKCupoane) window.MKCupoane.stergeActiv(); // cuponul a fost folosit
 
-    if (!emailConfigurat()) return { status: 'ok', nr_comanda: comanda.nr_comanda, emailTrimis: false };
+    const reusit = { status: 'ok', nr_comanda: comanda.nr_comanda, total: comanda.total, cupon: comanda.cupon };
+    if (!emailConfigurat()) return { ...reusit, emailTrimis: false };
 
     try {
       await trimiteEmailuri(comanda);
-      return { status: 'ok', nr_comanda: comanda.nr_comanda, emailTrimis: true };
+      return { ...reusit, emailTrimis: true };
     } catch (err) {
-      return { status: 'ok', nr_comanda: comanda.nr_comanda, emailTrimis: false };
+      return { ...reusit, emailTrimis: false };
     }
   }
 
@@ -162,6 +233,8 @@
     TRANSPORT_GRATUIT_PESTE,
     lei,
     transportPentru,
+    calculeazaTotaluri,
+    reducereText,
     configurat,
     emailConfigurat,
     numarComanda,

@@ -19,7 +19,7 @@
   /* logica de comandă (prețuri, transport, validare, Supabase, EmailJS)
      este în comanda-core.js și e folosită și de coșul din cos.html */
   const core = window.MKComanda;
-  const { lei, configurat, emailConfigurat, transportPentru } = core;
+  const { lei, configurat, emailConfigurat } = core;
 
   /* ---------- utilitare ---------- */
   const esc = (t) => (typeof escapeHTML === 'function' ? escapeHTML(t) : String(t));
@@ -97,8 +97,23 @@
         <p class="field__error order-error" id="order-products-error" aria-live="polite"></p>
       </div>
 
+      <!-- cupon de reducere (codurile sunt în cupoane.js) -->
+      <div class="coupon-box coupon-box--navy">
+        <label class="coupon-box__label" for="order-cupon">Ai un cupon?</label>
+        <div class="coupon-box__row">
+          <input class="input coupon-box__input" id="order-cupon" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ex. MK10-H78S">
+          <button class="order-add coupon-box__btn" type="button" id="order-cupon-apply">Aplică</button>
+        </div>
+        <p class="coupon-box__msg" id="order-cupon-msg" aria-live="polite"></p>
+      </div>
+
       <dl class="order-totals">
         <div><dt>Subtotal</dt><dd data-total="subtotal">0,00 lei</dd></div>
+        <div class="order-totals__coupon" data-total-row="cupon" hidden>
+          <dt><span>Cupon</span> <b data-total="cupon-cod"></b> (<span data-total="cupon-eticheta"></span>)
+            <button class="order-coupon-remove" type="button" id="order-cupon-remove">Elimină</button></dt>
+          <dd data-total="cupon"></dd>
+        </div>
         <div><dt>Transport</dt><dd data-total="transport">0,00 lei</dd></div>
         <div class="order-totals__total"><dt>Total</dt><dd data-total="total">0,00 lei</dd></div>
       </dl>
@@ -184,16 +199,80 @@
       .filter(Boolean);
 
     const subtotal = produse.reduce((s, r) => s + r.valoare, 0);
-    const transport = transportPentru(subtotal);
-    return { produse, subtotal, transport, total: subtotal + transport };
+    /* totalurile (cu tot cu cupon) se calculează în comanda-core.js */
+    return { produse, ...core.calculeazaTotaluri(subtotal, cuponCod) };
   }
 
+  /* cuponul atașat comenzii (venit din joc sau introdus aici) */
+  let cuponCod = window.MKCupoane ? window.MKCupoane.activ() : '';
+  if (cuponCod && !window.MKCupoane.gaseste(cuponCod)) cuponCod = '';
+  let pastreazaMesajCupon = false;
+
   function actualizeazaTotaluri() {
-    const { subtotal, transport, total } = comandaCurenta();
-    form.querySelector('[data-total="subtotal"]').textContent = lei(subtotal);
-    form.querySelector('[data-total="transport"]').textContent = transport === 0 && subtotal > 0 ? 'Gratuit' : lei(transport);
-    form.querySelector('[data-total="total"]').textContent = lei(total);
+    const t = comandaCurenta();
+    const q = (nume) => form.querySelector(`[data-total="${nume}"]`);
+
+    q('subtotal').textContent = lei(t.subtotal);
+
+    const rand = form.querySelector('[data-total-row="cupon"]');
+    const mesaj = document.getElementById('order-cupon-msg');
+    const areProduse = t.produse.length > 0;
+    rand.hidden = !t.cupon;
+    rand.classList.toggle('is-inactive', !!t.cupon && !t.cuponValid);
+    if (t.cupon) {
+      q('cupon-cod').textContent = t.cupon;
+      q('cupon-eticheta').textContent = t.eticheta;
+      q('cupon').textContent = !t.cuponValid ? 'neaplicabil' : t.tip === 'transport' ? 'Transport gratuit' : `−${lei(t.reducere)}`;
+    }
+    if (!pastreazaMesajCupon) {
+      const neaplicabil = !!t.cupon && !t.cuponValid && areProduse;
+      mesaj.textContent = neaplicabil ? t.motiv : '';
+      mesaj.classList.toggle('is-error', neaplicabil);
+    }
+    pastreazaMesajCupon = false;
+
+    q('transport').textContent =
+      t.transport !== 0
+        ? lei(t.transport)
+        : t.cuponValid && t.tip === 'transport'
+        ? 'Gratuit (cupon)'
+        : t.subtotal > 0
+        ? 'Gratuit'
+        : lei(0);
+    q('total').textContent = lei(t.total);
   }
+
+  function aplicaCupon() {
+    const camp = document.getElementById('order-cupon');
+    const mesaj = document.getElementById('order-cupon-msg');
+    const cod = camp.value.trim();
+    if (!cod) return;
+    const gasit = window.MKCupoane && window.MKCupoane.gaseste(cod);
+    if (!gasit) {
+      mesaj.textContent = 'Cod invalid.';
+      mesaj.classList.add('is-error');
+      pastreazaMesajCupon = true;
+      actualizeazaTotaluri();
+      return;
+    }
+    cuponCod = gasit.cod;
+    window.MKCupoane.seteazaActiv(cuponCod);
+    camp.value = '';
+    actualizeazaTotaluri();
+  }
+
+  document.getElementById('order-cupon-apply').addEventListener('click', aplicaCupon);
+  document.getElementById('order-cupon').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      aplicaCupon();
+    }
+  });
+  document.getElementById('order-cupon-remove').addEventListener('click', () => {
+    cuponCod = '';
+    if (window.MKCupoane) window.MKCupoane.stergeActiv();
+    actualizeazaTotaluri();
+  });
 
   tbody.addEventListener('change', (e) => {
     const tr = e.target.closest('.order-row');
@@ -296,6 +375,7 @@
         adresa: document.getElementById('order-adresa').value,
         observatii: obs.value.trim(),
       },
+      cupon: cuponCod,
     });
 
     if (rezultat.status === 'prea-devreme') {

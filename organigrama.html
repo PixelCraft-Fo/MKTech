@@ -22,26 +22,18 @@
       </ol>
     </nav>
 
-    <header class="page-head">
-      <span class="eyebrow">Structura firmei</span>
-      <h1 class="page-title">Organigramă</h1>
-      <p class="page-subtitle">Echipa și structura organizatorică a firmei MKTech.</p>
-    </header>
-
-    <section class="section" aria-labelledby="team-title">
-      <div class="section-head">
-        <div>
+    <!-- Cele două organigrame, una lângă alta, fiecare cu titlul ei deasupra.
+         Ordinea de mai jos (titlu, imagine, titlu, imagine) este și ordinea de pe telefon.
+         Click pe oricare organigramă o deschide mărită.
+         ROBERT: imagini/organigrama-echipa.png o adaugi tu (organigrama cu pozele colegilor);
+         până atunci, în locul ei apare un bloc gri cu „Imagine în curând”. -->
+    <section class="section org-section" aria-labelledby="org-title">
+      <div class="org-pair">
+        <div class="org-pair__head">
           <span class="eyebrow">Echipa</span>
           <h2 class="section-title" id="team-title">Oamenii din spatele MKTech</h2>
-          <p class="section-subtitle">MKTech este condusă de o echipă de 28 de elevi ai clasei a XI-a A, coordonați de doamna
-            profesoare Mioara Botezatu.</p>
+          <p class="section-subtitle">MKTech este condusă de o echipă de 28 de elevi ai clasei a XI-a A.</p>
         </div>
-      </div>
-
-<!-- Cele două organigrame, una lângă alta. Click pe oricare o deschide mărită.
-           ROBERT: imagini/organigrama-echipa.png o adaugi tu (organigrama cu pozele colegilor);
-           până atunci, în locul ei apare un bloc gri cu „Imagine în curând”. -->
-      <div class="org-pair">
         <figure class="org-pair__item">
           <button class="org-pair__frame" type="button" data-zoom="imagini/organigrama-echipa.png"
             data-zoom-alt="Organigrama echipei MKTech cu membrii">
@@ -51,6 +43,11 @@
           <figcaption class="org-pair__caption">Organigrama echipei, cu membrii</figcaption>
         </figure>
 
+        <div class="org-pair__head">
+          <span class="eyebrow">Structura firmei</span>
+          <h1 class="section-title" id="org-title">Organigramă</h1>
+          <p class="section-subtitle">Echipa și structura organizatorică a firmei MKTech.</p>
+        </div>
         <figure class="org-pair__item">
           <button class="org-pair__frame" type="button" data-zoom="imagini/organigrama.png"
             data-zoom-alt="Organigrama firmei MK Tech S.R.L.">
